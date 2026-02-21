@@ -1,0 +1,17 @@
+Metadata-Version: 2.4
+Name: cnnClassifier
+Version: 0.0.0
+Summary: An end to end ML Project for predicting kidney (or renal) tumour
+Home-page: https://github.com/MicroPyscho/renal_tumour_project
+Author: MicroPyscho
+Author-email: kelechi.ocollins@gmail.com
+Project-URL: Bug tracker, https://github.com/MicroPyscho/renal_tumour_project/issues
+Dynamic: author
+Dynamic: author-email
+Dynamic: description
+Dynamic: home-page
+Dynamic: project-url
+Dynamic: summary
+
+# renal_tumour_project
+end-to-end ML health project
