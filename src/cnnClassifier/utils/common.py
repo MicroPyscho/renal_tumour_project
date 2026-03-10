@@ -6,7 +6,7 @@ import joblib
 import json
 from box import ConfigBox
 from ensure import ensure_annotations
-from pathlib import path
+from pathlib import Path
 from typing import Any
 import base64
 
