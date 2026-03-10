@@ -1,2 +1,15 @@
 research/renal_CT_scan.zip
 research/*.zip
+artifacts/
+research/
+data/
+*.zip
+*.jpg
+*.jpeg
+*.png
+*.h5
+*.pkl
+*.pt
+*.pth
+__pycache__/
+*.egg-info/
