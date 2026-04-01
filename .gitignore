@@ -13,3 +13,4 @@ data/
 *.pth
 __pycache__/
 *.egg-info/
+artifacts/*
