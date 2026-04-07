@@ -29,9 +29,7 @@ class DataIngestion:
             logger.info(f"Download data from {dataset_url} into file {zip_download_dir}")
         
         except Exception as e:
-            raise e
-           
-            
+            raise e       
     
     def extract_zip_file(self):
         """  
