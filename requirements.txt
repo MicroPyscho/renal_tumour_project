@@ -1,6 +1,7 @@
 tensorflow==2.20.0
 pandas
 dvc
+dagshub
 mlflow==3.9.0
 notebook
 numpy
