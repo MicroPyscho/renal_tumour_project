@@ -858,3 +858,107 @@ x==========x]
 [2026-05-05 22:03:15,084: INFO: main: >>>>> stage Evaluation Stage completed <<<<<
 
 x==========x]
+[2026-05-05 22:43:04,525: INFO: utils: NumExpr defaulting to 4 threads.]
+[2026-05-05 22:43:19,921: INFO: main: >>>>> stage Data Ingestion Stage started <<<<<]
+[2026-05-05 22:43:19,946: INFO: common: yaml file: config\config.yaml loaded successfully]
+[2026-05-05 22:43:19,982: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-05 22:43:20,055: INFO: common: created directory at: artifacts]
+[2026-05-05 22:43:20,062: INFO: common: created directory at: artifacts/data_ingestion]
+[2026-05-05 22:43:20,065: INFO: data_ingestion: Downloading data from https://drive.google.com/file/d/1TuNYhoDmnEpdAIjRJelYoPs4lSYtnAsr/view?usp=sharing into file artifacts/data_ingestion/data.zip]
+[2026-05-05 22:45:06,649: INFO: data_ingestion: Download data from https://drive.google.com/file/d/1TuNYhoDmnEpdAIjRJelYoPs4lSYtnAsr/view?usp=sharing into file artifacts/data_ingestion/data.zip]
+[2026-05-05 22:46:03,079: INFO: main: >>>>> stage Data Ingestion Stage completed <<<<<
+
+x==========x]
+[2026-05-05 22:46:03,081: INFO: main: *******************]
+[2026-05-05 22:46:03,082: INFO: main: >>>>> stage Prepare Base Model started <<<<<]
+[2026-05-05 22:46:03,091: INFO: common: yaml file: config\config.yaml loaded successfully]
+[2026-05-05 22:46:03,095: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-05 22:46:03,097: INFO: common: created directory at: artifacts]
+[2026-05-05 22:46:03,098: INFO: common: created directory at: artifacts/prepare_base_model]
+[2026-05-05 22:46:07,473: WARNING: saving_api: You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. ]
+[2026-05-05 22:46:08,036: WARNING: saving_api: You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. ]
+[2026-05-05 22:46:08,578: INFO: main: >>>>> stage Prepare Base Model completed <<<<<
+
+x==========x]
+[2026-05-05 22:46:08,579: INFO: main: ********************]
+[2026-05-05 22:46:08,579: INFO: main: >>>>> stage Training started <<<<<]
+[2026-05-05 22:46:08,601: INFO: common: yaml file: config\config.yaml loaded successfully]
+[2026-05-05 22:46:08,605: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-05 22:46:08,608: INFO: common: created directory at: artifacts]
+[2026-05-05 22:46:08,635: INFO: common: created directory at: artifacts\training]
+[2026-05-05 22:46:09,463: WARNING: saving_utils: Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.]
+[2026-05-05 22:46:11,178: ERROR: main: TensorFlowTrainer.fit() got an unexpected keyword argument 'workers']
+Traceback (most recent call last):
+  File "C:\Users\HP\Documents\renal_tumour_project\main.py", line 36, in <module>
+    obj.main()
+    ~~~~~~~~^^
+  File "C:\Users\HP\Documents\renal_tumour_project\src\cnnClassifier\pipeline\stage_03_model_training.py", line 19, in main
+    training.train()
+    ~~~~~~~~~~~~~~^^
+  File "C:\Users\HP\Documents\renal_tumour_project\src\cnnClassifier\components\model_training.py", line 89, in train
+    self.model.fit(
+    ~~~~~~~~~~~~~~^
+        self.train_generator,
+        ^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+        use_multiprocessing=False
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\HP\anaconda3\Lib\site-packages\keras\src\utils\traceback_utils.py", line 122, in error_handler
+    raise e.with_traceback(filtered_tb) from None
+  File "C:\Users\HP\anaconda3\Lib\site-packages\keras\src\utils\traceback_utils.py", line 119, in error_handler
+    filtered_tb = _process_traceback_frames(e.__traceback__)
+TypeError: TensorFlowTrainer.fit() got an unexpected keyword argument 'workers'
+[2026-05-05 22:50:29,616: INFO: utils: NumExpr defaulting to 4 threads.]
+[2026-05-05 22:50:40,365: INFO: main: >>>>> stage Data Ingestion Stage started <<<<<]
+[2026-05-05 22:50:40,370: INFO: common: yaml file: config\config.yaml loaded successfully]
+[2026-05-05 22:50:40,373: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-05 22:50:40,374: INFO: common: created directory at: artifacts]
+[2026-05-05 22:50:40,374: INFO: common: created directory at: artifacts/data_ingestion]
+[2026-05-05 22:50:40,375: INFO: data_ingestion: Downloading data from https://drive.google.com/file/d/1TuNYhoDmnEpdAIjRJelYoPs4lSYtnAsr/view?usp=sharing into file artifacts/data_ingestion/data.zip]
+[2026-05-05 22:53:43,594: INFO: data_ingestion: Download data from https://drive.google.com/file/d/1TuNYhoDmnEpdAIjRJelYoPs4lSYtnAsr/view?usp=sharing into file artifacts/data_ingestion/data.zip]
+[2026-05-05 22:54:24,772: INFO: main: >>>>> stage Data Ingestion Stage completed <<<<<
+
+x==========x]
+[2026-05-05 22:54:24,773: INFO: main: *******************]
+[2026-05-05 22:54:24,773: INFO: main: >>>>> stage Prepare Base Model started <<<<<]
+[2026-05-05 22:54:24,778: INFO: common: yaml file: config\config.yaml loaded successfully]
+[2026-05-05 22:54:24,782: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-05 22:54:24,784: INFO: common: created directory at: artifacts]
+[2026-05-05 22:54:24,786: INFO: common: created directory at: artifacts/prepare_base_model]
+[2026-05-05 22:54:26,619: WARNING: saving_api: You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. ]
+[2026-05-05 22:54:26,968: WARNING: saving_api: You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. ]
+[2026-05-05 22:54:27,307: INFO: main: >>>>> stage Prepare Base Model completed <<<<<
+
+x==========x]
+[2026-05-05 22:54:27,308: INFO: main: ********************]
+[2026-05-05 22:54:27,309: INFO: main: >>>>> stage Training started <<<<<]
+[2026-05-05 22:54:27,313: INFO: common: yaml file: config\config.yaml loaded successfully]
+[2026-05-05 22:54:27,318: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-05 22:54:27,319: INFO: common: created directory at: artifacts]
+[2026-05-05 22:54:27,320: INFO: common: created directory at: artifacts\training]
+[2026-05-05 22:54:27,725: WARNING: saving_utils: Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.]
+[2026-05-05 22:54:28,946: ERROR: main: TensorFlowTrainer.fit() got an unexpected keyword argument 'workers']
+Traceback (most recent call last):
+  File "C:\Users\HP\Documents\renal_tumour_project\main.py", line 36, in <module>
+    obj.main()
+    ~~~~~~~~^^
+  File "C:\Users\HP\Documents\renal_tumour_project\src\cnnClassifier\pipeline\stage_03_model_training.py", line 19, in main
+    training.train()
+    ~~~~~~~~~~~~~~^^
+  File "C:\Users\HP\Documents\renal_tumour_project\src\cnnClassifier\components\model_training.py", line 89, in train
+    self.model.fit(
+    ~~~~~~~~~~~~~~^
+        self.train_generator,
+        ^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+        use_multiprocessing=False
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\HP\anaconda3\Lib\site-packages\keras\src\utils\traceback_utils.py", line 122, in error_handler
+    raise e.with_traceback(filtered_tb) from None
+  File "C:\Users\HP\anaconda3\Lib\site-packages\keras\src\utils\traceback_utils.py", line 119, in error_handler
+    filtered_tb = _process_traceback_frames(e.__traceback__)
+TypeError: TensorFlowTrainer.fit() got an unexpected keyword argument 'workers'
