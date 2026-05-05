@@ -474,3 +474,387 @@ Traceback (most recent call last):
     ...<2 lines>...
     )
 mlflow.exceptions.MlflowException: API request to endpoint /api/2.0/mlflow/registered-models/create failed with error code 403 != 200. Response body: ''
+[2026-05-04 17:33:03,602: INFO: utils: NumExpr defaulting to 4 threads.]
+[2026-05-04 17:33:19,169: INFO: main: >>>>> stage Data Ingestion Stage started <<<<<]
+[2026-05-04 17:33:19,176: INFO: common: yaml file: config\config.yaml loaded successfully]
+[2026-05-04 17:33:19,184: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-04 17:33:19,186: INFO: common: created directory at: artifacts]
+[2026-05-04 17:33:19,188: INFO: common: created directory at: artifacts/data_ingestion]
+[2026-05-04 17:33:19,189: INFO: data_ingestion: Downloading data from https://drive.google.com/file/d/1TuNYhoDmnEpdAIjRJelYoPs4lSYtnAsr/view?usp=sharing into file artifacts/data_ingestion/data.zip]
+[2026-05-04 17:36:01,201: INFO: data_ingestion: Download data from https://drive.google.com/file/d/1TuNYhoDmnEpdAIjRJelYoPs4lSYtnAsr/view?usp=sharing into file artifacts/data_ingestion/data.zip]
+[2026-05-04 17:36:44,134: INFO: main: >>>>> stage Data Ingestion Stage completed <<<<<
+
+x==========x]
+[2026-05-04 17:36:44,134: INFO: main: *******************]
+[2026-05-04 17:36:44,135: INFO: main: >>>>> stage Prepare Base Model started <<<<<]
+[2026-05-04 17:36:44,144: INFO: common: yaml file: config\config.yaml loaded successfully]
+[2026-05-04 17:36:44,148: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-04 17:36:44,149: INFO: common: created directory at: artifacts]
+[2026-05-04 17:36:44,156: INFO: common: created directory at: artifacts/prepare_base_model]
+[2026-05-04 17:36:47,375: WARNING: saving_api: You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. ]
+[2026-05-04 17:36:47,745: WARNING: saving_api: You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. ]
+[2026-05-04 17:36:47,907: INFO: main: >>>>> stage Prepare Base Model completed <<<<<
+
+x==========x]
+[2026-05-04 17:36:47,908: INFO: main: ********************]
+[2026-05-04 17:36:47,908: INFO: main: >>>>> stage Training started <<<<<]
+[2026-05-04 17:36:47,912: INFO: common: yaml file: config\config.yaml loaded successfully]
+[2026-05-04 17:36:47,915: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-04 17:36:47,916: INFO: common: created directory at: artifacts]
+[2026-05-04 17:36:47,917: INFO: common: created directory at: artifacts\training]
+[2026-05-04 17:36:48,201: WARNING: saving_utils: Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.]
+[2026-05-04 19:04:51,277: WARNING: saving_api: You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. ]
+[2026-05-04 19:04:51,507: INFO: main: >>>>> stage Training completed <<<<<
+
+x==========x]
+[2026-05-04 19:04:51,507: INFO: main: ********************]
+[2026-05-04 19:04:51,508: INFO: main: >>>>> stage Evaluation Stage started <<<<<]
+[2026-05-04 19:04:51,519: INFO: common: yaml file: config\config.yaml loaded successfully]
+[2026-05-04 19:04:51,524: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-04 19:04:51,526: INFO: common: created directory at: artifacts]
+[2026-05-04 19:04:51,959: WARNING: saving_utils: Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.]
+[2026-05-04 19:19:28,083: INFO: common: json file saved at: scores.json]
+[2026-05-04 19:19:29,464: INFO: _client: HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK"]
+[2026-05-04 19:19:29,475: INFO: helpers: Accessing as MicroPyscho]
+[2026-05-04 19:19:30,669: INFO: _client: HTTP Request: GET https://dagshub.com/api/v1/repos/micropsycho/renal_tumour_project "HTTP/1.1 404 Not Found"]
+[2026-05-04 19:19:32,382: INFO: _client: HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK"]
+[2026-05-04 19:19:32,388: INFO: helpers: Repository renal_tumour_project doesn't exist, creating it under organization "micropsycho".]
+[2026-05-04 19:19:33,917: INFO: _client: HTTP Request: POST https://dagshub.com/api/v1/org/micropsycho/repos "HTTP/1.1 500 Internal Server Error"]
+[2026-05-04 19:19:33,918: ERROR: wrapper: Response (500):
+{"message":"GetOrgByName","status":"error","support_id":"c099d876743120f2916c72969caf1fc9"}]
+[2026-05-04 19:19:33,919: ERROR: main: Failed to create the desired repository.]
+Traceback (most recent call last):
+  File "C:\Users\HP\anaconda3\Lib\site-packages\dagshub\common\init.py", line 88, in init
+    repo_api.get_repo_info()
+    ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\HP\anaconda3\Lib\site-packages\dagshub\common\api\repo.py", line 103, in get_repo_info
+    raise RepoNotFoundError(f"Repo {self.repo_url} not found")
+dagshub.common.api.repo.RepoNotFoundError: Repo https://dagshub.com/micropsycho/renal_tumour_project not found
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\HP\Documents\renal_tumour_project\main.py", line 48, in <module>
+    obj.main()
+    ~~~~~~~~^^
+  File "C:\Users\HP\Documents\renal_tumour_project\src\cnnClassifier\pipeline\stage_04_model_evaluation.py", line 18, in main
+    evaluation.log_into_mlflow()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\HP\Documents\renal_tumour_project\src\cnnClassifier\components\model_evaluation_mlflow.py", line 61, in log_into_mlflow
+    dagshub.init(repo_owner="micropsycho",
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+                 repo_name="renal_tumour_project",
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                 mlflow=True)
+                 ^^^^^^^^^^^^
+  File "C:\Users\HP\anaconda3\Lib\site-packages\dagshub\common\init.py", line 99, in init
+    create_repo(repo_name, org_name=repo_owner, host=host)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\anaconda3\Lib\site-packages\dagshub\upload\wrapper.py", line 167, in create_repo
+    raise RuntimeError("Failed to create the desired repository.")
+RuntimeError: Failed to create the desired repository.
+[2026-05-04 20:49:17,596: INFO: utils: NumExpr defaulting to 4 threads.]
+[2026-05-04 20:49:45,142: INFO: main: >>>>> stage Data Ingestion Stage started <<<<<]
+[2026-05-04 20:49:45,166: INFO: common: yaml file: config\config.yaml loaded successfully]
+[2026-05-04 20:49:45,191: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-04 20:49:45,195: INFO: common: created directory at: artifacts]
+[2026-05-04 20:49:45,197: INFO: common: created directory at: artifacts/data_ingestion]
+[2026-05-04 20:49:45,198: INFO: data_ingestion: Downloading data from https://drive.google.com/file/d/1TuNYhoDmnEpdAIjRJelYoPs4lSYtnAsr/view?usp=sharing into file artifacts/data_ingestion/data.zip]
+[2026-05-04 20:53:16,266: INFO: data_ingestion: Download data from https://drive.google.com/file/d/1TuNYhoDmnEpdAIjRJelYoPs4lSYtnAsr/view?usp=sharing into file artifacts/data_ingestion/data.zip]
+[2026-05-04 20:54:03,339: INFO: main: >>>>> stage Data Ingestion Stage completed <<<<<
+
+x==========x]
+[2026-05-04 20:54:03,340: INFO: main: *******************]
+[2026-05-04 20:54:03,340: INFO: main: >>>>> stage Prepare Base Model started <<<<<]
+[2026-05-04 20:54:03,346: INFO: common: yaml file: config\config.yaml loaded successfully]
+[2026-05-04 20:54:03,350: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-04 20:54:03,351: INFO: common: created directory at: artifacts]
+[2026-05-04 20:54:03,352: INFO: common: created directory at: artifacts/prepare_base_model]
+[2026-05-04 20:54:05,920: WARNING: saving_api: You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. ]
+[2026-05-04 20:54:06,318: WARNING: saving_api: You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. ]
+[2026-05-04 20:54:06,776: INFO: main: >>>>> stage Prepare Base Model completed <<<<<
+
+x==========x]
+[2026-05-04 20:54:06,777: INFO: main: ********************]
+[2026-05-04 20:54:06,777: INFO: main: >>>>> stage Training started <<<<<]
+[2026-05-04 20:54:06,783: INFO: common: yaml file: config\config.yaml loaded successfully]
+[2026-05-04 20:54:06,788: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-04 20:54:06,789: INFO: common: created directory at: artifacts]
+[2026-05-04 20:54:06,791: INFO: common: created directory at: artifacts\training]
+[2026-05-04 20:54:07,282: WARNING: saving_utils: Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.]
+[2026-05-04 22:23:13,958: WARNING: saving_api: You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. ]
+[2026-05-04 22:23:14,190: INFO: main: >>>>> stage Training completed <<<<<
+
+x==========x]
+[2026-05-04 22:23:14,191: INFO: main: ********************]
+[2026-05-04 22:23:14,192: INFO: main: >>>>> stage Evaluation Stage started <<<<<]
+[2026-05-04 22:23:14,202: INFO: common: yaml file: config\config.yaml loaded successfully]
+[2026-05-04 22:23:14,215: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-04 22:23:14,218: INFO: common: created directory at: artifacts]
+[2026-05-04 22:23:14,692: WARNING: saving_utils: Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.]
+[2026-05-04 22:37:37,375: INFO: common: json file saved at: scores.json]
+[2026-05-04 22:37:38,693: INFO: _client: HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK"]
+[2026-05-04 22:37:38,716: INFO: helpers: Accessing as MicroPyscho]
+[2026-05-04 22:37:39,973: INFO: _client: HTTP Request: GET https://dagshub.com/api/v1/repos/micropsycho/renal_tumour_project "HTTP/1.1 404 Not Found"]
+[2026-05-04 22:37:41,239: INFO: _client: HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK"]
+[2026-05-04 22:37:41,247: INFO: helpers: Repository renal_tumour_project doesn't exist, creating it under organization "micropsycho".]
+[2026-05-04 22:37:41,693: INFO: _client: HTTP Request: POST https://dagshub.com/api/v1/org/micropsycho/repos "HTTP/1.1 500 Internal Server Error"]
+[2026-05-04 22:37:41,694: ERROR: wrapper: Response (500):
+{"message":"GetOrgByName","status":"error","support_id":"4785e1a77a57ec45e98d87645fd984bd"}]
+[2026-05-04 22:37:41,696: ERROR: main: Failed to create the desired repository.]
+Traceback (most recent call last):
+  File "C:\Users\HP\anaconda3\Lib\site-packages\dagshub\common\init.py", line 88, in init
+    repo_api.get_repo_info()
+    ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\HP\anaconda3\Lib\site-packages\dagshub\common\api\repo.py", line 103, in get_repo_info
+    raise RepoNotFoundError(f"Repo {self.repo_url} not found")
+dagshub.common.api.repo.RepoNotFoundError: Repo https://dagshub.com/micropsycho/renal_tumour_project not found
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\HP\Documents\renal_tumour_project\main.py", line 48, in <module>
+    obj.main()
+    ~~~~~~~~^^
+  File "C:\Users\HP\Documents\renal_tumour_project\src\cnnClassifier\pipeline\stage_04_model_evaluation.py", line 18, in main
+    evaluation.log_into_mlflow()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\HP\Documents\renal_tumour_project\src\cnnClassifier\components\model_evaluation_mlflow.py", line 61, in log_into_mlflow
+    dagshub.init(repo_owner="micropsycho",
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+                 repo_name="renal_tumour_project",
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                 mlflow=True)
+                 ^^^^^^^^^^^^
+  File "C:\Users\HP\anaconda3\Lib\site-packages\dagshub\common\init.py", line 99, in init
+    create_repo(repo_name, org_name=repo_owner, host=host)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\anaconda3\Lib\site-packages\dagshub\upload\wrapper.py", line 167, in create_repo
+    raise RuntimeError("Failed to create the desired repository.")
+RuntimeError: Failed to create the desired repository.
+[2026-05-05 00:32:49,973: INFO: utils: NumExpr defaulting to 4 threads.]
+[2026-05-05 00:33:12,499: INFO: main: >>>>> stage Data Ingestion Stage started <<<<<]
+[2026-05-05 00:33:12,502: INFO: common: yaml file: config\config.yaml loaded successfully]
+[2026-05-05 00:33:12,510: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-05 00:33:12,514: INFO: common: created directory at: artifacts]
+[2026-05-05 00:33:12,516: INFO: common: created directory at: artifacts/data_ingestion]
+[2026-05-05 00:33:12,517: INFO: data_ingestion: Downloading data from https://drive.google.com/file/d/1TuNYhoDmnEpdAIjRJelYoPs4lSYtnAsr/view?usp=sharing into file artifacts/data_ingestion/data.zip]
+[2026-05-05 00:35:40,657: INFO: data_ingestion: Download data from https://drive.google.com/file/d/1TuNYhoDmnEpdAIjRJelYoPs4lSYtnAsr/view?usp=sharing into file artifacts/data_ingestion/data.zip]
+[2026-05-05 00:36:20,025: INFO: main: >>>>> stage Data Ingestion Stage completed <<<<<
+
+x==========x]
+[2026-05-05 00:36:20,026: INFO: main: *******************]
+[2026-05-05 00:36:20,026: INFO: main: >>>>> stage Prepare Base Model started <<<<<]
+[2026-05-05 00:36:20,032: INFO: common: yaml file: config\config.yaml loaded successfully]
+[2026-05-05 00:36:20,037: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-05 00:36:20,038: INFO: common: created directory at: artifacts]
+[2026-05-05 00:36:20,040: INFO: common: created directory at: artifacts/prepare_base_model]
+[2026-05-05 00:36:22,820: WARNING: saving_api: You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. ]
+[2026-05-05 00:36:23,258: WARNING: saving_api: You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. ]
+[2026-05-05 00:36:23,539: INFO: main: >>>>> stage Prepare Base Model completed <<<<<
+
+x==========x]
+[2026-05-05 00:36:23,540: INFO: main: ********************]
+[2026-05-05 00:36:23,547: INFO: main: >>>>> stage Training started <<<<<]
+[2026-05-05 00:36:23,560: INFO: common: yaml file: config\config.yaml loaded successfully]
+[2026-05-05 00:36:23,563: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-05 00:36:23,565: INFO: common: created directory at: artifacts]
+[2026-05-05 00:36:23,567: INFO: common: created directory at: artifacts\training]
+[2026-05-05 00:36:23,884: WARNING: saving_utils: Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.]
+[2026-05-05 02:15:27,377: WARNING: saving_api: You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. ]
+[2026-05-05 02:15:27,584: INFO: main: >>>>> stage Training completed <<<<<
+
+x==========x]
+[2026-05-05 02:15:27,585: INFO: main: ********************]
+[2026-05-05 02:15:27,585: INFO: main: >>>>> stage Evaluation Stage started <<<<<]
+[2026-05-05 02:15:27,598: INFO: common: yaml file: config\config.yaml loaded successfully]
+[2026-05-05 02:15:27,603: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-05 02:15:27,605: INFO: common: created directory at: artifacts]
+[2026-05-05 02:15:28,060: WARNING: saving_utils: Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.]
+[2026-05-05 02:31:31,930: INFO: common: json file saved at: scores.json]
+[2026-05-05 02:31:33,948: INFO: _client: HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK"]
+[2026-05-05 02:31:33,974: INFO: helpers: Accessing as MicroPyscho]
+[2026-05-05 02:31:35,368: INFO: _client: HTTP Request: GET https://dagshub.com/api/v1/repos/MicroPsycho/renal_tumour_project "HTTP/1.1 404 Not Found"]
+[2026-05-05 02:31:36,291: INFO: _client: HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK"]
+[2026-05-05 02:31:36,294: INFO: helpers: Repository renal_tumour_project doesn't exist, creating it under organization "MicroPsycho".]
+[2026-05-05 02:31:36,760: INFO: _client: HTTP Request: POST https://dagshub.com/api/v1/org/MicroPsycho/repos "HTTP/1.1 500 Internal Server Error"]
+[2026-05-05 02:31:36,761: ERROR: wrapper: Response (500):
+{"message":"GetOrgByName","status":"error","support_id":"1857c1491eb1db23d45623c263dbef22"}]
+[2026-05-05 02:31:36,762: ERROR: main: Failed to create the desired repository.]
+Traceback (most recent call last):
+  File "C:\Users\HP\anaconda3\Lib\site-packages\dagshub\common\init.py", line 88, in init
+    repo_api.get_repo_info()
+    ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\HP\anaconda3\Lib\site-packages\dagshub\common\api\repo.py", line 103, in get_repo_info
+    raise RepoNotFoundError(f"Repo {self.repo_url} not found")
+dagshub.common.api.repo.RepoNotFoundError: Repo https://dagshub.com/MicroPsycho/renal_tumour_project not found
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\HP\Documents\renal_tumour_project\main.py", line 48, in <module>
+    obj.main()
+    ~~~~~~~~^^
+  File "C:\Users\HP\Documents\renal_tumour_project\src\cnnClassifier\pipeline\stage_04_model_evaluation.py", line 18, in main
+    evaluation.log_into_mlflow()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\HP\Documents\renal_tumour_project\src\cnnClassifier\components\model_evaluation_mlflow.py", line 61, in log_into_mlflow
+    dagshub.init(repo_owner="MicroPsycho",
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+                repo_name="renal_tumour_project",
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                mlflow=True)
+                ^^^^^^^^^^^^
+  File "C:\Users\HP\anaconda3\Lib\site-packages\dagshub\common\init.py", line 99, in init
+    create_repo(repo_name, org_name=repo_owner, host=host)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\anaconda3\Lib\site-packages\dagshub\upload\wrapper.py", line 167, in create_repo
+    raise RuntimeError("Failed to create the desired repository.")
+RuntimeError: Failed to create the desired repository.
+[2026-05-05 07:15:43,943: INFO: utils: NumExpr defaulting to 4 threads.]
+[2026-05-05 07:16:04,577: INFO: main: >>>>> stage Data Ingestion Stage started <<<<<]
+[2026-05-05 07:16:04,603: INFO: common: yaml file: config\config.yaml loaded successfully]
+[2026-05-05 07:16:04,634: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-05 07:16:04,636: INFO: common: created directory at: artifacts]
+[2026-05-05 07:16:04,638: INFO: common: created directory at: artifacts/data_ingestion]
+[2026-05-05 07:16:04,640: INFO: data_ingestion: Downloading data from https://drive.google.com/file/d/1TuNYhoDmnEpdAIjRJelYoPs4lSYtnAsr/view?usp=sharing into file artifacts/data_ingestion/data.zip]
+[2026-05-05 07:17:56,389: INFO: data_ingestion: Download data from https://drive.google.com/file/d/1TuNYhoDmnEpdAIjRJelYoPs4lSYtnAsr/view?usp=sharing into file artifacts/data_ingestion/data.zip]
+[2026-05-05 07:18:54,318: INFO: main: >>>>> stage Data Ingestion Stage completed <<<<<
+
+x==========x]
+[2026-05-05 07:18:54,334: INFO: main: *******************]
+[2026-05-05 07:18:54,336: INFO: main: >>>>> stage Prepare Base Model started <<<<<]
+[2026-05-05 07:18:54,351: INFO: common: yaml file: config\config.yaml loaded successfully]
+[2026-05-05 07:18:54,356: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-05 07:18:54,357: INFO: common: created directory at: artifacts]
+[2026-05-05 07:18:54,359: INFO: common: created directory at: artifacts/prepare_base_model]
+[2026-05-05 07:18:59,110: WARNING: saving_api: You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. ]
+[2026-05-05 07:18:59,979: WARNING: saving_api: You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. ]
+[2026-05-05 07:19:00,298: INFO: main: >>>>> stage Prepare Base Model completed <<<<<
+
+x==========x]
+[2026-05-05 07:19:00,322: INFO: main: ********************]
+[2026-05-05 07:19:00,331: INFO: main: >>>>> stage Training started <<<<<]
+[2026-05-05 07:19:00,358: INFO: common: yaml file: config\config.yaml loaded successfully]
+[2026-05-05 07:19:00,395: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-05 07:19:00,411: INFO: common: created directory at: artifacts]
+[2026-05-05 07:19:00,442: INFO: common: created directory at: artifacts\training]
+[2026-05-05 07:19:01,032: WARNING: saving_utils: Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.]
+[2026-05-05 08:58:24,229: WARNING: saving_api: You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. ]
+[2026-05-05 08:58:24,476: INFO: main: >>>>> stage Training completed <<<<<
+
+x==========x]
+[2026-05-05 08:58:24,477: INFO: main: ********************]
+[2026-05-05 08:58:24,477: INFO: main: >>>>> stage Evaluation Stage started <<<<<]
+[2026-05-05 08:58:24,485: INFO: common: yaml file: config\config.yaml loaded successfully]
+[2026-05-05 08:58:24,513: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-05 08:58:24,515: INFO: common: created directory at: artifacts]
+[2026-05-05 08:58:25,021: WARNING: saving_utils: Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.]
+[2026-05-05 09:14:20,649: INFO: common: json file saved at: scores.json]
+[2026-05-05 09:14:22,182: INFO: _client: HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK"]
+[2026-05-05 09:14:22,200: INFO: helpers: Accessing as MicroPyscho]
+[2026-05-05 09:14:23,688: INFO: _client: HTTP Request: GET https://dagshub.com/api/v1/repos/MicroPyscho/renal_tumour_project "HTTP/1.1 200 OK"]
+[2026-05-05 09:14:24,969: INFO: _client: HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK"]
+[2026-05-05 09:14:24,973: INFO: helpers: Initialized MLflow to track repo "MicroPyscho/renal_tumour_project"]
+[2026-05-05 09:14:24,980: INFO: helpers: Repository MicroPyscho/renal_tumour_project initialized!]
+[2026-05-05 09:16:06,353: INFO: main: >>>>> stage Evaluation Stage completed <<<<<
+
+x==========x]
+[2026-05-05 18:22:23,374: INFO: utils: NumExpr defaulting to 4 threads.]
+[2026-05-05 18:22:35,377: INFO: main: >>>>> stage Data Ingestion Stage started <<<<<]
+[2026-05-05 18:22:35,382: INFO: common: yaml file: config\config.yaml loaded successfully]
+[2026-05-05 18:22:35,401: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-05 18:22:35,406: INFO: common: created directory at: artifacts]
+[2026-05-05 18:22:35,408: INFO: common: created directory at: artifacts/data_ingestion]
+[2026-05-05 18:22:35,408: INFO: data_ingestion: Downloading data from https://drive.google.com/file/d/1TuNYhoDmnEpdAIjRJelYoPs4lSYtnAsr/view?usp=sharing into file artifacts/data_ingestion/data.zip]
+[2026-05-05 18:24:48,345: INFO: data_ingestion: Download data from https://drive.google.com/file/d/1TuNYhoDmnEpdAIjRJelYoPs4lSYtnAsr/view?usp=sharing into file artifacts/data_ingestion/data.zip]
+[2026-05-05 18:25:28,403: INFO: main: >>>>> stage Data Ingestion Stage completed <<<<<
+
+x==========x]
+[2026-05-05 18:25:28,403: INFO: main: *******************]
+[2026-05-05 18:25:28,404: INFO: main: >>>>> stage Prepare Base Model started <<<<<]
+[2026-05-05 18:25:28,409: INFO: common: yaml file: config\config.yaml loaded successfully]
+[2026-05-05 18:25:28,412: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-05 18:25:28,413: INFO: common: created directory at: artifacts]
+[2026-05-05 18:25:28,414: INFO: common: created directory at: artifacts/prepare_base_model]
+[2026-05-05 18:25:29,828: WARNING: saving_api: You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. ]
+[2026-05-05 18:25:30,254: WARNING: saving_api: You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. ]
+[2026-05-05 18:25:30,612: INFO: main: >>>>> stage Prepare Base Model completed <<<<<
+
+x==========x]
+[2026-05-05 18:25:30,614: INFO: main: ********************]
+[2026-05-05 18:25:30,614: INFO: main: >>>>> stage Training started <<<<<]
+[2026-05-05 18:25:30,621: INFO: common: yaml file: config\config.yaml loaded successfully]
+[2026-05-05 18:25:30,629: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-05 18:25:30,630: INFO: common: created directory at: artifacts]
+[2026-05-05 18:25:30,633: INFO: common: created directory at: artifacts\training]
+[2026-05-05 18:25:31,024: WARNING: saving_utils: Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.]
+[2026-05-05 19:39:28,425: WARNING: saving_api: You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. ]
+[2026-05-05 19:39:28,671: INFO: main: >>>>> stage Training completed <<<<<
+
+x==========x]
+[2026-05-05 19:39:28,672: INFO: main: ********************]
+[2026-05-05 19:39:28,672: INFO: main: >>>>> stage Evaluation Stage started <<<<<]
+[2026-05-05 19:39:28,680: INFO: common: yaml file: config\config.yaml loaded successfully]
+[2026-05-05 19:39:28,684: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-05 19:39:28,686: INFO: common: created directory at: artifacts]
+[2026-05-05 19:39:29,160: WARNING: saving_utils: Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.]
+[2026-05-05 19:53:54,956: INFO: common: json file saved at: scores.json]
+[2026-05-05 19:53:56,234: INFO: _client: HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK"]
+[2026-05-05 19:53:56,245: INFO: helpers: Accessing as MicroPyscho]
+[2026-05-05 19:53:57,448: INFO: _client: HTTP Request: GET https://dagshub.com/api/v1/repos/MicroPyscho/renal_tumour_project "HTTP/1.1 200 OK"]
+[2026-05-05 19:53:58,657: INFO: _client: HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK"]
+[2026-05-05 19:53:58,661: INFO: helpers: Initialized MLflow to track repo "MicroPyscho/renal_tumour_project"]
+[2026-05-05 19:53:58,663: INFO: helpers: Repository MicroPyscho/renal_tumour_project initialized!]
+[2026-05-05 19:55:23,664: INFO: main: >>>>> stage Evaluation Stage completed <<<<<
+
+x==========x]
+[2026-05-05 20:09:46,574: INFO: utils: NumExpr defaulting to 4 threads.]
+[2026-05-05 20:09:55,465: INFO: main: >>>>> stage Data Ingestion Stage started <<<<<]
+[2026-05-05 20:09:55,471: INFO: common: yaml file: config\config.yaml loaded successfully]
+[2026-05-05 20:09:55,476: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-05 20:09:55,477: INFO: common: created directory at: artifacts]
+[2026-05-05 20:09:55,478: INFO: common: created directory at: artifacts/data_ingestion]
+[2026-05-05 20:09:55,479: INFO: data_ingestion: Downloading data from https://drive.google.com/file/d/1TuNYhoDmnEpdAIjRJelYoPs4lSYtnAsr/view?usp=sharing into file artifacts/data_ingestion/data.zip]
+[2026-05-05 20:14:19,047: INFO: data_ingestion: Download data from https://drive.google.com/file/d/1TuNYhoDmnEpdAIjRJelYoPs4lSYtnAsr/view?usp=sharing into file artifacts/data_ingestion/data.zip]
+[2026-05-05 20:14:54,684: INFO: main: >>>>> stage Data Ingestion Stage completed <<<<<
+
+x==========x]
+[2026-05-05 20:14:54,685: INFO: main: *******************]
+[2026-05-05 20:14:54,686: INFO: main: >>>>> stage Prepare Base Model started <<<<<]
+[2026-05-05 20:14:54,694: INFO: common: yaml file: config\config.yaml loaded successfully]
+[2026-05-05 20:14:54,702: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-05 20:14:54,703: INFO: common: created directory at: artifacts]
+[2026-05-05 20:14:54,706: INFO: common: created directory at: artifacts/prepare_base_model]
+[2026-05-05 20:14:57,783: WARNING: saving_api: You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. ]
+[2026-05-05 20:14:58,162: WARNING: saving_api: You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. ]
+[2026-05-05 20:14:58,406: INFO: main: >>>>> stage Prepare Base Model completed <<<<<
+
+x==========x]
+[2026-05-05 20:14:58,407: INFO: main: ********************]
+[2026-05-05 20:14:58,408: INFO: main: >>>>> stage Training started <<<<<]
+[2026-05-05 20:14:58,415: INFO: common: yaml file: config\config.yaml loaded successfully]
+[2026-05-05 20:14:58,423: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-05 20:14:58,425: INFO: common: created directory at: artifacts]
+[2026-05-05 20:14:58,441: INFO: common: created directory at: artifacts\training]
+[2026-05-05 20:14:58,869: WARNING: saving_utils: Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.]
+[2026-05-05 21:43:56,188: WARNING: saving_api: You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. ]
+[2026-05-05 21:43:56,443: INFO: main: >>>>> stage Training completed <<<<<
+
+x==========x]
+[2026-05-05 21:43:56,444: INFO: main: ********************]
+[2026-05-05 21:43:56,445: INFO: main: >>>>> stage Evaluation Stage started <<<<<]
+[2026-05-05 21:43:56,455: INFO: common: yaml file: config\config.yaml loaded successfully]
+[2026-05-05 21:43:56,462: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-05 21:43:56,464: INFO: common: created directory at: artifacts]
+[2026-05-05 21:43:56,956: WARNING: saving_utils: Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.]
+[2026-05-05 22:00:05,164: INFO: common: json file saved at: scores.json]
+[2026-05-05 22:00:06,757: INFO: _client: HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK"]
+[2026-05-05 22:00:06,777: INFO: helpers: Accessing as MicroPyscho]
+[2026-05-05 22:00:08,055: INFO: _client: HTTP Request: GET https://dagshub.com/api/v1/repos/MicroPyscho/renal_tumour_project "HTTP/1.1 200 OK"]
+[2026-05-05 22:00:09,450: INFO: _client: HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK"]
+[2026-05-05 22:00:09,455: INFO: helpers: Initialized MLflow to track repo "MicroPyscho/renal_tumour_project"]
+[2026-05-05 22:00:09,457: INFO: helpers: Repository MicroPyscho/renal_tumour_project initialized!]
+[2026-05-05 22:03:15,084: INFO: main: >>>>> stage Evaluation Stage completed <<<<<
+
+x==========x]
