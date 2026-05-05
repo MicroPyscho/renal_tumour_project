@@ -376,3 +376,101 @@ x==========x]
 [2026-04-19 15:55:42,881: INFO: main: >>>>> stage Training completed <<<<<
 
 x==========x]
+[2026-04-21 23:15:40,940: INFO: utils: NumExpr defaulting to 4 threads.]
+[2026-04-21 23:20:02,334: INFO: utils: NumExpr defaulting to 4 threads.]
+[2026-04-21 23:23:20,199: INFO: utils: NumExpr defaulting to 4 threads.]
+[2026-04-21 23:23:28,304: INFO: main: >>>>> stage Data Ingestion Stage started <<<<<]
+[2026-04-21 23:23:28,325: INFO: common: yaml file: config\config.yaml loaded successfully]
+[2026-04-21 23:23:28,334: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-04-21 23:23:28,337: INFO: common: created directory at: artifacts]
+[2026-04-21 23:23:28,338: INFO: common: created directory at: artifacts/data_ingestion]
+[2026-04-21 23:23:28,339: INFO: data_ingestion: Downloading data from https://drive.google.com/file/d/1TuNYhoDmnEpdAIjRJelYoPs4lSYtnAsr/view?usp=sharing into file artifacts/data_ingestion/data.zip]
+[2026-04-21 23:25:35,446: INFO: data_ingestion: Download data from https://drive.google.com/file/d/1TuNYhoDmnEpdAIjRJelYoPs4lSYtnAsr/view?usp=sharing into file artifacts/data_ingestion/data.zip]
+[2026-04-21 23:26:15,961: INFO: main: >>>>> stage Data Ingestion Stage completed <<<<<
+
+x==========x]
+[2026-04-21 23:26:15,962: INFO: main: *******************]
+[2026-04-21 23:26:15,962: INFO: main: >>>>> stage Prepare Base Model started <<<<<]
+[2026-04-21 23:26:15,967: INFO: common: yaml file: config\config.yaml loaded successfully]
+[2026-04-21 23:26:15,971: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-04-21 23:26:15,972: INFO: common: created directory at: artifacts]
+[2026-04-21 23:26:15,973: INFO: common: created directory at: artifacts/prepare_base_model]
+[2026-04-21 23:26:18,333: WARNING: saving_api: You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. ]
+[2026-04-21 23:26:18,622: WARNING: saving_api: You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. ]
+[2026-04-21 23:26:18,927: INFO: main: >>>>> stage Prepare Base Model completed <<<<<
+
+x==========x]
+[2026-04-21 23:26:18,928: INFO: main: ********************]
+[2026-04-21 23:26:18,928: INFO: main: >>>>> stage Training started <<<<<]
+[2026-04-21 23:26:18,931: INFO: common: yaml file: config\config.yaml loaded successfully]
+[2026-04-21 23:26:18,934: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-04-21 23:26:18,937: INFO: common: created directory at: artifacts]
+[2026-04-21 23:26:18,938: INFO: common: created directory at: artifacts\training]
+[2026-04-21 23:26:19,246: WARNING: saving_utils: Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.]
+[2026-04-22 01:38:44,167: WARNING: saving_api: You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. ]
+[2026-04-22 01:38:44,406: INFO: main: >>>>> stage Training completed <<<<<
+
+x==========x]
+[2026-04-22 01:38:44,407: INFO: main: ********************]
+[2026-04-22 01:38:44,407: INFO: main: >>>>> stage Evaluation Stage started <<<<<]
+[2026-04-22 01:38:44,422: INFO: common: yaml file: config\config.yaml loaded successfully]
+[2026-04-22 01:38:44,429: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-04-22 01:38:44,434: INFO: common: created directory at: artifacts]
+[2026-04-22 01:38:44,902: WARNING: saving_utils: Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.]
+[2026-04-22 01:54:08,433: INFO: common: json file saved at: scores.json]
+[2026-04-22 01:55:11,995: ERROR: main: API request to endpoint /api/2.0/mlflow/registered-models/create failed with error code 403 != 200. Response body: '']
+Traceback (most recent call last):
+  File "C:\Users\HP\Documents\renal_tumour_project\main.py", line 48, in <module>
+    obj.main()
+    ~~~~~~~~^^
+  File "C:\Users\HP\Documents\renal_tumour_project\src\cnnClassifier\pipeline\stage_04_model_evaluation.py", line 18, in main
+    evaluation.log_into_mlflow()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\HP\Documents\renal_tumour_project\src\cnnClassifier\components\model_evaluation_mlflow.py", line 76, in log_into_mlflow
+    mlflow.keras.log_model(self.model, "model", registered_model_name="VGG16Model")
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\anaconda3\Lib\site-packages\mlflow\keras\save.py", line 349, in log_model
+    return Model.log(
+           ~~~~~~~~~^
+        artifact_path=artifact_path,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<17 lines>...
+        model_id=model_id,
+        ^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\HP\anaconda3\Lib\site-packages\mlflow\models\model.py", line 1357, in log
+    registered_model = mlflow.tracking._model_registry.fluent._register_model(
+        f"models:/{model.model_id}",
+    ...<2 lines>...
+        local_model_path=local_path,
+    )
+  File "C:\Users\HP\anaconda3\Lib\site-packages\mlflow\tracking\_model_registry\fluent.py", line 167, in _register_model
+    raise e
+  File "C:\Users\HP\anaconda3\Lib\site-packages\mlflow\tracking\_model_registry\fluent.py", line 156, in _register_model
+    create_model_response = client.create_registered_model(name)
+  File "C:\Users\HP\anaconda3\Lib\site-packages\mlflow\tracking\client.py", line 3880, in create_registered_model
+    return self._get_registry_client().create_registered_model(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        name, tags, description, deployment_job_id
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\HP\anaconda3\Lib\site-packages\mlflow\telemetry\track.py", line 30, in wrapper
+    result = func(*args, **kwargs)
+  File "C:\Users\HP\anaconda3\Lib\site-packages\mlflow\tracking\_model_registry\client.py", line 96, in create_registered_model
+    return self.store.create_registered_model(name, tags, description, deployment_job_id)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\anaconda3\Lib\site-packages\mlflow\store\model_registry\rest_store.py", line 110, in create_registered_model
+    response_proto = self._call_endpoint(CreateRegisteredModel, req_body)
+  File "C:\Users\HP\anaconda3\Lib\site-packages\mlflow\store\model_registry\base_rest_store.py", line 42, in _call_endpoint
+    return call_endpoint(
+        self.get_host_creds(), endpoint, method, json_body, response_proto, extra_headers
+    )
+  File "C:\Users\HP\anaconda3\Lib\site-packages\mlflow\utils\rest_utils.py", line 596, in call_endpoint
+    response = verify_rest_response(response, endpoint)
+  File "C:\Users\HP\anaconda3\Lib\site-packages\mlflow\utils\rest_utils.py", line 321, in verify_rest_response
+    raise MlflowException(
+    ...<2 lines>...
+    )
+mlflow.exceptions.MlflowException: API request to endpoint /api/2.0/mlflow/registered-models/create failed with error code 403 != 200. Response body: ''
