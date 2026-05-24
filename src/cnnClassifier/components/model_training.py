@@ -5,7 +5,7 @@ from pathlib import Path
 import tensorflow as tf
 import time
 from cnnClassifier.entity.config_entity import TrainingConfig
-
+from tensorflow.keras.callbacks import ModelCheckpoint, EarlyStopping, ReduceLROnPlateau
 
 
 class Training:
@@ -86,6 +86,33 @@ class Training:
         self.steps_per_epoch = self.train_generator.samples // self.train_generator.batch_size
         self.validation_steps = self.valid_generator.samples // self.valid_generator.batch_size
         
+        #safety net callbacks
+        os.makedirs("checkpoints", exist_ok=True)
+
+        checkpoint = ModelCheckpoint(
+            filepath = "checkpoints/best_model.keras",
+            monitor = "val_loss",
+            mode = "min",
+            save_best_only = True,
+            verbose = 1
+        )
+
+        early_stopping = EarlyStopping(
+            monitor = "val_loss",
+            patience = 10,
+            restore_best_weights = True,
+            verbose = 1
+        )
+
+        reduce_lr = ReduceLROnPlateau(
+            monitor = "val_loss",
+            factor = 0.5,
+            patience = 5,
+            min_lr = 1e-7,
+            verbose = 1
+        )
+
+
         self.model.fit(
             self.train_generator,
             epochs=self.config.params_epochs,

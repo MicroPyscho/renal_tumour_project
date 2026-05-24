@@ -7,7 +7,7 @@ from cnnClassifier import logger
 STAGE_NAME = "Training"
 
 class ModelTrainingPipeline:
-    def __init_(self):
+    def __init__(self):
         pass
     
     def main(self):

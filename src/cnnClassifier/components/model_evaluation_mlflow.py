@@ -49,11 +49,11 @@ class Evaluation:
         self.model = self.load_model(self.config.path_of_model)
         self._valid_generator()
         self.score = self.model.evaluate(self.valid_generator)
-        self.save_score
+        self.save_score()
         
     
     def save_score(self):
-        scores = {"loss": self.score[0], "accuracy": self.score[1]}
+        scores = {"val_loss": self.score[0], "val_accuracy": self.score[1]}
         save_json(path=Path("scores.json"), data=scores)
         
         
@@ -68,7 +68,7 @@ class Evaluation:
         with mlflow.start_run():
             mlflow.log_params(self.config.all_params)
             mlflow.log_metrics(
-                {"loss": self.score[0], "accuracy": self.score[1]}
+                {"val_loss": self.score[0], "val_accuracy": self.score[1]}
             )
             
             #where model registry fails to work with file store
