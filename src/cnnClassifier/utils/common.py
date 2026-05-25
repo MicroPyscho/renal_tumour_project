@@ -9,6 +9,7 @@ from ensure import ensure_annotations
 from pathlib import Path
 from typing import Any
 import base64
+import tensorflow as tf
 
 
 
@@ -140,4 +141,22 @@ def encodeImageIntoBase64 (croppedImagePath):
     with open(croppedImagePath, "rb") as f:
         return base64.b64encode(f.read())
         
-        
+PREPROCESSING_MAP = {
+    "VGG16":            None,
+    "EfficientNetV2B3": tf.keras.applications.efficientnet_v2.preprocess_input,
+    "DenseNet121":      tf.keras.applications.densenet.preprocess_input,
+    "ResNet50V2":       tf.keras.applications.resnet_v2.preprocess_input,
+}
+
+def build_datagenerator_kwargs(model_name: str) -> dict:
+    preprocess_fn = PREPROCESSING_MAP.get(model_name)
+    if preprocess_fn:
+        return dict(
+            preprocessing_function=preprocess_fn,
+            validation_split=0.20
+        )
+    return dict(
+        rescale=1./255,
+        validation_split=0.20
+    )
+            
