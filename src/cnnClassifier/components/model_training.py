@@ -133,6 +133,7 @@ class Training:
         EarlyStopping(
             monitor = "val_loss",
             patience = 10,
+            min_delta = 0.001,
             restore_best_weights = True,
             verbose = 1
         ),

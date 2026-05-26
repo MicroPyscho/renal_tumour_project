@@ -1,5 +1,5 @@
 {
-    "val_loss": 0.001746516558341682,
+    "val_loss": 0.00010917717008851469,
     "val_accuracy": 1.0,
     "precision_cyst": 1.0,
     "recall_cyst": 1.0,
