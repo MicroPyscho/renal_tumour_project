@@ -10,8 +10,8 @@ data_ingestion:
 
 prepare_base_model:
   root_dir: artifacts/prepare_base_model
-  base_model_path: artifacts/prepare_base_model/base_model.h5
-  updated_base_model_path: artifacts/prepare_base_model/base_model_updated.h5
+  base_model_path: artifacts/prepare_base_model/base_model.keras
+  updated_base_model_path: artifacts/prepare_base_model/base_model_updated.keras
 
 
 
@@ -22,6 +22,6 @@ prepare_base_model:
 
 training:
   root_dir: artifacts/training
-  trained_model_path: artifacts/training/model.h5
-  updated_base_model_path: artifacts/prepare_base_model/base_model_updated.h5
-  training_data: artifacts/data_ingestion/CT-KIDNEY-DATASET-Normal-Cyst-Tumor-Stone
+  trained_model_path: artifacts/training/model.keras
+  updated_base_model_path: artifacts/prepare_base_model/base_model_updated.keras
+  training_data: artifacts/data_ingestion/CT-KIDNEY-DATASET-split 

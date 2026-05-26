@@ -49,10 +49,8 @@ class ConfigurationManager:
         prepare_base_model = self.config.prepare_base_model
         params = self.params
         all_params = dict(self.params)   # convert to plain dict so .get() works in Training class
-        training_data = os.path.join(
-            self.config.data_ingestion.unzip_dir,
-            "CT-KIDNEY-DATASET-Normal-Cyst-Tumor-Stone"
-        )
+        training_data = training.training_data
+        
         create_directories([Path(training.root_dir)])
 
         # ── model name drives the save path so runs don't overwrite each other ──
@@ -78,7 +76,7 @@ class ConfigurationManager:
 
         return EvaluationConfig(
             path_of_model=trained_model_path,
-            training_data="artifacts/data_ingestion/CT-KIDNEY-DATASET-Normal-Cyst-Tumor-Stone",
+            training_data="artifacts/data_ingestion/CT-KIDNEY-DATASET-split",
             mlflow_uri="https://dagshub.com/MicroPyscho/renal_tumour_project.mlflow",
             all_params=dict(self.params),               # convert to plain dict so .get() works
             params_image_size=self.params.IMAGE_SIZE,

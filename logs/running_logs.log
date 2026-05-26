@@ -1720,3 +1720,409 @@ x==========x]
 [2026-05-25 01:04:15,813: INFO: main: >>>>> stage Evaluation Stage completed <<<<<
 
 x==========x]
+[2026-05-25 07:53:03,595: INFO: main: >>>>> stage Data Ingestion Stage started <<<<<]
+[2026-05-25 07:53:03,597: INFO: common: yaml file: config/config.yaml loaded successfully]
+[2026-05-25 07:53:03,599: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-25 07:53:03,600: INFO: common: created directory at: artifacts]
+[2026-05-25 07:53:03,600: INFO: common: created directory at: artifacts/data_ingestion]
+[2026-05-25 07:53:03,600: INFO: data_ingestion: Downloading data from https://drive.google.com/file/d/1TuNYhoDmnEpdAIjRJelYoPs4lSYtnAsr/view?usp=sharing into file artifacts/data_ingestion/data.zip]
+[2026-05-25 07:53:46,259: INFO: data_ingestion: Download data from https://drive.google.com/file/d/1TuNYhoDmnEpdAIjRJelYoPs4lSYtnAsr/view?usp=sharing into file artifacts/data_ingestion/data.zip]
+[2026-05-25 07:53:58,021: INFO: main: >>>>> stage Data Ingestion Stage completed <<<<<
+
+x==========x]
+[2026-05-25 07:53:58,022: INFO: main: *******************]
+[2026-05-25 07:53:58,022: INFO: main: >>>>> stage Prepare Base Model started <<<<<]
+[2026-05-25 07:53:58,023: INFO: common: yaml file: config/config.yaml loaded successfully]
+[2026-05-25 07:53:58,025: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-25 07:53:58,025: INFO: common: created directory at: artifacts]
+[2026-05-25 07:53:58,025: INFO: common: created directory at: artifacts/prepare_base_model]
+[2026-05-25 07:53:58,945: WARNING: saving_api: You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. ]
+[2026-05-25 07:53:59,326: WARNING: saving_api: You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. ]
+[2026-05-25 07:53:59,487: INFO: main: >>>>> stage Prepare Base Model completed <<<<<
+
+x==========x]
+[2026-05-25 07:53:59,488: INFO: main: ********************]
+[2026-05-25 07:53:59,488: INFO: main: >>>>> stage Training started <<<<<]
+[2026-05-25 07:53:59,488: INFO: common: yaml file: config/config.yaml loaded successfully]
+[2026-05-25 07:53:59,489: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-25 07:53:59,489: INFO: common: created directory at: artifacts]
+[2026-05-25 07:53:59,489: INFO: common: created directory at: artifacts/training]
+[2026-05-25 07:54:00,095: WARNING: saving_utils: Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.]
+[2026-05-25 10:31:48,375: INFO: main: >>>>> stage Training completed <<<<<
+
+x==========x]
+[2026-05-25 10:31:48,390: INFO: main: ********************]
+[2026-05-25 10:31:48,390: INFO: main: >>>>> stage Evaluation Stage started <<<<<]
+[2026-05-25 10:31:48,392: INFO: common: yaml file: config/config.yaml loaded successfully]
+[2026-05-25 10:31:48,394: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-25 10:31:48,395: INFO: common: created directory at: artifacts]
+[2026-05-25 10:33:25,983: INFO: common: json file saved at: scores.json]
+[2026-05-25 10:33:25,984: INFO: common: json file saved at: scores.json]
+[2026-05-25 10:33:26,503: INFO: _client: HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK"]
+[2026-05-25 10:33:26,509: INFO: helpers: Accessing as MicroPyscho]
+[2026-05-25 10:33:27,124: INFO: _client: HTTP Request: GET https://dagshub.com/api/v1/repos/MicroPyscho/renal_tumour_project "HTTP/1.1 200 OK"]
+[2026-05-25 10:33:27,605: INFO: _client: HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK"]
+[2026-05-25 10:33:27,608: INFO: helpers: Initialized MLflow to track repo "MicroPyscho/renal_tumour_project"]
+[2026-05-25 10:33:27,609: INFO: helpers: Repository MicroPyscho/renal_tumour_project initialized!]
+[2026-05-25 10:34:10,660: INFO: main: >>>>> stage Evaluation Stage completed <<<<<
+
+x==========x]
+[2026-05-25 11:35:07,875: INFO: main: >>>>> stage Data Ingestion Stage started <<<<<]
+[2026-05-25 11:35:07,877: INFO: common: yaml file: config/config.yaml loaded successfully]
+[2026-05-25 11:35:07,878: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-25 11:35:07,879: INFO: common: created directory at: artifacts]
+[2026-05-25 11:35:07,879: INFO: common: created directory at: artifacts/data_ingestion]
+[2026-05-25 11:35:07,879: INFO: data_ingestion: Downloading data from https://drive.google.com/file/d/1TuNYhoDmnEpdAIjRJelYoPs4lSYtnAsr/view?usp=sharing into file artifacts/data_ingestion/data.zip]
+[2026-05-25 11:36:06,279: INFO: data_ingestion: Download data from https://drive.google.com/file/d/1TuNYhoDmnEpdAIjRJelYoPs4lSYtnAsr/view?usp=sharing into file artifacts/data_ingestion/data.zip]
+[2026-05-25 11:36:18,073: INFO: main: >>>>> stage Data Ingestion Stage completed <<<<<
+
+x==========x]
+[2026-05-25 11:36:18,073: INFO: main: *******************]
+[2026-05-25 11:36:18,073: INFO: main: >>>>> stage Prepare Base Model started <<<<<]
+[2026-05-25 11:36:18,074: INFO: common: yaml file: config/config.yaml loaded successfully]
+[2026-05-25 11:36:18,076: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-25 11:36:18,076: INFO: common: created directory at: artifacts]
+[2026-05-25 11:36:18,076: INFO: common: created directory at: artifacts/prepare_base_model]
+[2026-05-25 11:36:19,005: WARNING: saving_api: You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. ]
+[2026-05-25 11:36:19,424: WARNING: saving_api: You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. ]
+[2026-05-25 11:36:19,595: INFO: main: >>>>> stage Prepare Base Model completed <<<<<
+
+x==========x]
+[2026-05-25 11:36:19,595: INFO: main: ********************]
+[2026-05-25 11:36:19,595: INFO: main: >>>>> stage Training started <<<<<]
+[2026-05-25 11:36:19,596: INFO: common: yaml file: config/config.yaml loaded successfully]
+[2026-05-25 11:36:19,597: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-25 11:36:19,607: INFO: common: created directory at: artifacts]
+[2026-05-25 11:36:19,607: INFO: common: created directory at: artifacts/training]
+[2026-05-25 11:36:20,212: WARNING: saving_utils: Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.]
+[2026-05-25 12:13:23,005: INFO: main: >>>>> stage Data Ingestion Stage started <<<<<]
+[2026-05-25 12:13:23,006: INFO: common: yaml file: config/config.yaml loaded successfully]
+[2026-05-25 12:13:23,007: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-25 12:13:23,007: INFO: common: created directory at: artifacts]
+[2026-05-25 12:13:23,007: INFO: common: created directory at: artifacts/data_ingestion]
+[2026-05-25 12:13:23,007: INFO: data_ingestion: Downloading data from https://drive.google.com/file/d/1TuNYhoDmnEpdAIjRJelYoPs4lSYtnAsr/view?usp=sharing into file artifacts/data_ingestion/data.zip]
+[2026-05-25 12:14:27,465: INFO: data_ingestion: Download data from https://drive.google.com/file/d/1TuNYhoDmnEpdAIjRJelYoPs4lSYtnAsr/view?usp=sharing into file artifacts/data_ingestion/data.zip]
+[2026-05-25 12:14:39,089: INFO: main: >>>>> stage Data Ingestion Stage completed <<<<<
+
+x==========x]
+[2026-05-25 12:14:39,090: INFO: main: *******************]
+[2026-05-25 12:14:39,090: INFO: main: >>>>> stage Prepare Base Model started <<<<<]
+[2026-05-25 12:14:39,091: INFO: common: yaml file: config/config.yaml loaded successfully]
+[2026-05-25 12:14:39,092: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-25 12:14:39,092: INFO: common: created directory at: artifacts]
+[2026-05-25 12:14:39,092: INFO: common: created directory at: artifacts/prepare_base_model]
+[2026-05-25 12:14:39,984: WARNING: saving_api: You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. ]
+[2026-05-25 12:14:40,358: WARNING: saving_api: You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. ]
+[2026-05-25 12:14:40,562: INFO: main: >>>>> stage Prepare Base Model completed <<<<<
+
+x==========x]
+[2026-05-25 12:14:40,562: INFO: main: ********************]
+[2026-05-25 12:14:40,562: INFO: main: >>>>> stage Training started <<<<<]
+[2026-05-25 12:14:40,563: INFO: common: yaml file: config/config.yaml loaded successfully]
+[2026-05-25 12:14:40,563: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-25 12:14:40,564: INFO: common: created directory at: artifacts]
+[2026-05-25 12:14:40,564: INFO: common: created directory at: artifacts/training]
+[2026-05-25 12:14:41,172: WARNING: saving_utils: Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.]
+[2026-05-25 12:45:19,756: INFO: main: >>>>> stage Training completed <<<<<
+
+x==========x]
+[2026-05-25 12:45:19,767: INFO: main: ********************]
+[2026-05-25 12:45:19,768: INFO: main: >>>>> stage Evaluation Stage started <<<<<]
+[2026-05-25 12:45:19,769: INFO: common: yaml file: config/config.yaml loaded successfully]
+[2026-05-25 12:45:19,770: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-25 12:45:19,770: INFO: common: created directory at: artifacts]
+[2026-05-25 12:46:54,836: INFO: common: json file saved at: scores.json]
+[2026-05-25 12:46:54,837: INFO: common: json file saved at: scores.json]
+[2026-05-25 12:46:55,351: INFO: _client: HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK"]
+[2026-05-25 12:46:55,359: INFO: helpers: Accessing as MicroPyscho]
+[2026-05-25 12:46:55,897: INFO: _client: HTTP Request: GET https://dagshub.com/api/v1/repos/MicroPyscho/renal_tumour_project "HTTP/1.1 200 OK"]
+[2026-05-25 12:46:56,398: INFO: _client: HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK"]
+[2026-05-25 12:46:56,407: INFO: helpers: Initialized MLflow to track repo "MicroPyscho/renal_tumour_project"]
+[2026-05-25 12:46:56,408: INFO: helpers: Repository MicroPyscho/renal_tumour_project initialized!]
+[2026-05-25 12:47:38,140: INFO: main: >>>>> stage Evaluation Stage completed <<<<<
+
+x==========x]
+[2026-05-25 14:34:47,040: INFO: main: >>>>> stage Data Ingestion Stage started <<<<<]
+[2026-05-25 14:34:47,041: INFO: common: yaml file: config/config.yaml loaded successfully]
+[2026-05-25 14:34:47,043: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-25 14:34:47,044: INFO: common: created directory at: artifacts]
+[2026-05-25 14:34:47,044: INFO: common: created directory at: artifacts/data_ingestion]
+[2026-05-25 14:34:47,044: INFO: data_ingestion: Downloading data from https://drive.google.com/file/d/1TuNYhoDmnEpdAIjRJelYoPs4lSYtnAsr/view?usp=sharing into file artifacts/data_ingestion/data.zip]
+[2026-05-25 14:35:36,420: INFO: data_ingestion: Download data from https://drive.google.com/file/d/1TuNYhoDmnEpdAIjRJelYoPs4lSYtnAsr/view?usp=sharing into file artifacts/data_ingestion/data.zip]
+[2026-05-25 14:35:47,772: INFO: main: >>>>> stage Data Ingestion Stage completed <<<<<
+
+x==========x]
+[2026-05-25 14:35:47,772: INFO: main: *******************]
+[2026-05-25 14:35:47,772: INFO: main: >>>>> stage Prepare Base Model started <<<<<]
+[2026-05-25 14:35:47,774: INFO: common: yaml file: config/config.yaml loaded successfully]
+[2026-05-25 14:35:47,774: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-25 14:35:47,775: INFO: common: created directory at: artifacts]
+[2026-05-25 14:35:47,775: INFO: common: created directory at: artifacts/prepare_base_model]
+[2026-05-25 14:35:49,600: INFO: main: >>>>> stage Prepare Base Model completed <<<<<
+
+x==========x]
+[2026-05-25 14:35:49,600: INFO: main: ********************]
+[2026-05-25 14:35:49,600: INFO: main: >>>>> stage Training started <<<<<]
+[2026-05-25 14:35:49,601: INFO: common: yaml file: config/config.yaml loaded successfully]
+[2026-05-25 14:35:49,602: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-25 14:35:49,602: INFO: common: created directory at: artifacts]
+[2026-05-25 14:35:49,602: INFO: common: created directory at: artifacts/training]
+[2026-05-25 14:35:50,514: ERROR: main: [Errno 2] No such file or directory: 'artifacts/data_ingestion/CT-KIDNEY-DATASET-Normal-Cyst-Tumor-Stone/val']
+Traceback (most recent call last):
+  File "/Users/HP/Documents/GitHub/renal_tumour_project/main.py", line 36, in <module>
+    obj.main()
+    ~~~~~~~~^^
+  File "/Users/HP/Documents/GitHub/renal_tumour_project/src/cnnClassifier/pipeline/stage_03_model_training.py", line 18, in main
+    training.train_valid_generator()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/HP/Documents/GitHub/renal_tumour_project/src/cnnClassifier/components/model_training.py", line 57, in train_valid_generator
+    self.valid_generator = valid_datagenerator.flow_from_directory(
+                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        directory=Path(self.config.training_data)/"val",
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    
+    
+    )
+    ^
+  File "/opt/homebrew/Caskroom/miniforge/base/lib/python3.13/site-packages/keras/src/legacy/preprocessing/image.py", line 1136, in flow_from_directory
+    return DirectoryIterator(
+        directory,
+    ...<16 lines>...
+        dtype=self.dtype,
+    )
+  File "/opt/homebrew/Caskroom/miniforge/base/lib/python3.13/site-packages/keras/src/legacy/preprocessing/image.py", line 456, in __init__
+    for subdir in sorted(os.listdir(directory)):
+                         ~~~~~~~~~~^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'artifacts/data_ingestion/CT-KIDNEY-DATASET-Normal-Cyst-Tumor-Stone/val'
+[2026-05-25 14:46:19,228: INFO: main: >>>>> stage Data Ingestion Stage started <<<<<]
+[2026-05-25 14:46:19,229: INFO: common: yaml file: config/config.yaml loaded successfully]
+[2026-05-25 14:46:19,231: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-25 14:46:19,232: INFO: common: created directory at: artifacts]
+[2026-05-25 14:46:19,232: INFO: common: created directory at: artifacts/data_ingestion]
+[2026-05-25 14:46:19,232: INFO: data_ingestion: Downloading data from https://drive.google.com/file/d/1TuNYhoDmnEpdAIjRJelYoPs4lSYtnAsr/view?usp=sharing into file artifacts/data_ingestion/data.zip]
+[2026-05-25 14:47:29,445: INFO: main: >>>>> stage Data Ingestion Stage started <<<<<]
+[2026-05-25 14:47:29,446: INFO: common: yaml file: config/config.yaml loaded successfully]
+[2026-05-25 14:47:29,446: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-25 14:47:29,447: INFO: common: created directory at: artifacts]
+[2026-05-25 14:47:29,447: INFO: common: created directory at: artifacts/data_ingestion]
+[2026-05-25 14:47:29,447: INFO: data_ingestion: Downloading data from https://drive.google.com/file/d/1TuNYhoDmnEpdAIjRJelYoPs4lSYtnAsr/view?usp=sharing into file artifacts/data_ingestion/data.zip]
+[2026-05-25 14:48:06,769: INFO: data_ingestion: Download data from https://drive.google.com/file/d/1TuNYhoDmnEpdAIjRJelYoPs4lSYtnAsr/view?usp=sharing into file artifacts/data_ingestion/data.zip]
+[2026-05-25 14:48:17,907: INFO: main: >>>>> stage Data Ingestion Stage completed <<<<<
+
+x==========x]
+[2026-05-25 14:48:17,907: INFO: main: *******************]
+[2026-05-25 14:48:17,907: INFO: main: >>>>> stage Prepare Base Model started <<<<<]
+[2026-05-25 14:48:17,908: INFO: common: yaml file: config/config.yaml loaded successfully]
+[2026-05-25 14:48:17,910: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-25 14:48:17,910: INFO: common: created directory at: artifacts]
+[2026-05-25 14:48:17,910: INFO: common: created directory at: artifacts/prepare_base_model]
+[2026-05-25 14:48:19,747: INFO: main: >>>>> stage Prepare Base Model completed <<<<<
+
+x==========x]
+[2026-05-25 14:48:19,747: INFO: main: ********************]
+[2026-05-25 14:48:19,747: INFO: main: >>>>> stage Training started <<<<<]
+[2026-05-25 14:48:19,748: INFO: common: yaml file: config/config.yaml loaded successfully]
+[2026-05-25 14:48:19,749: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-25 14:48:19,749: INFO: common: created directory at: artifacts]
+[2026-05-25 14:48:19,749: INFO: common: created directory at: artifacts/training]
+[2026-05-25 18:39:03,097: INFO: main: >>>>> stage Training completed <<<<<
+
+x==========x]
+[2026-05-25 18:39:03,111: INFO: main: ********************]
+[2026-05-25 18:39:03,111: INFO: main: >>>>> stage Evaluation Stage started <<<<<]
+[2026-05-25 18:39:03,113: INFO: common: yaml file: config/config.yaml loaded successfully]
+[2026-05-25 18:39:03,116: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-25 18:39:03,117: INFO: common: created directory at: artifacts]
+[2026-05-25 18:39:28,465: INFO: common: json file saved at: scores.json]
+[2026-05-25 18:39:28,466: INFO: common: json file saved at: scores.json]
+[2026-05-25 18:39:29,117: INFO: _client: HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK"]
+[2026-05-25 18:39:29,125: INFO: helpers: Accessing as MicroPyscho]
+[2026-05-25 18:39:29,730: INFO: _client: HTTP Request: GET https://dagshub.com/api/v1/repos/MicroPyscho/renal_tumour_project "HTTP/1.1 200 OK"]
+[2026-05-25 18:39:30,224: INFO: _client: HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK"]
+[2026-05-25 18:39:30,228: INFO: helpers: Initialized MLflow to track repo "MicroPyscho/renal_tumour_project"]
+[2026-05-25 18:39:30,229: INFO: helpers: Repository MicroPyscho/renal_tumour_project initialized!]
+[2026-05-25 18:40:28,449: INFO: main: >>>>> stage Evaluation Stage completed <<<<<
+
+x==========x]
+[2026-05-25 18:59:18,168: INFO: main: >>>>> stage Data Ingestion Stage started <<<<<]
+[2026-05-25 18:59:18,169: INFO: common: yaml file: config/config.yaml loaded successfully]
+[2026-05-25 18:59:18,170: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-25 18:59:18,170: INFO: common: created directory at: artifacts]
+[2026-05-25 18:59:18,170: INFO: common: created directory at: artifacts/data_ingestion]
+[2026-05-25 18:59:18,170: INFO: data_ingestion: Downloading data from https://drive.google.com/file/d/1TuNYhoDmnEpdAIjRJelYoPs4lSYtnAsr/view?usp=sharing into file artifacts/data_ingestion/data.zip]
+[2026-05-25 19:01:31,165: INFO: data_ingestion: Download data from https://drive.google.com/file/d/1TuNYhoDmnEpdAIjRJelYoPs4lSYtnAsr/view?usp=sharing into file artifacts/data_ingestion/data.zip]
+[2026-05-25 19:01:43,591: INFO: main: >>>>> stage Data Ingestion Stage completed <<<<<
+
+x==========x]
+[2026-05-25 19:01:43,591: INFO: main: *******************]
+[2026-05-25 19:01:43,591: INFO: main: >>>>> stage Prepare Base Model started <<<<<]
+[2026-05-25 19:01:43,594: INFO: common: yaml file: config/config.yaml loaded successfully]
+[2026-05-25 19:01:43,595: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-25 19:01:43,595: INFO: common: created directory at: artifacts]
+[2026-05-25 19:01:43,595: INFO: common: created directory at: artifacts/prepare_base_model]
+[2026-05-25 19:01:45,374: INFO: main: >>>>> stage Prepare Base Model completed <<<<<
+
+x==========x]
+[2026-05-25 19:01:45,374: INFO: main: ********************]
+[2026-05-25 19:01:45,374: INFO: main: >>>>> stage Training started <<<<<]
+[2026-05-25 19:01:45,375: INFO: common: yaml file: config/config.yaml loaded successfully]
+[2026-05-25 19:01:45,376: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-25 19:01:45,376: INFO: common: created directory at: artifacts]
+[2026-05-25 19:01:45,376: INFO: common: created directory at: artifacts/training]
+[2026-05-25 19:01:46,542: ERROR: main: 'Training' object has no attribute 'steps_per_epoch']
+Traceback (most recent call last):
+  File "/Users/HP/Documents/GitHub/renal_tumour_project/main.py", line 36, in <module>
+    obj.main()
+    ~~~~~~~~^^
+  File "/Users/HP/Documents/GitHub/renal_tumour_project/src/cnnClassifier/pipeline/stage_03_model_training.py", line 19, in main
+    training.train()
+    ~~~~~~~~~~~~~~^^
+  File "/Users/HP/Documents/GitHub/renal_tumour_project/src/cnnClassifier/components/model_training.py", line 154, in train
+    steps_per_epoch=self.steps_per_epoch,
+                    ^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Training' object has no attribute 'steps_per_epoch'
+[2026-05-25 19:04:43,463: INFO: main: >>>>> stage Data Ingestion Stage started <<<<<]
+[2026-05-25 19:04:43,464: INFO: common: yaml file: config/config.yaml loaded successfully]
+[2026-05-25 19:04:43,465: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-25 19:04:43,465: INFO: common: created directory at: artifacts]
+[2026-05-25 19:04:43,465: INFO: common: created directory at: artifacts/data_ingestion]
+[2026-05-25 19:04:43,465: INFO: data_ingestion: Downloading data from https://drive.google.com/file/d/1TuNYhoDmnEpdAIjRJelYoPs4lSYtnAsr/view?usp=sharing into file artifacts/data_ingestion/data.zip]
+[2026-05-25 19:05:32,293: INFO: data_ingestion: Download data from https://drive.google.com/file/d/1TuNYhoDmnEpdAIjRJelYoPs4lSYtnAsr/view?usp=sharing into file artifacts/data_ingestion/data.zip]
+[2026-05-25 19:05:43,441: INFO: main: >>>>> stage Data Ingestion Stage completed <<<<<
+
+x==========x]
+[2026-05-25 19:05:43,441: INFO: main: *******************]
+[2026-05-25 19:05:43,441: INFO: main: >>>>> stage Prepare Base Model started <<<<<]
+[2026-05-25 19:05:43,442: INFO: common: yaml file: config/config.yaml loaded successfully]
+[2026-05-25 19:05:43,443: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-25 19:05:43,443: INFO: common: created directory at: artifacts]
+[2026-05-25 19:05:43,443: INFO: common: created directory at: artifacts/prepare_base_model]
+[2026-05-25 19:05:45,174: INFO: main: >>>>> stage Prepare Base Model completed <<<<<
+
+x==========x]
+[2026-05-25 19:05:45,175: INFO: main: ********************]
+[2026-05-25 19:05:45,175: INFO: main: >>>>> stage Training started <<<<<]
+[2026-05-25 19:05:45,176: INFO: common: yaml file: config/config.yaml loaded successfully]
+[2026-05-25 19:05:45,176: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-25 19:05:45,176: INFO: common: created directory at: artifacts]
+[2026-05-25 19:05:45,176: INFO: common: created directory at: artifacts/training]
+[2026-05-25 23:07:39,632: INFO: main: >>>>> stage Training completed <<<<<
+
+x==========x]
+[2026-05-25 23:07:39,644: INFO: main: ********************]
+[2026-05-25 23:07:39,644: INFO: main: >>>>> stage Evaluation Stage started <<<<<]
+[2026-05-25 23:07:39,646: INFO: common: yaml file: config/config.yaml loaded successfully]
+[2026-05-25 23:07:39,647: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-25 23:07:39,647: INFO: common: created directory at: artifacts]
+[2026-05-25 23:08:05,021: INFO: common: json file saved at: scores.json]
+[2026-05-25 23:08:05,021: INFO: common: json file saved at: scores.json]
+[2026-05-25 23:08:05,607: INFO: _client: HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK"]
+[2026-05-25 23:08:05,615: INFO: helpers: Accessing as MicroPyscho]
+[2026-05-25 23:08:05,951: INFO: _client: HTTP Request: GET https://dagshub.com/api/v1/repos/MicroPyscho/renal_tumour_project "HTTP/1.1 200 OK"]
+[2026-05-25 23:08:06,449: INFO: _client: HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK"]
+[2026-05-25 23:08:06,454: INFO: helpers: Initialized MLflow to track repo "MicroPyscho/renal_tumour_project"]
+[2026-05-25 23:08:06,455: INFO: helpers: Repository MicroPyscho/renal_tumour_project initialized!]
+[2026-05-25 23:08:49,753: INFO: main: >>>>> stage Evaluation Stage completed <<<<<
+
+x==========x]
+[2026-05-26 00:37:32,964: INFO: main: >>>>> stage Data Ingestion Stage started <<<<<]
+[2026-05-26 00:37:32,965: INFO: common: yaml file: config/config.yaml loaded successfully]
+[2026-05-26 00:37:32,967: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-26 00:37:32,968: INFO: common: created directory at: artifacts]
+[2026-05-26 00:37:32,968: INFO: common: created directory at: artifacts/data_ingestion]
+[2026-05-26 00:37:32,968: INFO: data_ingestion: Downloading data from https://drive.google.com/file/d/1TuNYhoDmnEpdAIjRJelYoPs4lSYtnAsr/view?usp=sharing into file artifacts/data_ingestion/data.zip]
+[2026-05-26 00:37:57,659: INFO: main: >>>>> stage Data Ingestion Stage started <<<<<]
+[2026-05-26 00:37:57,660: INFO: common: yaml file: config/config.yaml loaded successfully]
+[2026-05-26 00:37:57,661: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-26 00:37:57,661: INFO: common: created directory at: artifacts]
+[2026-05-26 00:37:57,661: INFO: common: created directory at: artifacts/data_ingestion]
+[2026-05-26 00:37:57,661: INFO: data_ingestion: Downloading data from https://drive.google.com/file/d/1TuNYhoDmnEpdAIjRJelYoPs4lSYtnAsr/view?usp=sharing into file artifacts/data_ingestion/data.zip]
+[2026-05-26 00:38:43,474: INFO: data_ingestion: Download data from https://drive.google.com/file/d/1TuNYhoDmnEpdAIjRJelYoPs4lSYtnAsr/view?usp=sharing into file artifacts/data_ingestion/data.zip]
+[2026-05-26 00:38:54,774: INFO: main: >>>>> stage Data Ingestion Stage completed <<<<<
+
+x==========x]
+[2026-05-26 00:38:54,774: INFO: main: *******************]
+[2026-05-26 00:38:54,774: INFO: main: >>>>> stage Prepare Base Model started <<<<<]
+[2026-05-26 00:38:54,776: INFO: common: yaml file: config/config.yaml loaded successfully]
+[2026-05-26 00:38:54,776: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-26 00:38:54,776: INFO: common: created directory at: artifacts]
+[2026-05-26 00:38:54,777: INFO: common: created directory at: artifacts/prepare_base_model]
+[2026-05-26 00:38:58,084: INFO: main: >>>>> stage Prepare Base Model completed <<<<<
+
+x==========x]
+[2026-05-26 00:38:58,084: INFO: main: ********************]
+[2026-05-26 00:38:58,084: INFO: main: >>>>> stage Training started <<<<<]
+[2026-05-26 00:38:58,085: INFO: common: yaml file: config/config.yaml loaded successfully]
+[2026-05-26 00:38:58,086: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-26 00:38:58,086: INFO: common: created directory at: artifacts]
+[2026-05-26 00:38:58,086: INFO: common: created directory at: artifacts/training]
+[2026-05-26 00:41:51,529: INFO: main: >>>>> stage Data Ingestion Stage started <<<<<]
+[2026-05-26 00:41:51,530: INFO: common: yaml file: config/config.yaml loaded successfully]
+[2026-05-26 00:41:51,531: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-26 00:41:51,531: INFO: common: created directory at: artifacts]
+[2026-05-26 00:41:51,531: INFO: common: created directory at: artifacts/data_ingestion]
+[2026-05-26 00:41:51,531: INFO: data_ingestion: Downloading data from https://drive.google.com/file/d/1TuNYhoDmnEpdAIjRJelYoPs4lSYtnAsr/view?usp=sharing into file artifacts/data_ingestion/data.zip]
+[2026-05-26 00:42:36,593: INFO: data_ingestion: Download data from https://drive.google.com/file/d/1TuNYhoDmnEpdAIjRJelYoPs4lSYtnAsr/view?usp=sharing into file artifacts/data_ingestion/data.zip]
+[2026-05-26 00:42:48,132: INFO: main: >>>>> stage Data Ingestion Stage completed <<<<<
+
+x==========x]
+[2026-05-26 00:42:48,132: INFO: main: *******************]
+[2026-05-26 00:42:48,132: INFO: main: >>>>> stage Prepare Base Model started <<<<<]
+[2026-05-26 00:42:48,134: INFO: common: yaml file: config/config.yaml loaded successfully]
+[2026-05-26 00:42:48,134: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-26 00:42:48,135: INFO: common: created directory at: artifacts]
+[2026-05-26 00:42:48,135: INFO: common: created directory at: artifacts/prepare_base_model]
+[2026-05-26 00:42:49,879: INFO: main: >>>>> stage Prepare Base Model completed <<<<<
+
+x==========x]
+[2026-05-26 00:42:49,879: INFO: main: ********************]
+[2026-05-26 00:42:49,879: INFO: main: >>>>> stage Training started <<<<<]
+[2026-05-26 00:42:49,880: INFO: common: yaml file: config/config.yaml loaded successfully]
+[2026-05-26 00:42:49,881: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-26 00:42:49,881: INFO: common: created directory at: artifacts]
+[2026-05-26 00:42:49,881: INFO: common: created directory at: artifacts/training]
+[2026-05-26 08:11:38,541: INFO: main: >>>>> stage Training completed <<<<<
+
+x==========x]
+[2026-05-26 08:11:38,545: INFO: main: ********************]
+[2026-05-26 08:11:38,545: INFO: main: >>>>> stage Evaluation Stage started <<<<<]
+[2026-05-26 08:11:38,557: INFO: common: yaml file: config/config.yaml loaded successfully]
+[2026-05-26 08:11:38,561: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-26 08:11:38,562: INFO: common: created directory at: artifacts]
+[2026-05-26 08:12:15,946: INFO: common: json file saved at: scores.json]
+[2026-05-26 08:12:15,946: INFO: common: json file saved at: scores.json]
+[2026-05-26 08:12:16,596: INFO: _client: HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK"]
+[2026-05-26 08:12:16,601: INFO: helpers: Accessing as MicroPyscho]
+[2026-05-26 08:12:17,126: INFO: _client: HTTP Request: GET https://dagshub.com/api/v1/repos/MicroPyscho/renal_tumour_project "HTTP/1.1 200 OK"]
+[2026-05-26 08:12:17,606: INFO: _client: HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK"]
+[2026-05-26 08:12:17,610: INFO: helpers: Initialized MLflow to track repo "MicroPyscho/renal_tumour_project"]
+[2026-05-26 08:12:17,611: INFO: helpers: Repository MicroPyscho/renal_tumour_project initialized!]
+[2026-05-26 08:12:52,168: INFO: main: >>>>> stage Evaluation Stage completed <<<<<
+
+x==========x]
+[2026-05-26 08:36:03,804: INFO: main: >>>>> stage Data Ingestion Stage started <<<<<]
+[2026-05-26 08:36:03,806: INFO: common: yaml file: config/config.yaml loaded successfully]
+[2026-05-26 08:36:03,808: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-26 08:36:03,808: INFO: common: created directory at: artifacts]
+[2026-05-26 08:36:03,808: INFO: common: created directory at: artifacts/data_ingestion]
+[2026-05-26 08:36:03,808: INFO: data_ingestion: Downloading data from https://drive.google.com/file/d/1TuNYhoDmnEpdAIjRJelYoPs4lSYtnAsr/view?usp=sharing into file artifacts/data_ingestion/data.zip]
+[2026-05-26 08:37:07,806: INFO: data_ingestion: Download data from https://drive.google.com/file/d/1TuNYhoDmnEpdAIjRJelYoPs4lSYtnAsr/view?usp=sharing into file artifacts/data_ingestion/data.zip]
+[2026-05-26 08:37:19,492: INFO: main: >>>>> stage Data Ingestion Stage completed <<<<<
+
+x==========x]
+[2026-05-26 08:37:19,492: INFO: main: *******************]
+[2026-05-26 08:37:19,492: INFO: main: >>>>> stage Prepare Base Model started <<<<<]
+[2026-05-26 08:37:19,493: INFO: common: yaml file: config/config.yaml loaded successfully]
+[2026-05-26 08:37:19,494: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-26 08:37:19,494: INFO: common: created directory at: artifacts]
+[2026-05-26 08:37:19,494: INFO: common: created directory at: artifacts/prepare_base_model]
+[2026-05-26 08:37:24,519: INFO: main: >>>>> stage Prepare Base Model completed <<<<<
+
+x==========x]
+[2026-05-26 08:37:24,519: INFO: main: ********************]
+[2026-05-26 08:37:24,519: INFO: main: >>>>> stage Training started <<<<<]
+[2026-05-26 08:37:24,520: INFO: common: yaml file: config/config.yaml loaded successfully]
+[2026-05-26 08:37:24,521: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-26 08:37:24,521: INFO: common: created directory at: artifacts]
+[2026-05-26 08:37:24,521: INFO: common: created directory at: artifacts/training]

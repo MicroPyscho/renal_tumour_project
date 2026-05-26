@@ -13,6 +13,7 @@ MODEL_CONFIGS = {
         "dropout":     0.5,
         "unfreeze":    0,           # 138M params — too large to fine-tune safely
         "lr_override": None,        # respects params.yaml LEARNING_RATE
+        "optimizer":   "sgd" # VGG16 benefits from momentum and lower LR
     },
     "EfficientNetV2B3": {
         "fn":          tf.keras.applications.EfficientNetV2B3,
@@ -20,6 +21,7 @@ MODEL_CONFIGS = {
         "dropout":     0.4,
         "unfreeze":    20,          # unfreeze top 20 layers for CT domain adaptation
         "lr_override": 0.0001,      # overrides params.yaml — EfficientNet needs lower LR
+        "optimizer":   "adam"
     },
     "DenseNet121": {
         "fn":          tf.keras.applications.DenseNet121,
@@ -27,6 +29,7 @@ MODEL_CONFIGS = {
         "dropout":     0.4,
         "unfreeze":    20,
         "lr_override": 0.0001,
+        "optimizer":   "adam"
     },
     "ResNet50V2": {
         "fn":          tf.keras.applications.ResNet50V2,
@@ -34,6 +37,7 @@ MODEL_CONFIGS = {
         "dropout":     0.4,
         "unfreeze":    20,
         "lr_override": 0.0001,
+        "optimizer":   "adam"
     },
 }
 
@@ -43,6 +47,7 @@ DEFAULT_CONFIG = {
     "dropout":     0.5,
     "unfreeze":    0,
     "lr_override": None,
+    "optimizer":   "sgd"
 }
 
 
@@ -94,8 +99,13 @@ class PrepareBaseModel:
         #lr_override takes priority over params.yaml value
         effective_lr = model_cfg["lr_override"] or learning_rate
 
+        if model_cfg["optimizer"] == "sgd":
+            optimizer = tf.keras.optimizers.SGD(learning_rate=effective_lr)
+        else:
+            optimizer = tf.keras.optimizers.Adam(learning_rate=effective_lr)
+
         full_model.compile(
-            optimizer=tf.keras.optimizers.Adam(learning_rate=effective_lr),
+            optimizer=optimizer,
             loss=tf.keras.losses.SparseCategoricalCrossentropy(),
             metrics=["accuracy"]
         )

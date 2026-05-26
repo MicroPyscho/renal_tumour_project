@@ -7,6 +7,7 @@ import time
 from cnnClassifier.utils.common import build_datagenerator_kwargs
 from cnnClassifier.entity.config_entity import TrainingConfig
 from tensorflow.keras.callbacks import ModelCheckpoint, EarlyStopping, ReduceLROnPlateau
+from cnnClassifier.components.prepare_base_model import MODEL_CONFIGS
 
 
 class Training:
@@ -19,8 +20,17 @@ class Training:
         )
         
         learning_rate = self.config.all_params.get("LEARNING_RATE", 0.0001)
+        model_name = self.config.all_params.get("MODEL_NAME", "VGG16")
+        model_cfg = MODEL_CONFIGS.get(model_name, MODEL_CONFIGS["VGG16"])
+        effective_lr = model_cfg["lr_override"] or learning_rate
+
+        if model_cfg["optimizer"] == "sgd":
+            optimizer = tf.keras.optimizers.SGD(learning_rate=effective_lr)
+        else:
+            optimizer = tf.keras.optimizers.Adam(learning_rate=effective_lr)
+
         self.model.compile(
-            optimizer=tf.keras.optimizers.SGD(learning_rate=learning_rate),
+            optimizer=optimizer,
             loss=tf.keras.losses.SparseCategoricalCrossentropy(),
             metrics=["accuracy"]
         )
@@ -29,7 +39,7 @@ class Training:
     def train_valid_generator(self):
         
         model_name = self.config.all_params.get("MODEL_NAME", "VGG16")
-        datagenerator_kwargs = build_datagenerator_kwargs(model_name)
+        base_kwargs = build_datagenerator_kwargs(model_name)
         
         
         #data scaling and modification section
@@ -41,12 +51,11 @@ class Training:
         
 #validation section
         valid_datagenerator = tf.keras.preprocessing.image.ImageDataGenerator( 
-            **datagenerator_kwargs
+            **base_kwargs
         )
         
         self.valid_generator = valid_datagenerator.flow_from_directory(
-            directory=self.config.training_data,
-            subset="validation",
+            directory=Path(self.config.training_data)/"val",
             shuffle=False,
             class_mode="sparse",
             **dataflow_kwargs
@@ -67,7 +76,7 @@ class Training:
             if model_name == "VGG16":
                 augmentation_kwargs["brightness_range"] = [0.8, 1.2]
 
-            combined_kwargs = {**augmentation_kwargs, **datagenerator_kwargs}
+            combined_kwargs = {**augmentation_kwargs, **base_kwargs}
                 
             train_datagenerator = tf.keras.preprocessing.image.ImageDataGenerator(
                 **combined_kwargs
@@ -76,12 +85,22 @@ class Training:
             train_datagenerator = valid_datagenerator
             
         self.train_generator = train_datagenerator.flow_from_directory(
-            directory=self.config.training_data,
-            subset="training",
+            directory=Path(self.config.training_data)/"train",
             shuffle=True,
             class_mode="sparse",
             **dataflow_kwargs
         )
+
+    def _compute_class_weights(self):
+        from sklearn.utils.class_weight import compute_class_weight
+        import numpy as np
+        classes = np.unique(self.train_generator.classes)
+        weights = compute_class_weight(
+            class_weight="balanced",
+            classes=classes,
+            y=self.train_generator.classes
+        )
+        return dict(enumerate(weights))
         
     #for saving the model    
     @staticmethod
@@ -97,15 +116,14 @@ class Training:
         self.train_generator.reset()
         self.valid_generator.reset()
 
-        self.steps_per_epoch = self.train_generator.samples // self.train_generator.batch_size
-        self.validation_steps = self.valid_generator.samples // self.valid_generator.batch_size
+        class_weights = self._compute_class_weights()
 
         #safety net callbacks
         os.makedirs("checkpoints", exist_ok=True)
 
         callbacks = [
             ModelCheckpoint(
-            filepath = "checkpoints/best_model.keras",
+            filepath = f"checkpoints/best_{self.config.all_params.get('MODEL_NAME', 'model')}.keras",
             monitor = "val_loss",
             mode = "min",
             save_best_only = True,
@@ -133,9 +151,8 @@ class Training:
         self.model.fit(
             self.train_generator,
             epochs=self.config.params_epochs,
-            steps_per_epoch=self.steps_per_epoch,
-            validation_steps=self.validation_steps,
             validation_data=self.valid_generator,
+            class_weight=class_weights,
             callbacks=callbacks
         )
         

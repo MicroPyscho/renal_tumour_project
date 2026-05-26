@@ -12,8 +12,7 @@ from cnnClassifier.utils.common import build_datagenerator_kwargs
 from cnnClassifier.utils.common import read_yaml, create_directories, save_json
 
 
-CLASS_NAMES = ["Cyst", "Normal", "Stone", "Tumor"]   # ← match your folder names exactly
-
+CLASS_NAMES = ["Cyst", "Normal", "Stone", "Tumor"]   #match folder names
 
 class Evaluation:
     def __init__(self, config: EvaluationConfig):
@@ -24,7 +23,7 @@ class Evaluation:
     #data generator
     def _valid_generator(self):
         model_name = self.config.all_params.get("MODEL_NAME", "VGG16")
-        datagenerator_kwargs = build_datagenerator_kwargs(model_name)
+        base_kwargs = build_datagenerator_kwargs(model_name)
         
         dataflow_kwargs = dict(
             target_size=self.config.params_image_size[:-1],
@@ -32,10 +31,10 @@ class Evaluation:
             interpolation="bilinear",
         )
         valid_datagenerator = tf.keras.preprocessing.image.ImageDataGenerator(
-            **datagenerator_kwargs
+            **base_kwargs
         )
         self.valid_generator = valid_datagenerator.flow_from_directory(
-            directory=self.config.training_data,
+            directory=Path(self.config.training_data)/"val",
             subset="validation",
             shuffle=False,          # must be False for confusion matrix to be meaningful
             class_mode="sparse",
