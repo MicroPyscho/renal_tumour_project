@@ -2233,3 +2233,47 @@ x==========x]
 [2026-05-28 12:54:27,849: INFO: main: >>>>> stage Evaluation Stage completed <<<<<
 
 x==========x]
+[2026-05-28 13:47:18,256: INFO: main: >>>>> stage Data Ingestion Stage started <<<<<]
+[2026-05-28 13:47:18,258: INFO: common: yaml file: config/config.yaml loaded successfully]
+[2026-05-28 13:47:18,259: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-28 13:47:18,260: INFO: common: created directory at: artifacts]
+[2026-05-28 13:47:18,260: INFO: common: created directory at: artifacts/data_ingestion]
+[2026-05-28 13:47:18,260: INFO: data_ingestion: Downloading data from https://drive.google.com/file/d/1TuNYhoDmnEpdAIjRJelYoPs4lSYtnAsr/view?usp=sharing into file artifacts/data_ingestion/data.zip]
+[2026-05-28 13:48:33,728: INFO: data_ingestion: Download data from https://drive.google.com/file/d/1TuNYhoDmnEpdAIjRJelYoPs4lSYtnAsr/view?usp=sharing into file artifacts/data_ingestion/data.zip]
+[2026-05-28 13:48:45,819: INFO: main: >>>>> stage Data Ingestion Stage completed <<<<<
+
+x==========x]
+[2026-05-28 13:48:45,819: INFO: main: *******************]
+[2026-05-28 13:48:45,819: INFO: main: >>>>> stage Prepare Base Model started <<<<<]
+[2026-05-28 13:48:45,821: INFO: common: yaml file: config/config.yaml loaded successfully]
+[2026-05-28 13:48:45,822: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-28 13:48:45,822: INFO: common: created directory at: artifacts]
+[2026-05-28 13:48:45,822: INFO: common: created directory at: artifacts/prepare_base_model]
+[2026-05-28 13:48:47,982: INFO: main: >>>>> stage Prepare Base Model completed <<<<<
+
+x==========x]
+[2026-05-28 13:48:47,982: INFO: main: ********************]
+[2026-05-28 13:48:47,982: INFO: main: >>>>> stage Training started <<<<<]
+[2026-05-28 13:48:47,983: INFO: common: yaml file: config/config.yaml loaded successfully]
+[2026-05-28 13:48:47,984: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-28 13:48:47,984: INFO: common: created directory at: artifacts]
+[2026-05-28 13:48:47,984: INFO: common: created directory at: artifacts/training]
+[2026-05-28 16:12:15,551: INFO: main: >>>>> stage Training completed <<<<<
+
+x==========x]
+[2026-05-28 16:12:15,558: INFO: main: ********************]
+[2026-05-28 16:12:15,558: INFO: main: >>>>> stage Evaluation Stage started <<<<<]
+[2026-05-28 16:12:15,560: INFO: common: yaml file: config/config.yaml loaded successfully]
+[2026-05-28 16:12:15,562: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-28 16:12:15,563: INFO: common: created directory at: artifacts]
+[2026-05-28 16:12:53,254: INFO: common: json file saved at: scores.json]
+[2026-05-28 16:12:53,255: INFO: common: json file saved at: scores.json]
+[2026-05-28 16:12:54,074: INFO: _client: HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK"]
+[2026-05-28 16:12:54,082: INFO: helpers: Accessing as MicroPyscho]
+[2026-05-28 16:12:54,626: INFO: _client: HTTP Request: GET https://dagshub.com/api/v1/repos/MicroPyscho/renal_tumour_project "HTTP/1.1 200 OK"]
+[2026-05-28 16:12:55,215: INFO: _client: HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK"]
+[2026-05-28 16:12:55,221: INFO: helpers: Initialized MLflow to track repo "MicroPyscho/renal_tumour_project"]
+[2026-05-28 16:12:55,222: INFO: helpers: Repository MicroPyscho/renal_tumour_project initialized!]
+[2026-05-28 16:13:32,811: INFO: main: >>>>> stage Evaluation Stage completed <<<<<
+
+x==========x]
