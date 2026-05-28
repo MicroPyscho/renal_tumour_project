@@ -2189,3 +2189,28 @@ x==========x]
 [2026-05-28 07:34:43,093: INFO: main: >>>>> stage Evaluation Stage completed <<<<<
 
 x==========x]
+[2026-05-28 07:53:24,205: INFO: main: >>>>> stage Data Ingestion Stage started <<<<<]
+[2026-05-28 07:53:24,207: INFO: common: yaml file: config/config.yaml loaded successfully]
+[2026-05-28 07:53:24,207: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-28 07:53:24,208: INFO: common: created directory at: artifacts]
+[2026-05-28 07:53:24,208: INFO: common: created directory at: artifacts/data_ingestion]
+[2026-05-28 07:53:24,208: INFO: data_ingestion: Downloading data from https://drive.google.com/file/d/1TuNYhoDmnEpdAIjRJelYoPs4lSYtnAsr/view?usp=sharing into file artifacts/data_ingestion/data.zip]
+[2026-05-28 07:54:28,171: INFO: data_ingestion: Download data from https://drive.google.com/file/d/1TuNYhoDmnEpdAIjRJelYoPs4lSYtnAsr/view?usp=sharing into file artifacts/data_ingestion/data.zip]
+[2026-05-28 07:54:40,312: INFO: main: >>>>> stage Data Ingestion Stage completed <<<<<
+
+x==========x]
+[2026-05-28 07:54:40,313: INFO: main: *******************]
+[2026-05-28 07:54:40,313: INFO: main: >>>>> stage Prepare Base Model started <<<<<]
+[2026-05-28 07:54:40,315: INFO: common: yaml file: config/config.yaml loaded successfully]
+[2026-05-28 07:54:40,316: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-28 07:54:40,316: INFO: common: created directory at: artifacts]
+[2026-05-28 07:54:40,316: INFO: common: created directory at: artifacts/prepare_base_model]
+[2026-05-28 07:54:41,541: INFO: main: >>>>> stage Prepare Base Model completed <<<<<
+
+x==========x]
+[2026-05-28 07:54:41,541: INFO: main: ********************]
+[2026-05-28 07:54:41,542: INFO: main: >>>>> stage Training started <<<<<]
+[2026-05-28 07:54:41,542: INFO: common: yaml file: config/config.yaml loaded successfully]
+[2026-05-28 07:54:41,543: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-28 07:54:41,543: INFO: common: created directory at: artifacts]
+[2026-05-28 07:54:41,543: INFO: common: created directory at: artifacts/training]
