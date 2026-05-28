@@ -1,0 +1,18 @@
+{
+    "val_loss": 0.0007327945786528289,
+    "val_accuracy": 1.0,
+    "precision_cyst": 1.0,
+    "recall_cyst": 1.0,
+    "f1_cyst": 1.0,
+    "precision_normal": 1.0,
+    "recall_normal": 1.0,
+    "f1_normal": 1.0,
+    "precision_stone": 1.0,
+    "recall_stone": 1.0,
+    "f1_stone": 1.0,
+    "precision_tumor": 1.0,
+    "recall_tumor": 1.0,
+    "f1_tumor": 1.0,
+    "macro_f1": 1.0,
+    "weighted_f1": 1.0
+}

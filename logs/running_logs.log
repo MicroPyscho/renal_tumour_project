@@ -2214,3 +2214,22 @@ x==========x]
 [2026-05-28 07:54:41,543: INFO: common: yaml file: params.yaml loaded successfully]
 [2026-05-28 07:54:41,543: INFO: common: created directory at: artifacts]
 [2026-05-28 07:54:41,543: INFO: common: created directory at: artifacts/training]
+[2026-05-28 12:51:58,531: INFO: main: >>>>> stage Training completed <<<<<
+
+x==========x]
+[2026-05-28 12:51:58,562: INFO: main: ********************]
+[2026-05-28 12:51:58,563: INFO: main: >>>>> stage Evaluation Stage started <<<<<]
+[2026-05-28 12:51:58,573: INFO: common: yaml file: config/config.yaml loaded successfully]
+[2026-05-28 12:51:58,576: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-28 12:51:58,577: INFO: common: created directory at: artifacts]
+[2026-05-28 12:52:28,325: INFO: common: json file saved at: scores.json]
+[2026-05-28 12:52:28,326: INFO: common: json file saved at: scores.json]
+[2026-05-28 12:52:28,963: INFO: _client: HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK"]
+[2026-05-28 12:52:28,972: INFO: helpers: Accessing as MicroPyscho]
+[2026-05-28 12:52:29,577: INFO: _client: HTTP Request: GET https://dagshub.com/api/v1/repos/MicroPyscho/renal_tumour_project "HTTP/1.1 200 OK"]
+[2026-05-28 12:52:30,089: INFO: _client: HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK"]
+[2026-05-28 12:52:30,093: INFO: helpers: Initialized MLflow to track repo "MicroPyscho/renal_tumour_project"]
+[2026-05-28 12:52:30,094: INFO: helpers: Repository MicroPyscho/renal_tumour_project initialized!]
+[2026-05-28 12:54:27,849: INFO: main: >>>>> stage Evaluation Stage completed <<<<<
+
+x==========x]
