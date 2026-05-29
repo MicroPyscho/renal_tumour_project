@@ -7,52 +7,56 @@ stages:
     outs:
     - artifacts/data_ingestion/CT-KIDNEY-DATASET-Normal-Cyst-Tumor-Stone
 
+  data_split:
+    cmd: python run_split.py
+    deps:
+    - run_split.py
+    - artifacts/data_ingestion/CT-KIDNEY-DATASET-Normal-Cyst-Tumor-Stone
+    outs:
+    - artifacts/data_ingestion/CT-KIDNEY-DATASET-split
 
   prepare_base_model:
     cmd: python src/cnnClassifier/pipeline/stage_02_prepare_base_model.py
     deps:
     - src/cnnClassifier/pipeline/stage_02_prepare_base_model.py
     - config/config.yaml
-
     params:
-      - IMAGE_SIZE
-      - INCLUDE_TOP
-      - CLASSES
-      - WEIGHTS
-      - LEARNING_RATE
-
+    - IMAGE_SIZE
+    - INCLUDE_TOP
+    - CLASSES
+    - WEIGHTS
+    - LEARNING_RATE
+    - MODEL_NAME
     outs:
     - artifacts/prepare_base_model
 
-
-
-  training: 
-    cmd: python src/cnnClassifier/pipeline/stage_03_training.py
+  model_training:
+    cmd: python src/cnnClassifier/pipeline/stage_03_model_training.py
     deps:
-    - src/cnnClassifier/pipeline/stage_03_training.py
+    - src/cnnClassifier/pipeline/stage_03_model_training.py
     - config/config.yaml
-    - artifacts/data_ingestion/CT-KIDNEY-DATASET-Normal-Cyst-Tumor-Stone
+    - artifacts/data_ingestion/CT-KIDNEY-DATASET-split
     - artifacts/prepare_base_model
     params:
-      - IMAGE_SIZE 
-      - AUGMENTATION
-      - EPOCHS
-      - BATCH_SIZE
+    - IMAGE_SIZE
+    - AUGMENTATION
+    - EPOCHS
+    - BATCH_SIZE
+    - MODEL_NAME
     outs:
-    - artifacts/training/model.h5
+    - artifacts/training
 
-
-  evaluation:
-    cmd: python src/cnnClassifier/pipeline/stage_04_evaluation.py
+  model_evaluation:
+    cmd: python src/cnnClassifier/pipeline/stage_04_model_evaluation.py
     deps:
-    - src/cnnClassifier/pipeline/stage_04_evaluation.py
+    - src/cnnClassifier/pipeline/stage_04_model_evaluation.py
     - config/config.yaml
-    - artifacts/training/model.h5
+    - artifacts/data_ingestion/CT-KIDNEY-DATASET-split
+    - artifacts/training
     params:
-      - IMAGE_SIZE
-      - BATCH_SIZE
+    - IMAGE_SIZE
+    - BATCH_SIZE
+    - MODEL_NAME
     metrics:
     - scores.json:
         cache: false
-
-
