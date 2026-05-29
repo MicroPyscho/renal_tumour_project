@@ -16,3 +16,6 @@ __pycache__/
 artifacts/*checkpoints/
 artifacts/
 *.keras
+checkpoints/
+*.keras
+artifacts/
