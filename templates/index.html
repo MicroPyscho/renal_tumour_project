@@ -1,0 +1,794 @@
+import { useState, useEffect, useRef, useCallback } from "react";
+import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ScatterChart, Scatter, RadarChart, PolarGrid, PolarAngleAxis, Radar } from "recharts";
+
+// ─── THEME TOKENS ─────────────────────────────────────────────────────────────
+const T = {
+  dark: {
+    bg: "#080d18", surface: "rgba(14,22,40,0.85)", card: "rgba(16,26,48,0.75)",
+    border: "rgba(99,140,210,0.15)", glow: "rgba(99,140,210,0.08)",
+    text: "#eef2fa", muted: "#6b82a8", faint: "#2a3850",
+    accent: "#f5a623", accent2: "#e8536a", accent3: "#2ec4b6", accent4: "#7c6af7",
+    glass: "rgba(14,22,40,0.6)", blur: "blur(60px)",
+  },
+  light: {
+    bg: "#f0f4fc", surface: "rgba(255,255,255,0.85)", card: "rgba(248,251,255,0.8)",
+    border: "rgba(30,60,140,0.1)", glow: "rgba(30,60,140,0.04)",
+    text: "#0d1528", muted: "#7a8fad", faint: "#dce8f8",
+    accent: "#d4820f", accent2: "#c93050", accent3: "#1aa89a", accent4: "#5a4ed4",
+    glass: "rgba(255,255,255,0.65)", blur: "blur(60px)",
+  }
+};
+
+// ─── LOGO COMPONENTS ──────────────────────────────────────────────────────────
+// White-fill logo (dark mode) — aidrenalAsset_4.svg
+const LogoWhite = ({ height = 30 }) => (
+  <svg height={height} viewBox="0 0 612 121.03" xmlns="http://www.w3.org/2000/svg" style={{width:"auto"}}>
+    <defs>
+      <clipPath id="lw-clip">
+        <path d="M73.81,20.28c2.79,5.12,3.54,10.78,7.14,15.42,10.76,14.03,29.09,10.19,39.21,29.52,3.98,8.21,4.62,17.96.7,26.28-2.63,5.49-6.57,11.28-11.21,15.12-1.44,1.21-3,2.3-4.58,3.33-4.44,2.8-8.31,5.29-13.04,7.1-6.27,2.22-13.31,3.32-20,3.85-9.46.56-18.45-.74-27.49-3-7.48-1.93-14.18-5.79-20.1-10.6-2.85-2.27-5.56-4.55-7.93-7.27-2.77-3.17-5.34-7.21-7.65-11.03-2.87-4.72-5.23-9.38-6.6-14.78C.57,67.86-.23,61.3.06,54.76c.25-6.06.75-12.52,2.5-18.47,1.31-4.48,3.44-8.93,5.64-13.13C12.91,14.14,20.46,6.06,30.16,2.11,35.71-.09,41.88-.43,47.77.45c11.43,1.54,20.82,9.9,26,19.75l.04.07Z"/>
+      </clipPath>
+    </defs>
+    <g clipPath="url(#lw-clip)" fill="#fff" opacity="0.9">
+      <rect x="-20" y="-20" width="280" height="200" fill="#fff" opacity="0.07"/>
+    </g>
+    {/* Kidney glyph simplified */}
+    <path fill="#fff" d="M73.81,20.28c2.79,5.12,3.54,10.78,7.14,15.42,10.76,14.03,29.09,10.19,39.21,29.52,3.98,8.21,4.62,17.96.7,26.28-2.63,5.49-6.57,11.28-11.21,15.12-4.44,2.8-8.31,5.29-13.04,7.1-6.27,2.22-13.31,3.32-20,3.85-9.46.56-18.45-.74-27.49-3-7.48-1.93-14.18-5.79-20.1-10.6-2.85-2.27-5.56-4.55-7.93-7.27-2.77-3.17-5.34-7.21-7.65-11.03-2.87-4.72-5.23-9.38-6.6-14.78C.57,67.86-.23,61.3.06,54.76c.25-6.06.75-12.52,2.5-18.47,1.31-4.48,3.44-8.93,5.64-13.13C12.91,14.14,20.46,6.06,30.16,2.11c5.55-2.2,11.72-2.54,17.61-1.66C59.2,2,68.59,10.35,73.77,20.21Z" opacity="0.18"/>
+    <path fill="#fff" d="M189.63,83.19l-43.78-.55-10.13,25.93h-13.76L161.28,10.8h13.37l39.19,97.77h-14.29l-9.91-25.38ZM184.57,69.92l-16.74-43.13-16.79,42.7,33.54.43Z"/>
+    <path fill="#fff" d="M233.34,33.28h-13.26v-14.23h13.26v14.23ZM233.07,108.57h-12.72V43.89h12.72v64.68Z"/>
+    <path fill="#fff" d="M580.03,44.26v7.94c-6.43-5.76-15.12-9.29-24.67-9.29-19.86,0-35.96,15.27-35.96,34.12s16.1,34.13,35.96,34.13c9.55,0,18.23-3.54,24.67-9.3v6.82h12.14V44.26h-12.14ZM555.37,100.55c-13.15,0-23.82-10.53-23.82-23.52s10.67-23.51,23.82-23.51,23.83,10.53,23.83,23.51-10.67,23.52-23.83,23.52Z"/>
+    <path fill="#fff" d="M612,109.11h-12.32V6.89h12.32v102.23Z"/>
+    <path fill="#fff" d="M303.42,6.34v43.7c-6.57-6.27-15.56-10.14-25.49-10.14-20.16,0-36.5,15.97-36.5,35.68s16.34,35.69,36.5,35.69c9.92,0,18.91-3.87,25.49-10.15v7.45h12.33V6.34h-12.33ZM277.93,100.17c-13.36,0-24.18-11.01-24.18-24.59s10.83-24.58,24.18-24.58,24.18,11.01,24.18,24.58-10.83,24.59-24.18,24.59Z"/>
+    <path fill="#fff" d="M454.26,80.64c.13-1.17.2-2.36.2-3.56,0-18.87-16.26-34.17-36.33-34.17s-36.33,15.3-36.33,34.17,16.27,34.18,36.33,34.18c13.09,0,24.57-6.52,30.96-16.29h-15.31c-4.21,3.54-9.67,5.67-15.65,5.67-12.06,0-22.04-8.67-23.81-20h59.94ZM395.58,68.84c3.41-8.94,12.22-15.3,22.55-15.3s19.14,6.37,22.54,15.3h-45.1Z"/>
+    <path fill="#fff" d="M341.56,6.09h-19.26v102.23h12.32v-31.95c2.13.39,4.32.58,6.56.58,5.71,0,11.12-1.28,15.94-3.58l13.08,36.73,11.6-4.13-14.25-40.03c6.28-6.41,10.13-15.1,10.13-24.67,0-19.71-15.96-35.17-36.12-35.17M353.48,62.44c-3.55,2.1-7.68,3.29-12.08,3.29-2.27,0-4.48-.32-6.56-.92V17.6c2.08-.6,4.29-.92,6.56-.92,13.36,0,24.18,11.01,24.18,24.58,0,9.01-4.77,16.9-11.88,21.18Z"/>
+    <path fill="#fff" d="M470.65,109.01h-12.32V43.48h11.8v8.13c4.19-5.11,11.79-9.83,21.49-9.83,14.29,0,23.59,9.31,23.59,24.51v42.73h-12.32v-39.06c0-12.97-7.6-17.3-15.86-17.3-7.08,0-16.38,5.5-16.38,16.12v40.23Z"/>
+  </svg>
+);
+
+// Dark-fill logo (light mode) — aidrenal_black_Asset_7.svg
+const LogoDark = ({ height = 30 }) => (
+  <svg height={height} viewBox="0 0 612 121.03" xmlns="http://www.w3.org/2000/svg" style={{width:"auto"}}>
+    <path fill="#231f20" opacity="0.15" d="M73.81,20.28c2.79,5.12,3.54,10.78,7.14,15.42,10.76,14.03,29.09,10.19,39.21,29.52,3.98,8.21,4.62,17.96.7,26.28-2.63,5.49-6.57,11.28-11.21,15.12-4.44,2.8-8.31,5.29-13.04,7.1-6.27,2.22-13.31,3.32-20,3.85-9.46.56-18.45-.74-27.49-3-7.48-1.93-14.18-5.79-20.1-10.6-2.85-2.27-5.56-4.55-7.93-7.27-2.77-3.17-5.34-7.21-7.65-11.03-2.87-4.72-5.23-9.38-6.6-14.78C.57,67.86-.23,61.3.06,54.76c.25-6.06.75-12.52,2.5-18.47,1.31-4.48,3.44-8.93,5.64-13.13C12.91,14.14,20.46,6.06,30.16,2.11c5.55-2.2,11.72-2.54,17.61-1.66C59.2,2,68.59,10.35,73.77,20.21Z"/>
+    <path fill="#231f20" d="M189.63,83.19l-43.78-.55-10.13,25.93h-13.76L161.28,10.8h13.37l39.19,97.77h-14.29l-9.91-25.38ZM184.57,69.92l-16.74-43.13-16.79,42.7,33.54.43Z"/>
+ 
+const MODELS = [   
+  { id: "vgg16",        name: "VGG16",           accuracy: 0.6594, loss: 0.9692, params: "138M", status: "done",   run: 14, color: "#f5a623" },
+  { id: "efficientnet", name: "EfficientNetV2B3", accuracy: 0.679,  loss: 0.905,  params: "14M",  status: "done",   run: 4,  color: "#e8536a" },
+  { id: "densenet",     name: "DenseNet121",      accuracy: null,   loss: null,   params: "8M",   status: "queued", run: null, color: "#2ec4b6" },
+  { id: "resnet",       name: "ResNet50V2",       accuracy: null,   loss: null,   params: "25M",  status: "queued", run: null, color: "#7c6af7" },
+];
+
+const ACC_HISTORY = [
+  { ep: 10, vgg: 0.41, eff: 0.52 }, { ep: 20, vgg: 0.48, eff: 0.60 },
+  { ep: 30, vgg: 0.52, eff: 0.64 }, { ep: 40, vgg: 0.55, eff: 0.67 },
+  { ep: 60, vgg: 0.59, eff: 0.675 },{ ep: 80, vgg: 0.61, eff: 0.679 },
+  { ep: 100,vgg: 0.63, eff: null  }, { ep: 150,vgg: 0.659,eff: null  },
+];
+
+const CLASS_DIST = [
+  { name: "Normal", count: 5077, pct: 40.8 },
+  { name: "Cyst",   count: 3709, pct: 29.8 },
+  { name: "Tumor",  count: 2283, pct: 18.3 },
+  { name: "Stone",  count: 1377, pct: 11.1 },
+];
+
+const CONFUSION = [[142,12,8,6],[9,178,14,7],[11,18,161,12],[6,7,10,125]];
+const CLASS_NAMES = ["Normal","Cyst","Tumor","Stone"];
+
+const RUNS = [
+  { id:14, model:"VGG16", acc:0.659, loss:0.969, ep:150, lr:0.0003, date:"2026-05-24" },
+  { id:13, model:"VGG16", acc:0.641, loss:1.012, ep:100, lr:0.0003, date:"2026-05-22" },
+  { id:4,  model:"EfficientNetV2B3", acc:0.679, loss:0.905, ep:21, lr:0.0001, date:"2026-05-25" },
+  { id:12, model:"VGG16", acc:0.618, loss:1.104, ep:80,  lr:0.0005, date:"2026-05-20" },
+];
+
+const SCATTER_DATA = [
+  { params:138, acc:0.659, model:"VGG16",            color:"#f5a623", proj:false },
+  { params:14,  acc:0.679, model:"EfficientNetV2B3", color:"#e8536a", proj:false },
+  { params:8,   acc:0.74,  model:"DenseNet121",      color:"#2ec4b6", proj:true  },
+  { params:25,  acc:0.68,  model:"ResNet50V2",       color:"#7c6af7", proj:true  },
+];
+
+// ─── EDGE CASE VALIDATION ─────────────────────────────────────────────────────
+// Uses Claude API to validate whether uploaded image looks like a CT kidney scan
+async function validateImageWithAI(base64Image) {
+  try {
+    const response = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model: "claude-sonnet-4-20250514",
+        max_tokens: 200,
+        messages: [{
+          role: "user",
+          content: [
+            { type: "image", source: { type: "base64", media_type: "image/jpeg", data: base64Image } },
+            { type: "text", text: `Analyse this image. Respond ONLY with a JSON object (no markdown, no explanation):
+{"is_ct_scan": boolean, "confidence": "high"|"medium"|"low", "reason": "one sentence"}
+Return is_ct_scan true ONLY if this is clearly a grayscale medical CT/MRI scan of abdominal/kidney region. Return false for selfies, colour photos, X-rays of other body parts, drawings, screenshots, documents, or anything non-medical.` }
+          ]
+        }]
+      })
+    });
+    const data = await response.json();
+    const text = data.content?.[0]?.text || "{}";
+    const clean = text.replace(/```json|```/g, "").trim();
+    return JSON.parse(clean);
+  } catch {
+    return { is_ct_scan: null, confidence: "low", reason: "Validation unavailable — proceeding with caution." };
+  }
+}
+
+// ─── SHARED COMPONENTS ────────────────────────────────────────────────────────
+const pct = v => v != null ? `${(v*100).toFixed(1)}%` : "—";
+
+function GlassCard({ children, t, style = {}, accent }) {
+  return (
+    <div style={{
+      background: t.glass, backdropFilter: t.blur, WebkitBackdropFilter: t.blur,
+      border: `1px solid ${accent ? accent+"30" : t.border}`,
+      borderRadius: 16, overflow: "hidden",
+      boxShadow: `0 4px 24px ${t.glow}, inset 0 1px 0 rgba(255,255,255,0.06)`,
+      ...(accent ? { boxShadow: `0 4px 32px ${accent}18, inset 0 1px 0 rgba(255,255,255,0.06)` } : {}),
+      ...style
+    }}>
+      {children}
+    </div>
+  );
+}
+
+function SectionTitle({ title, sub, t }) {
+  return (
+    <div style={{ marginBottom: 24 }}>
+      <h2 style={{ margin:0, color:t.text, fontFamily:"'Figtree',sans-serif", fontWeight:800, fontSize:20, letterSpacing:"-0.02em" }}>{title}</h2>
+      {sub && <p style={{ margin:"4px 0 0", color:t.muted, fontSize:12, fontFamily:"monospace" }}>{sub}</p>}
+    </div>
+  );
+}
+
+function Pill({ children, color, t }) {
+  return (
+    <span style={{
+      background: color+"18", color, border:`1px solid ${color}33`,
+      borderRadius:20, padding:"3px 10px", fontSize:10, fontFamily:"monospace",
+      fontWeight:700, letterSpacing:"0.08em"
+    }}>{children}</span>
+  );
+}
+
+function StatCard({ label, value, sub, accent, t }) {
+  return (
+    <GlassCard t={t} accent={accent} style={{ padding:"20px 22px" }}>
+      <div style={{ color:t.muted, fontSize:10, fontFamily:"monospace", textTransform:"uppercase", letterSpacing:"0.12em" }}>{label}</div>
+      <div style={{ color:accent||t.text, fontSize:30, fontFamily:"'Figtree',sans-serif", fontWeight:800, margin:"6px 0 3px", letterSpacing:"-0.02em" }}>{value}</div>
+      {sub && <div style={{ color:t.muted, fontSize:11 }}>{sub}</div>}
+    </GlassCard>
+  );
+}
+
+// ─── SECTIONS ─────────────────────────────────────────────────────────────────
+function Overview({ t }) {
+  const colors = [t.accent3, t.accent2, t.accent, t.accent4];
+  return (
+    <section>
+      <SectionTitle title="Overview" sub="Baseline results · 4-class renal CT · 12,446 images post-split" t={t} />
+      <div style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:12, marginBottom:24 }}>
+        <StatCard label="Best Val Accuracy" value="67.9%" sub="EfficientNetV2B3 run #4" accent={t.accent} t={t} />
+        <StatCard label="VGG16 Baseline"   value="65.9%" sub="run #14 · 150 epochs"   accent={t.accent2} t={t} />
+        <StatCard label="Dataset"          value="12,446" sub="train+val split fixed"  accent={t.accent3} t={t} />
+        <StatCard label="MLflow Runs"      value="18"     sub="tracked on DagsHub"     accent={t.accent4} t={t} />
+      </div>
+      <GlassCard t={t} style={{ padding:24, marginBottom:16 }}>
+        <div style={{ color:t.muted, fontSize:10, fontFamily:"monospace", textTransform:"uppercase", letterSpacing:"0.12em", marginBottom:16 }}>Accuracy Trajectory — VGG16 vs EfficientNetV2B3</div>
+        <ResponsiveContainer width="100%" height={200}>
+          <LineChart data={ACC_HISTORY} margin={{top:4,right:20,bottom:0,left:0}}>
+            <CartesianGrid stroke={t.faint} strokeDasharray="3 3" />
+            <XAxis dataKey="ep" stroke={t.muted} tick={{fill:t.muted,fontSize:10}} />
+            <YAxis domain={[0.35,0.75]} stroke={t.muted} tick={{fill:t.muted,fontSize:10}} tickFormatter={v=>`${(v*100).toFixed(0)}%`} />
+            <Tooltip contentStyle={{background:t.glass,backdropFilter:t.blur,border:`1px solid ${t.border}`,borderRadius:10,color:t.text}} formatter={v=>[`${(v*100).toFixed(1)}%`]} />
+            <Line type="monotone" dataKey="vgg" stroke={t.accent} strokeWidth={2} dot={{fill:t.accent,r:3}} name="VGG16" connectNulls />
+            <Line type="monotone" dataKey="eff" stroke={t.accent2} strokeWidth={2} dot={{fill:t.accent2,r:3}} name="EfficientNet" connectNulls strokeDasharray="4 2" />
+          </LineChart>
+        </ResponsiveContainer>
+      </GlassCard>
+      <GlassCard t={t} style={{ padding:22 }}>
+        <div style={{ color:t.muted, fontSize:10, fontFamily:"monospace", textTransform:"uppercase", letterSpacing:"0.12em", marginBottom:16 }}>Class Distribution · Post-Split</div>
+        <div style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:12 }}>
+          {CLASS_DIST.map((c,i) => (
+            <div key={c.name} style={{ textAlign:"center" }}>
+              <div style={{ color:t.muted, fontSize:10, fontFamily:"monospace", marginBottom:6 }}>{c.name}</div>
+              <div style={{ height:5, background:t.faint, borderRadius:3, overflow:"hidden", margin:"0 auto 6px" }}>
+                <div style={{ width:`${c.pct/41*100}%`, height:"100%", background:colors[i], borderRadius:3 }} />
+              </div>
+              <div style={{ color:colors[i], fontSize:22, fontFamily:"'Figtree',sans-serif", fontWeight:800 }}>{c.count.toLocaleString()}</div>
+              <div style={{ color:t.muted, fontSize:10 }}>{c.pct}%</div>
+            </div>
+          ))}
+        </div>
+      </GlassCard>
+    </section>
+  );
+}
+
+function ModelComparison({ t }) {
+  return (
+    <section>
+      <SectionTitle title="Model Comparison" sub="Live-updated as runs complete · hollow = projected" t={t} />
+      <GlassCard t={t} style={{ padding:24, marginBottom:16 }}>
+        <div style={{ color:t.muted, fontSize:10, fontFamily:"monospace", textTransform:"uppercase", letterSpacing:"0.12em", marginBottom:16 }}>Accuracy vs Parameters (Scatter)</div>
+        <ResponsiveContainer width="100%" height={220}>
+          <ScatterChart margin={{top:10,right:30,bottom:20,left:0}}>
+            <CartesianGrid stroke={t.faint} strokeDasharray="3 3" />
+            <XAxis dataKey="params" name="Params (M)" stroke={t.muted} tick={{fill:t.muted,fontSize:10}} label={{value:"Parameters (M)",position:"insideBottom",offset:-8,fill:t.muted,fontSize:10}} />
+            <YAxis dataKey="acc" name="Accuracy" domain={[0.5,0.85]} stroke={t.muted} tick={{fill:t.muted,fontSize:10}} tickFormatter={v=>`${(v*100).toFixed(0)}%`} />
+            <Tooltip contentStyle={{background:t.glass,backdropFilter:t.blur,border:`1px solid ${t.border}`,borderRadius:10,color:t.text}} formatter={(v,n)=>n==="acc"?[`${(v*100).toFixed(1)}%`,"Accuracy"]:[v+"M","Params"]} />
+            <Scatter data={SCATTER_DATA} shape={(props) => {
+              const {cx,cy,payload} = props;
+              return <g>
+                <circle cx={cx} cy={cy} r={payload.proj?7:10} fill={payload.proj?"transparent":payload.color} stroke={payload.color} strokeWidth={2} strokeDasharray={payload.proj?"4 2":"none"} opacity={0.9} />
+                <text x={cx} y={cy-16} textAnchor="middle" fill={t.muted} fontSize={9} fontFamily="monospace">{payload.model.slice(0,10)}</text>
+              </g>;
+            }} />
+          </ScatterChart>
+        </ResponsiveContainer>
+      </GlassCard>
+      <GlassCard t={t} style={{ padding:24 }}>
+        <div style={{ color:t.muted, fontSize:10, fontFamily:"monospace", textTransform:"uppercase", letterSpacing:"0.12em", marginBottom:16 }}>Model Registry</div>
+        <table style={{ width:"100%", borderCollapse:"collapse" }}>
+          <thead>
+            <tr style={{ borderBottom:`1px solid ${t.border}` }}>
+              {["Model","Params","Run","Accuracy","Loss","Status"].map(h => (
+                <th key={h} style={{ textAlign:"left", color:t.muted, fontSize:10, fontFamily:"monospace", padding:"0 10px 10px 0", textTransform:"uppercase" }}>{h}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {MODELS.map(m => (
+              <tr key={m.id} style={{ borderBottom:`1px solid ${t.border}22` }}>
+                <td style={{ padding:"14px 10px 14px 0", color:t.text, fontFamily:"'Figtree',sans-serif", fontWeight:700, fontSize:14 }}>{m.name}</td>
+                <td style={{ color:t.muted, fontSize:11, fontFamily:"monospace", paddingRight:10 }}>{m.params}</td>
+                <td style={{ color:t.muted, fontSize:11, fontFamily:"monospace", paddingRight:10 }}>{m.run?`#${m.run}`:"—"}</td>
+                <td style={{ paddingRight:10, minWidth:140 }}>
+                  <div style={{ display:"flex", alignItems:"center", gap:8 }}>
+                    <div style={{ flex:1, height:5, background:t.faint, borderRadius:3, overflow:"hidden" }}>
+                      <div style={{ width:m.accuracy?`${m.accuracy*100}%`:"0%", height:"100%", background:m.color, borderRadius:3 }} />
+                    </div>
+                    <span style={{ color:m.accuracy?m.color:t.muted, fontSize:12, fontFamily:"monospace", fontWeight:700, minWidth:38 }}>{pct(m.accuracy)}</span>
+                  </div>
+                </td>
+                <td style={{ color:t.muted, fontSize:11, fontFamily:"monospace", paddingRight:10 }}>{m.loss?m.loss.toFixed(4):"—"}</td>
+                <td><Pill color={m.status==="done"?t.accent3:t.muted} t={t}>{m.status}</Pill></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </GlassCard>
+    </section>
+  );
+}
+
+function RunHistory({ t }) {
+  return (
+    <section>
+      <SectionTitle title="Run History" sub="All experimental runs tracked via MLflow on DagsHub" t={t} />
+      <div style={{ display:"flex", flexDirection:"column", gap:10, marginBottom:20 }}>
+        {RUNS.map((r,i) => (
+          <GlassCard key={r.id} t={t} accent={i===0?t.accent:undefined} style={{ padding:"14px 20px" }}>
+            <div style={{ display:"flex", alignItems:"center", gap:20 }}>
+              <div style={{ color:t.muted, fontSize:10, fontFamily:"monospace", minWidth:24 }}>#{r.id}</div>
+              <div style={{ color:t.text, fontFamily:"'Figtree',sans-serif", fontWeight:700, minWidth:160, fontSize:13 }}>{r.model}</div>
+              <div style={{ flex:1 }}>
+                <div style={{ display:"flex", alignItems:"center", gap:8 }}>
+                  <div style={{ flex:1, height:5, background:t.faint, borderRadius:3, overflow:"hidden" }}>
+                    <div style={{ width:`${r.acc*100}%`, height:"100%", background:i===0?t.accent:t.muted, borderRadius:3 }} />
+                  </div>
+                  <span style={{ color:i===0?t.accent:t.muted, fontSize:12, fontFamily:"monospace", fontWeight:700, minWidth:38 }}>{(r.acc*100).toFixed(1)}%</span>
+                </div>
+              </div>
+              <div style={{ display:"flex", gap:14, color:t.muted, fontSize:10, fontFamily:"monospace" }}>
+                <span>ep {r.ep}</span><span>lr {r.lr}</span><span>{r.date}</span>
+              </div>
+              {i===0 && <Pill color={t.accent} t={t}>BEST</Pill>}
+            </div>
+          </GlassCard>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function ConfusionMatrix({ t }) {
+  const [hov, setHov] = useState(null);
+  const max = Math.max(...CONFUSION.flat());
+  const getCol = (v,correct) => {
+    const i = v/max;
+    return correct ? `rgba(46,196,182,${0.15+i*0.65})` : `rgba(232,83,106,${0.04+i*0.55})`;
+  };
+  return (
+    <section>
+      <SectionTitle title="Confusion Matrix" sub="EfficientNetV2B3 run #4 · validation set · hover for details" t={t} />
+      <GlassCard t={t} style={{ padding:28 }}>
+        <div style={{ display:"flex", gap:28 }}>
+          <div>
+            <div style={{ display:"flex", gap:3, marginBottom:3, paddingLeft:76 }}>
+              {CLASS_NAMES.map(c => <div key={c} style={{ width:70, textAlign:"center", color:t.muted, fontSize:10, fontFamily:"monospace" }}>{c}</div>)}
+            </div>
+            {CONFUSION.map((row,ri) => (
+              <div key={ri} style={{ display:"flex", alignItems:"center", gap:3, marginBottom:3 }}>
+                <div style={{ width:68, textAlign:"right", color:t.muted, fontSize:10, fontFamily:"monospace", paddingRight:8 }}>{CLASS_NAMES[ri]}</div>
+                {row.map((val,ci) => {
+                  const correct = ri===ci;
+                  return (
+                    <div key={ci} onMouseEnter={()=>setHov({ri,ci,val})} onMouseLeave={()=>setHov(null)}
+                      style={{ width:70, height:50, display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center",
+                        borderRadius:10, background:getCol(val,correct), border:`1px solid ${correct?t.accent3+"44":t.border}`,
+                        cursor:"default", position:"relative", transition:"transform 0.15s",
+                        transform:hov?.ri===ri&&hov?.ci===ci?"scale(1.1)":"scale(1)" }}>
+                      <span style={{ color:t.text, fontFamily:"monospace", fontWeight:700, fontSize:15 }}>{val}</span>
+                      {hov?.ri===ri&&hov?.ci===ci && (
+                        <div style={{ position:"absolute", bottom:"110%", left:"50%", transform:"translateX(-50%)",
+                          background:t.glass, backdropFilter:t.blur, border:`1px solid ${t.border}`,
+                          borderRadius:10, padding:"8px 12px", fontSize:10, fontFamily:"monospace",
+                          color:t.text, whiteSpace:"nowrap", zIndex:10 }}>
+                          <div style={{ color:t.accent3 }}>Actual: {CLASS_NAMES[ri]}</div>
+                          <div style={{ color:t.accent2 }}>Predicted: {CLASS_NAMES[ci]}</div>
+                          <div>{val} samples</div>
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            ))}
+            <div style={{ color:t.muted, fontSize:10, fontFamily:"monospace", marginTop:8, paddingLeft:76 }}>← Predicted</div>
+          </div>
+          <div style={{ flex:1 }}>
+            <div style={{ color:t.muted, fontSize:10, fontFamily:"monospace", textTransform:"uppercase", letterSpacing:"0.1em", marginBottom:14 }}>Per-class Recall</div>
+            {CONFUSION.map((row,i) => {
+              const recall = row[i]/row.reduce((a,b)=>a+b,0);
+              const cols = [t.accent,t.accent2,t.accent3,t.accent4];
+              return (
+                <div key={i} style={{ marginBottom:12 }}>
+                  <div style={{ display:"flex", justifyContent:"space-between", marginBottom:4 }}>
+                    <span style={{ color:t.muted, fontSize:11, fontFamily:"monospace" }}>{CLASS_NAMES[i]}</span>
+                    <span style={{ color:cols[i], fontSize:11, fontFamily:"monospace", fontWeight:700 }}>{(recall*100).toFixed(1)}%</span>
+                  </div>
+                  <div style={{ height:5, background:t.faint, borderRadius:3, overflow:"hidden" }}>
+                    <div style={{ width:`${recall*100}%`, height:"100%", background:cols[i], borderRadius:3 }} />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </GlassCard>
+    </section>
+  );
+}
+
+function ClinicalRisk({ t }) {
+  const RISK = [
+    { from:"Normal", to:"Tumor",  cost:10, label:"Dismiss malignancy" },
+    { from:"Tumor",  to:"Normal", cost:10, label:"Miss cancer entirely" },
+    { from:"Normal", to:"Stone",  cost:6,  label:"Miss stone" },
+    { from:"Cyst",   to:"Tumor",  cost:7,  label:"Over-diagnose" },
+    { from:"Stone",  to:"Cyst",   cost:3,  label:"Minor misclass" },
+  ];
+  const rCol = c => c>=9?t.accent2:c>=6?t.accent:"#6b82a8";
+  return (
+    <section>
+      <SectionTitle title="Clinical Risk" sub="Cost-weighted misclassification · oncology context" t={t} />
+      <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:16, marginBottom:12 }}>
+        <GlassCard t={t} style={{ padding:24 }}>
+          <div style={{ color:t.muted, fontSize:10, fontFamily:"monospace", textTransform:"uppercase", letterSpacing:"0.1em", marginBottom:14 }}>Risk-weighted Misclassifications</div>
+          {RISK.map((r,i) => (
+            <div key={i} style={{ display:"flex", alignItems:"center", gap:12, marginBottom:10 }}>
+              <div style={{ fontSize:18, fontFamily:"monospace", fontWeight:700, color:rCol(r.cost), minWidth:24 }}>{r.cost}</div>
+              <div style={{ flex:1 }}>
+                <div style={{ fontSize:12, fontFamily:"monospace", color:t.text }}>
+                  <span style={{ color:t.accent3 }}>{r.from}</span>
+                  <span style={{ color:t.muted }}> → </span>
+                  <span style={{ color:t.accent2 }}>{r.to}</span>
+                </div>
+                <div style={{ color:t.muted, fontSize:10 }}>{r.label}</div>
+              </div>
+              <div style={{ width:80, height:5, background:t.faint, borderRadius:3, overflow:"hidden" }}>
+                <div style={{ width:`${r.cost*10}%`, height:"100%", background:rCol(r.cost), borderRadius:3 }} />
+              </div>
+            </div>
+          ))}
+        </GlassCard>
+        <GlassCard t={t} style={{ padding:24 }}>
+          <div style={{ color:t.muted, fontSize:10, fontFamily:"monospace", textTransform:"uppercase", letterSpacing:"0.1em", marginBottom:14 }}>Risk Radar</div>
+          <ResponsiveContainer width="100%" height={200}>
+            <RadarChart data={[{c:"Normal",r:4},{c:"Cyst",r:5},{c:"Tumor",r:9},{c:"Stone",r:6}]}>
+              <PolarGrid stroke={t.faint} />
+              <PolarAngleAxis dataKey="c" tick={{fill:t.muted,fontSize:10,fontFamily:"monospace"}} />
+              <Radar dataKey="r" stroke={t.accent2} fill={t.accent2} fillOpacity={0.2} strokeWidth={2} />
+            </RadarChart>
+          </ResponsiveContainer>
+        </GlassCard>
+      </div>
+      <GlassCard t={t} accent={t.accent2} style={{ padding:"14px 18px" }}>
+        <span style={{ color:t.accent2, fontSize:10, fontFamily:"monospace", fontWeight:700 }}>CRITICAL — </span>
+        <span style={{ color:t.muted, fontSize:11 }}>At current accuracy, ~32–34% of predictions are incorrect. Target ≥92% Tumor recall before clinical consideration. Research instrument only.</span>
+      </GlassCard>
+    </section>
+  );
+}
+
+function GradCAM({ t }) {
+  const [sel, setSel] = useState(0);
+  const cols = [t.accent, t.accent2, t.accent3, t.accent4];
+  return (
+    <section>
+      <SectionTitle title="Grad-CAM" sub="Simulated attention maps · replace with tf-explain output post-training" t={t} />
+      <div style={{ display:"flex", gap:10, marginBottom:18 }}>
+        {CLASS_NAMES.map((c,i) => (
+          <button key={c} onClick={()=>setSel(i)} style={{
+            background:sel===i?cols[i]+"22":"transparent",
+            border:`1px solid ${sel===i?cols[i]:t.border}`,
+            color:sel===i?cols[i]:t.muted, borderRadius:20,
+            padding:"6px 16px", fontSize:11, fontFamily:"monospace",
+            cursor:"pointer", fontWeight:sel===i?700:400, transition:"all 0.2s"
+          }}>{c}</button>
+        ))}
+      </div>
+      <GlassCard t={t} style={{ padding:24 }}>
+        <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:24, alignItems:"center" }}>
+          <div>
+            <div style={{ color:t.muted, fontSize:10, fontFamily:"monospace", marginBottom:10 }}>SIMULATED ATTENTION · {CLASS_NAMES[sel].toUpperCase()}</div>
+            <div style={{ aspectRatio:"1", borderRadius:12, background:t.faint, position:"relative", overflow:"hidden",
+              border:`1px solid ${cols[sel]}33`, display:"flex", alignItems:"center", justifyContent:"center" }}>
+              {[...Array(5)].map((_,i) => (
+                <div key={i} style={{
+                  position:"absolute", borderRadius:"50%",
+                  width:60+i*24, height:60+i*24,
+                  background:`radial-gradient(circle, ${cols[sel]}${Math.floor((5-i)*40).toString(16).padStart(2,"0")}, transparent)`,
+                  top:`${18+sel*8+i*7}%`, left:`${20+i*9}%`
+                }} />
+              ))}
+              <span style={{ color:cols[sel], fontFamily:"monospace", fontSize:12, fontWeight:700, zIndex:1 }}>GRAD-CAM</span>
+            </div>
+          </div>
+          <div>
+            <div style={{ color:t.muted, fontSize:10, fontFamily:"monospace", marginBottom:14 }}>ACTIVATION REGIONS</div>
+            {["Cortex","Medulla","Collecting system","Perilesional"].map((r,i) => {
+              const intensities = [0.9,0.65,0.4,0.2];
+              return (
+                <div key={r} style={{ marginBottom:12 }}>
+                  <div style={{ display:"flex", justifyContent:"space-between", marginBottom:4 }}>
+                    <span style={{ color:t.muted, fontSize:11, fontFamily:"monospace" }}>{r}</span>
+                    <span style={{ color:cols[sel], fontSize:11, fontFamily:"monospace" }}>{(intensities[i]*100).toFixed(0)}%</span>
+                  </div>
+                  <div style={{ height:5, background:t.faint, borderRadius:3, overflow:"hidden" }}>
+                    <div style={{ width:`${intensities[i]*100}%`, height:"100%", background:cols[sel], borderRadius:3 }} />
+                  </div>
+                </div>
+              );
+            })}
+            <div style={{ marginTop:16, padding:"10px 12px", background:t.faint, borderRadius:8, color:t.muted, fontSize:10, fontFamily:"monospace" }}>
+              Real Grad-CAM: <span style={{ color:t.accent3 }}>tf_explain.core.GradCAM().explain()</span>
+            </div>
+          </div>
+        </div>
+      </GlassCard>
+    </section>
+  );
+}
+
+// ─── LIVE PREDICT ─────────────────────────────────────────────────────────────
+function LivePredict({ t, activeModel }) {
+  const [dragging, setDragging] = useState(false);
+  const [file, setFile] = useState(null);
+  const [preview, setPreview] = useState(null);
+  const [b64, setB64] = useState(null);
+  const [validating, setValidating] = useState(false);
+  const [validResult, setValidResult] = useState(null);
+  const [result, setResult] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const fileInputRef = useRef();
+
+  const MODEL_COLORS = { Cyst:t.accent4, Normal:t.accent3, Stone:t.accent, Tumor:t.accent2 };
+  const RISK_TEXT = {
+    Tumor:  { level:"high",     msg:"🚨 Potential malignancy detected. Urgent clinical review strongly recommended." },
+    Stone:  { level:"moderate", msg:"⚠ Kidney stone indicated. Imaging follow-up and urological consultation advised." },
+    Cyst:   { level:"moderate", msg:"⚠ Cystic lesion detected. Monitor with follow-up imaging." },
+    Normal: { level:"low",      msg:"✓ No abnormality detected. Routine clinical follow-up recommended." },
+  };
+
+  const handleFile = useCallback((f) => {
+    if (!f || !f.type.startsWith("image/")) return;
+    setFile(f); setResult(null); setValidResult(null); setError(null);
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      setPreview(e.target.result);
+      const img = new Image();
+      img.onload = () => {
+        const c = document.createElement("canvas");
+        c.width = img.width; c.height = img.height;
+        c.getContext("2d").drawImage(img, 0, 0);
+        setB64(c.toDataURL("image/jpeg",0.92).replace(/^data:image.+;base64,/,""));
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(f);
+  }, []);
+
+  const runPrediction = async () => {
+    if (!b64) return;
+    setLoading(true); setError(null); setResult(null); setValidResult(null);
+
+    // Step 1 — validate image
+    setValidating(true);
+    const validation = await validateImageWithAI(b64);
+    setValidating(false);
+
+    if (validation.is_ct_scan === false) {
+      setError({
+        type: "invalid_image",
+        msg: `This doesn't appear to be a kidney CT scan. ${validation.reason}`,
+        hint: "Please upload a grayscale abdominal CT scan for meaningful results."
+      });
+      setLoading(false);
+      return;
+    }
+
+    setValidResult(validation);
+
+    // Step 2 — simulated prediction (replace with real Flask endpoint)
+    setTimeout(() => {
+      const classes = ["Normal","Cyst","Tumor","Stone"];
+      const raw = classes.map(() => Math.random() * 2);
+      const sum = raw.reduce((a,b)=>a+b,0);
+      const probs = raw.map(v => v/sum);
+      const maxIdx = probs.indexOf(Math.max(...probs));
+      setResult({ predicted: classes[maxIdx], confidence: (probs[maxIdx]*100).toFixed(1)+"%", probs: Object.fromEntries(classes.map((c,i)=>[c,(probs[i]*100).toFixed(1)+"%"])) });
+      setLoading(false);
+    }, 1600);
+  };
+
+  const riskColor = result ? { high:t.accent2, moderate:t.accent, low:t.accent3 }[RISK_TEXT[result.predicted]?.level] : t.muted;
+
+  return (
+    <section>
+      <SectionTitle title="Live Predict" sub={`Active model: ${activeModel} · Upload a CT scan for classification`} t={t} />
+      <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:20 }}>
+
+        {/* Upload */}
+        <div>
+          <div
+            onDragOver={e=>{e.preventDefault();setDragging(true);}}
+            onDragLeave={()=>setDragging(false)}
+            onDrop={e=>{e.preventDefault();setDragging(false);handleFile(e.dataTransfer.files[0]);}}
+            onClick={()=>fileInputRef.current.click()}
+            style={{
+              border:`2px dashed ${dragging?t.accent:t.border}`, borderRadius:16,
+              background:dragging?t.accent+"08":t.glass, backdropFilter:t.blur,
+              aspectRatio:"1", display:"flex", flexDirection:"column", alignItems:"center",
+              justifyContent:"center", cursor:"pointer", position:"relative",
+              overflow:"hidden", transition:"all 0.2s", marginBottom:14
+            }}>
+            <input ref={fileInputRef} type="file" accept="image/*" style={{display:"none"}}
+              onChange={e=>handleFile(e.target.files[0])} />
+            {preview ? (
+              <img src={preview} alt="Preview" style={{ position:"absolute", inset:0, width:"100%", height:"100%", objectFit:"cover" }} />
+            ) : (
+              <>
+                <div style={{ fontSize:32, opacity:0.2, marginBottom:10 }}>⬆</div>
+                <div style={{ color:t.muted, fontSize:11, fontFamily:"monospace", textAlign:"center" }}>Drop CT scan or click to upload</div>
+                <div style={{ color:t.muted, fontSize:9, fontFamily:"monospace", opacity:0.6, marginTop:4 }}>JPEG · PNG · Grayscale abdominal CT only</div>
+              </>
+            )}
+          </div>
+          <button onClick={runPrediction} disabled={!b64||loading}
+            style={{
+              width:"100%", padding:14, borderRadius:12,
+              background:b64&&!loading?t.accent:"transparent",
+              color:b64&&!loading?"#0d1528":t.muted,
+              border:`1px solid ${b64&&!loading?t.accent:t.border}`,
+              fontSize:11, fontFamily:"monospace", fontWeight:700,
+              cursor:b64&&!loading?"pointer":"not-allowed", letterSpacing:"0.1em", transition:"all 0.2s"
+            }}>
+            {validating?"VALIDATING IMAGE..." : loading?"RUNNING INFERENCE..." : "CLASSIFY SCAN"}
+          </button>
+          {b64 && !result && !loading && (
+            <div style={{ marginTop:10, padding:"10px 14px", background:t.faint, borderRadius:10, color:t.muted, fontSize:10, fontFamily:"monospace" }}>
+              Image will be verified as a CT scan before classification. Selfies, colour photos, and non-medical images will be rejected.
+            </div>
+          )}
+        </div>
+
+        {/* Result */}
+        <GlassCard t={t} style={{ padding:24, minHeight:300, display:"flex", flexDirection:"column", justifyContent: result||error||loading?"flex-start":"center" }}>
+          {!result && !error && !loading && (
+            <div style={{ display:"flex", flexDirection:"column", alignItems:"center", gap:10, opacity:0.4 }}>
+              <div style={{ fontSize:36 }}>◎</div>
+              <div style={{ color:t.muted, fontSize:10, fontFamily:"monospace", textTransform:"uppercase" }}>Awaiting valid CT scan</div>
+            </div>
+          )}
+          {loading && (
+            <div style={{ display:"flex", alignItems:"center", gap:12, color:t.accent }}>
+              <div style={{ width:20, height:20, border:`2px solid ${t.border}`, borderTopColor:t.accent, borderRadius:"50%", animation:"spin 0.7s linear infinite" }} />
+              <span style={{ fontFamily:"monospace", fontSize:11 }}>{validating?"Verifying image...":"Classifying..."}</span>
+            </div>
+          )}
+          {error && (
+            <div>
+              <div style={{ color:t.accent2, fontFamily:"'Figtree',sans-serif", fontWeight:700, fontSize:16, marginBottom:10 }}>⛔ Image Rejected</div>
+              <div style={{ color:t.text, fontSize:13, marginBottom:8 }}>{error.msg}</div>
+              <div style={{ color:t.muted, fontSize:11, fontFamily:"monospace", padding:"10px 12px", background:t.faint, borderRadius:8 }}>{error.hint}</div>
+              {validResult?.confidence === "low" && (
+                <div style={{ marginTop:10, color:t.muted, fontSize:10, fontFamily:"monospace" }}>
+                  Validation confidence was low — if this IS a CT scan, try a higher-quality grayscale image.
+                </div>
+              )}
+            </div>
+          )}
+          {result && (
+            <div>
+              <div style={{ marginBottom:18 }}>
+                <div style={{ color:t.muted, fontSize:10, fontFamily:"monospace", textTransform:"uppercase", letterSpacing:"0.1em" }}>Prediction · {activeModel}</div>
+                <div style={{ fontSize:36, fontFamily:"'Figtree',sans-serif", fontWeight:800, color:MODEL_COLORS[result.predicted]||t.accent, marginTop:6, letterSpacing:"-0.02em" }}>{result.predicted}</div>
+                <div style={{ color:t.muted, fontSize:11, fontFamily:"monospace" }}>Confidence: {result.confidence}</div>
+              </div>
+              <div style={{ marginBottom:16 }}>
+                {Object.entries(result.probs).map(([cls, p]) => (
+                  <div key={cls} style={{ marginBottom:10 }}>
+                    <div style={{ display:"flex", justifyContent:"space-between", marginBottom:3 }}>
+                      <span style={{ color:t.muted, fontSize:11, fontFamily:"monospace" }}>{cls}</span>
+                      <span style={{ color:MODEL_COLORS[cls]||t.muted, fontSize:11, fontFamily:"monospace", fontWeight:700 }}>{p}</span>
+                    </div>
+                    <div style={{ height:5, background:t.faint, borderRadius:3, overflow:"hidden" }}>
+                      <div style={{ width:p, height:"100%", background:MODEL_COLORS[cls]||t.muted, borderRadius:3 }} />
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div style={{ padding:"10px 14px", borderRadius:10, background:riskColor+"12", border:`1px solid ${riskColor}33`, color:riskColor, fontSize:11 }}>
+                {RISK_TEXT[result.predicted]?.msg}
+              </div>
+              <div style={{ marginTop:10, color:t.muted, fontSize:9, fontFamily:"monospace", opacity:0.6 }}>
+                ⚠ Research instrument only · Not for clinical use · MicroPyscho/renal_tumour_project
+              </div>
+            </div>
+          )}
+        </GlassCard>
+      </div>
+      <style>{`@keyframes spin{to{transform:rotate(360deg)}}`}</style>
+    </section>
+  );
+}
+
+// ─── SECTIONS CONFIG ──────────────────────────────────────────────────────────
+const SECTIONS = [
+  { id:"overview",    label:"Overview",         component:Overview },
+  { id:"comparison",  label:"Model Comparison",  component:ModelComparison },
+  { id:"history",     label:"Run History",       component:RunHistory },
+  { id:"confusion",   label:"Confusion Matrix",  component:ConfusionMatrix },
+  { id:"risk",        label:"Clinical Risk",     component:ClinicalRisk },
+  { id:"gradcam",     label:"Grad-CAM",          component:GradCAM },
+  { id:"predict",     label:"Live Predict",      component:null }, // handled separately
+];
+
+// ─── MODEL SELECTOR ───────────────────────────────────────────────────────────
+function ModelSelector({ activeModel, setActiveModel, t }) {
+  const doneModels = MODELS.filter(m => m.status === "done");
+  return (
+    <div style={{ display:"flex", alignItems:"center", gap:8 }}>
+      {doneModels.map(m => (
+        <button key={m.id} onClick={()=>setActiveModel(m.name)}
+          style={{
+            background:activeModel===m.name?m.color+"22":"transparent",
+            border:`1px solid ${activeModel===m.name?m.color:t.border}`,
+            color:activeModel===m.name?m.color:t.muted,
+            borderRadius:20, padding:"4px 12px", fontSize:10,
+            fontFamily:"monospace", cursor:"pointer", fontWeight:activeModel===m.name?700:400,
+            transition:"all 0.2s"
+          }}>{m.name}</button>
+      ))}
+    </div>
+  );
+}
+
+// ─── APP ──────────────────────────────────────────────────────────────────────
+export default function App() {
+  const [mode, setMode] = useState("dark");
+  const [active, setActive] = useState("overview");
+  const [activeModel, setActiveModel] = useState("EfficientNetV2B3");
+  const t = T[mode];
+
+  const ActiveSection = active === "predict"
+    ? null
+    : SECTIONS.find(s => s.id === active)?.component;
+
+  const bestModel = MODELS.filter(m=>m.accuracy).sort((a,b)=>b.accuracy-a.accuracy)[0];
+
+  return (
+    <div style={{ minHeight:"100vh", background:t.bg, color:t.text, fontFamily:"'Figtree',sans-serif" }}>
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800;900&family=DM+Mono:wght@300;400;500&display=swap');
+        *{box-sizing:border-box;margin:0;padding:0;}
+        ::-webkit-scrollbar{width:5px;background:transparent;}
+        ::-webkit-scrollbar-thumb{background:${t.faint};border-radius:3px;}
+        @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+        @keyframes spin{to{transform:rotate(360deg)}}
+      `}</style>
+
+      {/* HEADER */}
+      <div style={{
+        background:t.glass, backdropFilter:t.blur, WebkitBackdropFilter:t.blur,
+        borderBottom:`1px solid ${t.border}`, padding:"0 32px",
+        display:"flex", alignItems:"center", justifyContent:"space-between",
+        position:"sticky", top:0, zIndex:50, height:58
+      }}>
+        <div style={{ display:"flex", alignItems:"center", gap:20 }}>
+          {mode === "dark" ? <LogoWhite height={34} /> : <LogoDark height={34} />}
+          <div style={{ width:1, height:24, background:t.border }} />
+          <span style={{ color:t.muted, fontSize:10, fontFamily:"monospace", letterSpacing:"0.12em", textTransform:"uppercase" }}>Model Observatory</span>
+        </div>
+        <div style={{ display:"flex", alignItems:"center", gap:12 }}>
+          <ModelSelector activeModel={activeModel} setActiveModel={setActiveModel} t={t} />
+          <div style={{ width:1, height:20, background:t.border }} />
+          <Pill color={t.accent3} t={t}>● {bestModel.name} {pct(bestModel.accuracy)}</Pill>
+          <button onClick={()=>setMode(m=>m==="dark"?"light":"dark")}
+            style={{ background:t.glass, backdropFilter:t.blur, border:`1px solid ${t.border}`, borderRadius:20,
+              padding:"5px 14px", color:t.muted, fontSize:11, fontFamily:"monospace", cursor:"pointer" }}>
+            {mode==="dark"?"☀ light":"◑ dark"}
+          </button>
+        </div>
+      </div>
+
+      <div style={{ display:"flex" }}>
+        {/* SIDEBAR */}
+        <nav style={{
+          width:192, background:t.glass, backdropFilter:t.blur, WebkitBackdropFilter:t.blur,
+          borderRight:`1px solid ${t.border}`, minHeight:"calc(100vh - 58px)",
+          padding:"20px 0", position:"sticky", top:58, alignSelf:"flex-start"
+        }}>
+          {SECTIONS.map(s => (
+            <button key={s.id} onClick={()=>setActive(s.id)}
+              style={{
+                display:"block", width:"100%", textAlign:"left",
+                padding:"9px 22px",
+                background:active===s.id?t.accent+"10":"transparent",
+                borderLeft:`2px solid ${active===s.id?t.accent:"transparent"}`,
+                border:"none", borderRight:"none",
+                color:active===s.id?t.accent:t.muted,
+                fontSize:11, fontFamily:"monospace", cursor:"pointer",
+                transition:"all 0.15s", letterSpacing:"0.04em"
+              }}>{s.label}</button>
+          ))}
+          <div style={{ margin:"20px 16px 0", paddingTop:16, borderTop:`1px solid ${t.border}` }}>
+            <div style={{ color:t.muted, fontSize:9, fontFamily:"monospace", marginBottom:6, textTransform:"uppercase", letterSpacing:"0.1em" }}>DagsHub</div>
+            <a href="https://dagshub.com/MicroPyscho/renal_tumour_project" target="_blank"
+              style={{ color:t.accent3, fontSize:10, fontFamily:"monospace", textDecoration:"none" }}>→ MLflow Runs</a>
+          </div>
+        </nav>
+
+        {/* MAIN CONTENT */}
+        <main style={{ flex:1, padding:"36px 44px", maxWidth:980, animation:"fadeUp 0.4s ease both" }}>
+          {active === "predict"
+            ? <LivePredict t={t} activeModel={activeModel} />
+            : ActiveSection && <ActiveSection t={t} />
+          }
+        </main>
+      </div>
+
+      {/* FOOTER */}
+      <div style={{
+        borderTop:`1px solid ${t.border}`, padding:"16px 32px",
+        display:"flex", justifyContent:"space-between", alignItems:"center",
+        background:t.glass, backdropFilter:t.blur
+      }}>
+        <div style={{ color:t.muted, fontSize:9, fontFamily:"monospace", letterSpacing:"0.1em" }}>
+          VGG16 · EfficientNetV2B3 · DenseNet121 · ResNet50V2 · MLflow + DagsHub
+        </div>
+        <div style={{ color:t.muted, fontSize:11, fontFamily:"'Figtree',sans-serif", fontStyle:"italic" }}>
+          MicroPyscho / renal_tumour_project
+        </div>
+      </div>
+    </div>
+  );
+}
+

@@ -2408,3 +2408,150 @@ x==========x]
 [2026-05-29 23:59:38,927: INFO: stage_04_model_evaluation: >>>>> stage Evaluation Stage completed <<<<<
 
 x==========x]
+[2026-05-30 01:49:47,239: INFO: _internal: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:80
+ * Running on http://192.168.0.45:80]
+[2026-05-30 01:49:47,240: INFO: _internal: [33mPress CTRL+C to quit[0m]
+[2026-05-30 01:55:44,286: INFO: _internal: 127.0.0.1 - - [30/May/2026 01:55:44] "GET / HTTP/1.1" 200 -]
+[2026-05-30 01:58:04,042: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-30 01:58:06,910: INFO: _internal: 127.0.0.1 - - [30/May/2026 01:58:06] "POST /predict HTTP/1.1" 200 -]
+[2026-05-30 01:58:54,839: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-30 01:58:57,181: INFO: _internal: 127.0.0.1 - - [30/May/2026 01:58:57] "POST /predict HTTP/1.1" 200 -]
+[2026-05-30 01:59:17,507: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-30 01:59:19,866: INFO: _internal: 127.0.0.1 - - [30/May/2026 01:59:19] "POST /predict HTTP/1.1" 200 -]
+[2026-05-30 10:08:55,205: INFO: _internal: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.0.45:8080]
+[2026-05-30 10:08:55,205: INFO: _internal: [33mPress CTRL+C to quit[0m]
+[2026-05-30 10:09:08,837: INFO: _internal: 192.168.0.45 - - [30/May/2026 10:09:08] "GET / HTTP/1.1" 200 -]
+[2026-05-30 10:09:10,527: INFO: _internal: 192.168.0.45 - - [30/May/2026 10:09:10] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -]
+[2026-05-30 10:10:24,594: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-30 10:10:27,504: INFO: _internal: 192.168.0.45 - - [30/May/2026 10:10:27] "POST /predict HTTP/1.1" 200 -]
+[2026-05-30 10:11:28,328: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-30 10:11:30,641: INFO: _internal: 192.168.0.45 - - [30/May/2026 10:11:30] "POST /predict HTTP/1.1" 200 -]
+[2026-05-30 10:14:13,502: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-30 10:14:16,172: INFO: _internal: 192.168.0.45 - - [30/May/2026 10:14:16] "POST /predict HTTP/1.1" 200 -]
+[2026-05-30 10:46:43,631: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-30 10:46:46,212: INFO: _internal: 192.168.0.45 - - [30/May/2026 10:46:46] "POST /predict HTTP/1.1" 200 -]
+[2026-05-30 10:47:04,092: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-30 10:47:06,512: WARNING: polymorphic_function: 5 out of the last 5 calls to <function TensorFlowTrainer.make_predict_function.<locals>.one_step_on_data_distributed at 0x308c4a660> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.]
+[2026-05-30 10:47:06,520: INFO: _internal: 192.168.0.45 - - [30/May/2026 10:47:06] "POST /predict HTTP/1.1" 200 -]
+[2026-05-30 10:47:24,420: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-30 10:47:27,145: WARNING: polymorphic_function: 6 out of the last 6 calls to <function TensorFlowTrainer.make_predict_function.<locals>.one_step_on_data_distributed at 0x16176bb00> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.]
+[2026-05-30 10:47:27,156: INFO: _internal: 192.168.0.45 - - [30/May/2026 10:47:27] "POST /predict HTTP/1.1" 200 -]
+[2026-05-30 10:47:44,093: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-30 10:47:46,559: INFO: _internal: 192.168.0.45 - - [30/May/2026 10:47:46] "POST /predict HTTP/1.1" 200 -]
+[2026-05-30 10:48:12,107: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-30 10:48:14,882: INFO: _internal: 192.168.0.45 - - [30/May/2026 10:48:14] "POST /predict HTTP/1.1" 200 -]
+[2026-05-30 10:48:40,008: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-30 10:48:42,538: INFO: _internal: 192.168.0.45 - - [30/May/2026 10:48:42] "POST /predict HTTP/1.1" 200 -]
+[2026-05-30 10:49:08,997: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-30 10:49:11,508: INFO: _internal: 192.168.0.45 - - [30/May/2026 10:49:11] "POST /predict HTTP/1.1" 200 -]
+[2026-05-30 10:50:27,058: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-30 10:50:30,058: INFO: _internal: 192.168.0.45 - - [30/May/2026 10:50:30] "POST /predict HTTP/1.1" 200 -]
+[2026-05-30 15:15:48,969: INFO: common: yaml file: params.yaml loaded successfully]
+[2026-05-30 15:15:51,872: INFO: _internal: 192.168.0.45 - - [30/May/2026 15:15:51] "POST /predict HTTP/1.1" 200 -]
+[2026-05-30 16:06:24,386: INFO: _internal: 192.168.0.45 - - [30/May/2026 16:06:24] "GET / HTTP/1.1" 200 -]
+[2026-05-30 16:06:29,168: INFO: _internal: 192.168.0.45 - - [30/May/2026 16:06:29] "GET / HTTP/1.1" 200 -]
+[2026-05-30 16:06:30,756: INFO: _internal: 192.168.0.45 - - [30/May/2026 16:06:30] "GET / HTTP/1.1" 200 -]
+[2026-05-30 16:06:32,043: INFO: _internal: 192.168.0.45 - - [30/May/2026 16:06:32] "GET / HTTP/1.1" 200 -]
+[2026-05-30 16:06:32,686: INFO: _internal: 192.168.0.45 - - [30/May/2026 16:06:32] "GET / HTTP/1.1" 200 -]
+[2026-05-30 16:08:03,102: INFO: _internal: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:80
+ * Running on http://192.168.0.45:80]
+[2026-05-30 16:08:03,102: INFO: _internal: [33mPress CTRL+C to quit[0m]
+[2026-05-30 16:08:43,407: ERROR: app: Exception on / [GET]]
+Traceback (most recent call last):
+  File "/opt/homebrew/Caskroom/miniforge/base/lib/python3.13/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/opt/homebrew/Caskroom/miniforge/base/lib/python3.13/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/opt/homebrew/Caskroom/miniforge/base/lib/python3.13/site-packages/flask_cors/extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ~^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Caskroom/miniforge/base/lib/python3.13/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/opt/homebrew/Caskroom/miniforge/base/lib/python3.13/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/opt/homebrew/Caskroom/miniforge/base/lib/python3.13/site-packages/flask_cors/decorator.py", line 121, in wrapped_function
+    resp = make_response(f(*args, **kwargs))
+                         ~^^^^^^^^^^^^^^^^^
+  File "/Users/HP/Documents/GitHub/renal_tumour_project/app.py", line 22, in home
+    return render_template("index.html")
+  File "/opt/homebrew/Caskroom/miniforge/base/lib/python3.13/site-packages/flask/templating.py", line 150, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "/opt/homebrew/Caskroom/miniforge/base/lib/python3.13/site-packages/jinja2/environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Caskroom/miniforge/base/lib/python3.13/site-packages/jinja2/environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Caskroom/miniforge/base/lib/python3.13/site-packages/jinja2/environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "/opt/homebrew/Caskroom/miniforge/base/lib/python3.13/site-packages/jinja2/loaders.py", line 138, in load
+    code = environment.compile(source, name, filename)
+  File "/opt/homebrew/Caskroom/miniforge/base/lib/python3.13/site-packages/jinja2/environment.py", line 771, in compile
+    self.handle_exception(source=source_hint)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Caskroom/miniforge/base/lib/python3.13/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/Users/HP/Documents/GitHub/renal_tumour_project/templates/index.html", line 25, in template
+    <svg height={height} viewBox="0 0 612 121.03" xmlns="http://www.w3.org/2000/svg" style={{width:"auto"}}>
+    ^^^^^^^^^^^^^^^^^^^^^^^
+jinja2.exceptions.TemplateSyntaxError: expected token 'end of print statement', got ':'
+[2026-05-30 16:08:43,427: INFO: _internal: 192.168.0.45 - - [30/May/2026 16:08:43] "[35m[1mGET / HTTP/1.1[0m" 500 -]
+[2026-05-30 16:08:43,444: INFO: _internal: 192.168.0.45 - - [30/May/2026 16:08:43] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -]
+[2026-05-30 16:08:50,795: ERROR: app: Exception on / [GET]]
+Traceback (most recent call last):
+  File "/opt/homebrew/Caskroom/miniforge/base/lib/python3.13/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/opt/homebrew/Caskroom/miniforge/base/lib/python3.13/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/opt/homebrew/Caskroom/miniforge/base/lib/python3.13/site-packages/flask_cors/extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ~^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Caskroom/miniforge/base/lib/python3.13/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/opt/homebrew/Caskroom/miniforge/base/lib/python3.13/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/opt/homebrew/Caskroom/miniforge/base/lib/python3.13/site-packages/flask_cors/decorator.py", line 121, in wrapped_function
+    resp = make_response(f(*args, **kwargs))
+                         ~^^^^^^^^^^^^^^^^^
+  File "/Users/HP/Documents/GitHub/renal_tumour_project/app.py", line 22, in home
+    return render_template("index.html")
+  File "/opt/homebrew/Caskroom/miniforge/base/lib/python3.13/site-packages/flask/templating.py", line 150, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "/opt/homebrew/Caskroom/miniforge/base/lib/python3.13/site-packages/jinja2/environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Caskroom/miniforge/base/lib/python3.13/site-packages/jinja2/environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Caskroom/miniforge/base/lib/python3.13/site-packages/jinja2/environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "/opt/homebrew/Caskroom/miniforge/base/lib/python3.13/site-packages/jinja2/loaders.py", line 138, in load
+    code = environment.compile(source, name, filename)
+  File "/opt/homebrew/Caskroom/miniforge/base/lib/python3.13/site-packages/jinja2/environment.py", line 771, in compile
+    self.handle_exception(source=source_hint)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Caskroom/miniforge/base/lib/python3.13/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/Users/HP/Documents/GitHub/renal_tumour_project/templates/index.html", line 25, in template
+    <svg height={height} viewBox="0 0 612 121.03" xmlns="http://www.w3.org/2000/svg" style={{width:"auto"}}>
+    ^^^^^^^^^^^^^^^^^^^^^^^
+jinja2.exceptions.TemplateSyntaxError: expected token 'end of print statement', got ':'
+[2026-05-30 16:08:50,799: INFO: _internal: 192.168.0.45 - - [30/May/2026 16:08:50] "[35m[1mGET / HTTP/1.1[0m" 500 -]
+[2026-05-30 16:31:25,235: INFO: _internal: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:80
+ * Running on http://192.168.0.45:80]
+[2026-05-30 16:31:25,235: INFO: _internal: [33mPress CTRL+C to quit[0m]
+[2026-05-30 16:31:45,144: INFO: _internal: 192.168.0.45 - - [30/May/2026 16:31:45] "GET / HTTP/1.1" 200 -]
+[2026-05-30 16:31:46,053: INFO: _internal: 192.168.0.45 - - [30/May/2026 16:31:46] "[33mGET /{preview} HTTP/1.1[0m" 404 -]
+[2026-05-30 16:32:03,732: INFO: _internal: 192.168.0.45 - - [30/May/2026 16:32:03] "GET / HTTP/1.1" 200 -]
+[2026-05-30 16:32:03,742: INFO: _internal: 192.168.0.45 - - [30/May/2026 16:32:03] "[33mGET /{preview} HTTP/1.1[0m" 404 -]
