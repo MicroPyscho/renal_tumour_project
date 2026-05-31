@@ -7300,3 +7300,6 @@ ValueError: File not found: filepath=artifacts/training/ResNet50V2.keras. Please
 [2026-05-31 11:14:02,648: INFO: _internal: 192.168.0.45 - - [31/May/2026 11:14:02] "GET /scores HTTP/1.1" 200 -]
 [2026-05-31 11:14:10,651: INFO: _internal: 192.168.0.45 - - [31/May/2026 11:14:10] "GET /scores HTTP/1.1" 200 -]
 [2026-05-31 11:14:18,655: INFO: _internal: 192.168.0.45 - - [31/May/2026 11:14:18] "GET /scores HTTP/1.1" 200 -]
+[2026-05-31 11:14:26,658: INFO: _internal: 192.168.0.45 - - [31/May/2026 11:14:26] "GET /scores HTTP/1.1" 200 -]
+[2026-05-31 11:14:34,660: INFO: _internal: 192.168.0.45 - - [31/May/2026 11:14:34] "GET /scores HTTP/1.1" 200 -]
+[2026-05-31 11:14:42,668: INFO: _internal: 192.168.0.45 - - [31/May/2026 11:14:42] "GET /scores HTTP/1.1" 200 -]
