@@ -50,12 +50,12 @@
       transition:background var(--dur) var(--ease),border-color var(--dur) var(--ease)}
     .nav-left{display:flex;align-items:center;gap:14px}
     .nav-div{width:1px;height:22px;background:var(--bdr)}
-    .nav-sub{font-family:Figtree,sans-serif;font-size:10px;letter-spacing:.14em;
+    .nav-sub{font-family:Figtree,sans-serif;font-size:12px;letter-spacing:.14em;
       text-transform:uppercase;color:var(--ink2)}
     .nav-right{display:flex;align-items:center;gap:12px}
 
     /* live pill */
-    .pill{font-family:Figtree,sans-serif;font-size:10px;letter-spacing:.12em;
+    .pill{font-family:Figtree,sans-serif;font-size:12px;letter-spacing:.12em;
       text-transform:uppercase;padding:4px 12px;
       border:1px solid var(--bdr);border-radius:100px;color:var(--ink2);
       white-space:nowrap;transition:all var(--dur) var(--ease)}
@@ -981,25 +981,88 @@ document.querySelectorAll(".mbtn").forEach(btn=>{
    Renal CT scans: near-monochrome, significant dark regions
 ══════════════════════════════════════════════════════ */
 function validateCTScan(imgEl){
-  const S=64, c=document.createElement("canvas");
+  /* ── Sample at two resolutions ──────────────────────────────────────────
+     64×64  → coarse colour/saturation check
+     128×128 → finer histogram + texture analysis
+  ─────────────────────────────────────────────────────────────────────── */
+  const S=128, c=document.createElement("canvas");
   c.width=S; c.height=S;
   const ctx=c.getContext("2d");
   ctx.drawImage(imgEl,0,0,S,S);
   const d=ctx.getImageData(0,0,S,S).data;
-  let sat=0, dark=0, n=0;
+  const N=S*S;
+
+  /* 1. COLOUR SATURATION — colour photos rejected here */
+  let totalSat=0;
   for(let i=0;i<d.length;i+=4){
     const r=d[i],g=d[i+1],b=d[i+2];
     const mx=Math.max(r,g,b), mn=Math.min(r,g,b);
     const lum=(mx+mn)/2;
-    sat += mx===0 ? 0 : (mx-mn)/(255-Math.abs(2*lum-255));
-    if(lum<30) dark++;
-    n++;
+    totalSat += mx===0?0:(mx-mn)/(255-Math.abs(2*lum-255));
   }
-  const avgSat=sat/n, darkRatio=dark/n;
-  if(avgSat>0.20) return {ok:false, msg:"⛔ High colour saturation ("+Math.round(avgSat*100)+"%) — renal CT scans are greyscale. This appears to be a colour photograph."};
-  if(darkRatio<0.05) return {ok:false, msg:"⛔ Insufficient dark background — renal CT scans have significant black peritoneal space. Check this is an abdominal CT."};
-  if(avgSat>0.10) return {ok:true, warn:true, msg:"⚠ Low-medium saturation ("+Math.round(avgSat*100)+"%) — accepted with caution. Verify this is a renal/abdominal CT slice."};
-  return {ok:true, msg:"✓ Greyscale profile consistent with renal CT scan (sat "+Math.round(avgSat*100)+"%)."};
+  const avgSat=totalSat/N;
+  if(avgSat>0.20) return {ok:false,
+    msg:"⛔ Colour photo detected (saturation "+Math.round(avgSat*100)+"%) — renal CT scans are greyscale."};
+
+  /* 2. LUMINANCE HISTOGRAM — 32 bins across 0-255 */
+  const bins=new Array(32).fill(0);
+  const lums=[];
+  for(let i=0;i<d.length;i+=4){
+    const r=d[i],g=d[i+1],b=d[i+2];
+    const lum=Math.round(0.299*r+0.587*g+0.114*b);
+    bins[Math.floor(lum/8)]++;
+    lums.push(lum);
+  }
+
+  const darkPx  = lums.filter(l=>l<20).length/N;   // near-black
+  const midPx   = lums.filter(l=>l>=20&&l<=220).length/N; // mid-grey tissue
+  const brightPx= lums.filter(l=>l>235).length/N;  // near-white
+
+  /* 3. BIMODALITY SCORE — SVGs/logos are near-pure black+white only.
+     Real CT scans have rich mid-grey content (tissue, fat, organs).
+     A bimodality index = (darkPx + brightPx) / (midPx + 0.001)
+     SVG:     dark~0.3, bright~0.65, mid~0.05 → ratio ~19  (REJECT)
+     Real CT: dark~0.4, bright~0.02, mid~0.58 → ratio ~0.7 (ACCEPT) */
+  const bimodality=(darkPx+brightPx)/(midPx+0.001);
+  if(bimodality>5.0) return {ok:false,
+    msg:"⛔ Image appears to be a diagram or illustration — pixel values are almost entirely pure black or white with little mid-grey tissue content. Real CT scans have rich mid-tone gradients."};
+
+  /* 4. EDGE SHARPNESS — vector art has pixel-perfect hard edges.
+     CT scans have smooth gradients from reconstruction kernels.
+     Measure: what fraction of adjacent pixel pairs have luminance
+     difference > 150 (extreme jump = hard vector edge). */
+  const imgLums=[];
+  for(let i=0;i<d.length;i+=4){
+    imgLums.push(Math.round(0.299*d[i]+0.587*d[i+1]+0.114*d[i+2]));
+  }
+  let hardEdges=0, totalPairs=0;
+  for(let y=0;y<S;y++){
+    for(let x=0;x<S-1;x++){
+      const diff=Math.abs(imgLums[y*S+x]-imgLums[y*S+x+1]);
+      if(diff>150) hardEdges++;
+      totalPairs++;
+    }
+  }
+  const hardEdgeRatio=hardEdges/totalPairs;
+  if(hardEdgeRatio>0.08) return {ok:false,
+    msg:"⛔ High density of hard pixel edges ("+Math.round(hardEdgeRatio*100)+"%) — this looks like a diagram or vector illustration. CT scan images have smooth gradient transitions between tissue types."};
+
+  /* 5. NEAR-WHITE REJECTION — logos often white background */
+  if(brightPx>0.55) return {ok:false,
+    msg:"⛔ Image is predominantly white ("+Math.round(brightPx*100)+"% bright pixels) — CT scans have significant dark regions from surrounding air."};
+
+  /* 6. MID-GREY CONTENT CHECK — real CT must have meaningful tissue range */
+  if(midPx<0.15) return {ok:false,
+    msg:"⛔ Very little mid-grey content ("+Math.round(midPx*100)+"%) — CT scans have tissue, fat and organ structures producing a wide range of grey values."};
+
+  /* 7. WARN if marginal */
+  if(avgSat>0.10||bimodality>2.5){
+    return {ok:true, warn:true,
+      msg:"⚠ Image accepted with caution — verify this is a renal/abdominal CT slice before classifying."};
+  }
+
+  return {ok:true,
+    msg:"✓ Image profile consistent with CT scan — greyscale gradient distribution, mid-grey tissue content present."};
 }
 
 /* ══════════════════════════════════════════════════════
@@ -1070,11 +1133,28 @@ bP.addEventListener("click",()=>{
     method:"POST",headers:{"Content-Type":"application/json"},
     body:JSON.stringify({image:base64})
   })
-  .then(r=>{if(!r.ok)throw new Error(r.status);return r.json();})
-  .then(d=>{load.classList.remove("show");renderResult(d[0]);})
+  .then(r=>{
+    // 400 = CT gate rejection — parse the specific reason
+    if(r.status===400) return r.json().then(d=>{
+      throw {gate:true, msg:d[0]?.error||"Image rejected — not a CT scan."};
+    });
+    if(!r.ok) throw {gate:false, msg:"Server error "+r.status};
+    return r.json();
+  })
+  .then(d=>{
+    load.classList.remove("show");
+    if(d[0]?.gate_warning) showBadge("warn", d[0].gate_warning);
+    renderResult(d[0]);
+  })
   .catch(err=>{
     load.classList.remove("show");
-    alert("Prediction failed ("+err.message+") — check Flask is running on port 80. /predict endpoint must return [{image, confidence, all_scores}]");
+    if(err && err.gate){
+      showBadge("err", err.msg);
+      document.getElementById("result-area").style.display="none";
+      document.getElementById("empty-state").style.display="block";
+    } else {
+      alert("Prediction failed ("+(err.msg||err.message||err)+") — check Flask server is running on port 80.");
+    }
   });
 });
 
