@@ -42,20 +42,19 @@
     [data-theme="dark"]  .logo-light {display:block}
 
     /* ── NAV ─────────────────────────────────────────────── */
-    .nav{position:sticky;top:0;z-index:100;height:60px;
+    .nav{position:sticky;top:0;z-index:100;height:56px;
       background:var(--surf);backdrop-filter:blur(20px) saturate(1.5);
       -webkit-backdrop-filter:blur(20px) saturate(1.5);
-      border-bottom:1px solid var(--bdr);padding:0 28px;
-      display:flex;align-items:center;justify-content:space-between;gap:16px;
+      border-bottom:1px solid var(--bdr);padding:0 20px;
+      display:flex;align-items:center;justify-content:space-between;gap:12px;
       transition:background var(--dur) var(--ease),border-color var(--dur) var(--ease)}
-    .nav-left{display:flex;align-items:center;gap:14px}
-    .nav-div{width:1px;height:22px;background:var(--bdr)}
-    .nav-sub{font-family:Figtree,sans-serif;font-size:12px;letter-spacing:.14em;
-      text-transform:uppercase;color:var(--ink2)}
-    .nav-right{display:flex;align-items:center;gap:12px}
+    .nav-left{display:flex;align-items:center;gap:10px;min-width:0;overflow:hidden;flex:1}
+    .nav-div{width:1px;height:22px;background:var(--bdr);flex-shrink:0}
+    .nav-sub{font-family:Figtree,sans-serif;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink2);white-space:nowrap}
+    .nav-right{display:flex;align-items:center;gap:10px;flex-shrink:0}
 
     /* live pill */
-    .pill{font-family:Figtree,sans-serif;font-size:12px;letter-spacing:.12em;
+    .pill{font-family:Figtree,sans-serif;font-size:10px;letter-spacing:.12em;
       text-transform:uppercase;padding:4px 12px;
       border:1px solid var(--bdr);border-radius:100px;color:var(--ink2);
       white-space:nowrap;transition:all var(--dur) var(--ease)}
@@ -76,26 +75,121 @@
     [data-theme="light"] .tt::before{transform:translateX(18px);background:var(--ink)}
 
     /* ── TABS ────────────────────────────────────────────── */
-    .tabs{display:flex;gap:2px;padding:0 28px;
+    .tabs{display:flex;gap:0;padding:0 20px;
       background:var(--surf);backdrop-filter:blur(12px);
       border-bottom:1px solid var(--bdr);overflow-x:auto;
+      scrollbar-width:none;-webkit-overflow-scrolling:touch;
       transition:background var(--dur) var(--ease)}
-    .tab{font-family:Figtree,sans-serif;font-size:10px;letter-spacing:.13em;
-      text-transform:uppercase;padding:13px 16px;border:none;background:transparent;
+    .tabs::-webkit-scrollbar{display:none}
+    .tab{font-family:Figtree,sans-serif;font-size:13px;letter-spacing:.11em;
+      text-transform:uppercase;padding:13px 14px;border:none;background:transparent;
       color:var(--ink2);cursor:pointer;white-space:nowrap;
       border-bottom:2px solid transparent;transition:all .18s var(--ease)}
     .tab:hover{color:var(--ink)}
     .tab.active{color:var(--ink);border-bottom-color:var(--acc)}
+    .tab-vis{color:var(--acc3)!important}
+    .tab-vis.active{border-bottom-color:var(--acc3)!important}
+    /* ── STATS DROPDOWN ─────────────────────────────────── */
+    .tab-dropdown-wrap{position:relative;display:none;align-items:stretch}
+    .tab-stats-btn{font-family:Figtree,sans-serif;font-size:13px;letter-spacing:.11em;
+      text-transform:uppercase;padding:13px 14px;border:none;background:transparent;
+      color:var(--acc);cursor:pointer;white-space:nowrap;
+      border-bottom:2px solid transparent;transition:all .18s var(--ease);
+      display:flex;align-items:center;gap:4px}
+    .tab-stats-btn.has-active{border-bottom-color:var(--acc);color:var(--ink)}
+    .tab-dropdown{position:fixed;top:98px;left:0;right:0;display:none;background:var(--surf);border-bottom:2px solid var(--bdr);box-shadow:0 12px 40px rgba(0,0,0,.4);z-index:99999;-webkit-backdrop-filter:blur(20px) saturate(1.4);backdrop-filter:blur(20px) saturate(1.4);isolation:isolate}
+    .tab-dropdown.open{display:block}
+    @keyframes slideDown{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+    .tab-drop-item{display:block;width:100%;padding:16px 24px;border:none;
+      background:transparent;color:var(--ink2);cursor:pointer;text-align:left;
+      font-family:Figtree,sans-serif;font-size:15px;letter-spacing:.08em;
+      text-transform:uppercase;border-bottom:1px solid var(--bdr);
+      -webkit-tap-highlight-color:rgba(0,0,0,0)}
+    .tab-drop-item:last-child{border-bottom:none}
+    .tab-drop-item:hover,.tab-drop-item:active{background:var(--bg2);color:var(--ink)}
+    .tab-drop-item.active{color:var(--acc);font-weight:600;background:color-mix(in srgb,var(--acc) 8%,transparent)}
 
     /* ── LAYOUT ──────────────────────────────────────────── */
-    .wrap{max-width:1140px;margin:0 auto;padding:0 28px}
+    .wrap{max-width:1140px;margin:0 auto;padding:0 28px;box-sizing:border-box}
     .page{display:none;padding:36px 0 72px;animation:fadeUp .32s var(--ease) both}
     .page.active{display:block}
     @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
     .g2{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
     .g3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
     .g4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-    @media(max-width:760px){.g2,.g3,.g4{grid-template-columns:1fr}}
+    /* ── RESPONSIVE ─────────────────────────────────────── */
+    /* Tablet */
+    @media(max-width:900px){
+      .wrap{padding:0 18px}
+      .nav{padding:0 16px}
+      .tabs{padding:0 12px}
+      .g4{grid-template-columns:repeat(2,1fr)}
+    }
+    /* Mobile */
+    @media(max-width:760px){
+      /* grids */
+      .g2,.g3,.g4{grid-template-columns:1fr}
+      /* wrap */
+      .wrap{padding:0 14px;overflow-x:hidden}
+      .page{padding:24px 0 56px}
+      /* nav */
+      .nav{padding:0 14px;height:52px}
+      .logo-dark,.logo-light{height:20px!important;max-width:90px}
+      .nav-sub{display:none}
+      .nav-div{display:none}
+      .pill.live{display:none}
+      /* scores pill shrinks */
+      #live-acc-pill{font-size:10px;padding:3px 8px;max-width:120px;
+        overflow:hidden;text-overflow:ellipsis}
+      /* tabs: hide desktop tabs, show dropdown */
+      .tabs{padding:0 8px}
+      .tab-desktop{display:none!important}
+      .tab-dropdown-wrap{display:flex!important;align-items:stretch}
+      .tab{font-size:12px;padding:12px 10px;letter-spacing:.08em}
+      .tab-stats-btn{font-size:12px;padding:12px 10px;letter-spacing:.08em}
+      /* cards */
+      .card{border-radius:12px}
+      .cb{padding:16px}
+      .ch{padding:12px 16px 10px}
+      /* scores banner 2-col on mobile */
+      .scores-banner{grid-template-columns:repeat(2,1fr);gap:8px;padding:12px 16px}
+      .sb-val{font-size:16px}
+      /* model selector wrap */
+      .mselector{gap:6px}
+      .mbtn{font-size:11px;padding:5px 11px}
+      /* result text */
+      .pn{font-size:38px}
+      .stat-v{font-size:26px}
+      /* confusion matrix scrollable */
+      #cm-rows,.cm-header-row{overflow-x:auto;-webkit-overflow-scrolling:touch}
+      .cm-cell{width:52px;height:42px;font-size:13px}
+      /* run rows stack */
+      .rrow{flex-wrap:wrap;gap:10px;padding:12px 14px}
+      /* scatter chart */
+      #scatter-chart{height:160px;padding:8px 30px 30px 40px}
+      /* dropzone less tall */
+      .dropzone{aspect-ratio:4/3;min-height:unset}
+      /* vbadge wraps */
+      .vbadge{font-size:11px;line-height:1.4}
+      /* footer */
+      footer{flex-direction:column;gap:6px;padding:14px 16px;text-align:center}
+      footer a{justify-content:center}
+      /* h1 */
+      .h1{font-size:20px}
+      /* sub */
+      .sub{font-size:12px;margin-bottom:16px}
+      /* gradcam canvas full width */
+      .gcam-wrap{aspect-ratio:1}
+      /* vis module */
+      #page-visualise .g2{grid-template-columns:1fr}
+    }
+    /* Small phone */
+    @media(max-width:390px){
+      .tab{font-size:11px;padding:11px 8px}
+      .tab-stats-btn{font-size:11px;padding:11px 8px}
+      #live-acc-pill{display:none}
+      .scores-banner{grid-template-columns:1fr 1fr}
+    }
 
     /* ── CARD ────────────────────────────────────────────── */
     .card{background:var(--surf);backdrop-filter:blur(16px) saturate(1.2);
@@ -105,7 +199,7 @@
       transition:background var(--dur) var(--ease),border-color var(--dur) var(--ease)}
     .ch{padding:15px 22px 12px;border-bottom:1px solid var(--bdr);
       display:flex;align-items:center;justify-content:space-between}
-    .cl{font-family:DM Mono,monospace;font-size:9px;letter-spacing:.15em;
+    .cl{font-family:DM Mono,monospace;font-size:10px;letter-spacing:.15em;
       text-transform:uppercase;color:var(--ink2)}
     .cb{padding:22px}
 
@@ -116,9 +210,9 @@
       letter-spacing:.08em;margin-bottom:22px}
     .stat-v{font-family:Playfair Display,serif;font-weight:600;font-size:32px;
       line-height:1;letter-spacing:-.02em;margin-bottom:3px}
-    .stat-l{font-family:Figtree,sans-serif;font-size:8px;letter-spacing:.15em;
+    .stat-l{font-family:Figtree,sans-serif;font-size:9px;letter-spacing:.15em;
       text-transform:uppercase;color:var(--ink2);margin-bottom:7px}
-    .stat-s{font-size:11px;color:var(--ink2);font-family:Figtree,sans-serif}
+    .stat-s{font-size:13px;color:var(--ink2);font-family:Figtree,sans-serif}
 
     /* ── SCORES BANNER (live scores.json) ────────────────── */
     .scores-banner{
@@ -127,7 +221,7 @@
       border-bottom:1px solid color-mix(in srgb,var(--acc3) 20%,transparent);
     }
     .sb-item{text-align:center}
-    .sb-label{font-family:DM Mono,monospace;font-size:8px;letter-spacing:.12em;
+    .sb-label{font-family:DM Mono,monospace;font-size:9px;letter-spacing:.12em;
       text-transform:uppercase;color:var(--ink2);margin-bottom:3px}
     .sb-val{font-family:Playfair Display,serif;font-weight:600;font-size:18px;color:var(--acc3)}
 
@@ -180,25 +274,25 @@
     .empty-state{padding:56px 20px;display:flex;flex-direction:column;
       align-items:center;gap:10px;min-height:320px;justify-content:center}
     .eg{font-size:32px;opacity:.07}
-    .el{font-family:DM Mono,monospace;font-size:9px;letter-spacing:.14em;
+    .el{font-family:DM Mono,monospace;font-size:10px;letter-spacing:.14em;
       text-transform:uppercase;color:var(--ink2)}
     #result-area{display:none}
     .pb{padding:22px 22px 16px;border-bottom:1px solid var(--bdr)}
-    .pk{font-family:DM Mono,monospace;font-size:8px;letter-spacing:.18em;
+    .pk{font-family:DM Mono,monospace;font-size:9px;letter-spacing:.18em;
       text-transform:uppercase;color:var(--ink2);margin-bottom:8px}
     .pn{font-family:Playfair Display,serif;font-weight:600;font-size:52px;
       line-height:1;letter-spacing:-.02em}
     .pn.Normal{color:var(--normal)} .pn.Cyst{color:var(--cyst)}
     .pn.Stone{color:var(--stone)}   .pn.Tumor{color:var(--tumor)}
-    .ps{font-family:DM Mono,monospace;font-size:11px;color:var(--ink2);margin-top:6px}
+    .ps{font-family:DM Mono,monospace;font-size:13px;color:var(--ink2);margin-top:6px}
     .sblock{padding:16px 22px}
     .srow{display:grid;grid-template-columns:60px 1fr 46px;gap:10px;
       align-items:center;margin-bottom:10px}
     .srow:last-child{margin-bottom:0}
-    .sl{font-family:DM Mono,monospace;font-size:9px;letter-spacing:.07em;text-transform:uppercase}
+    .sl{font-family:DM Mono,monospace;font-size:10px;letter-spacing:.07em;text-transform:uppercase}
     .st{height:3px;background:var(--bg2);border-radius:2px;overflow:hidden}
     .sf{height:100%;border-radius:2px;transition:width 1s cubic-bezier(.16,1,.3,1)}
-    .sp{font-family:DM Mono,monospace;font-size:9px;text-align:right;color:var(--ink2)}
+    .sp{font-family:DM Mono,monospace;font-size:10px;text-align:right;color:var(--ink2)}
     .alert{margin:0 22px 16px;padding:11px 15px;border-radius:10px;
       font-family:Outfit,sans-serif;font-size:12px;font-weight:400;
       line-height:1.55;display:none;border:1px solid}
@@ -209,7 +303,7 @@
     .alert.low{background:color-mix(in srgb,var(--normal) 8%,transparent);
       border-color:color-mix(in srgb,var(--normal) 25%,transparent);color:var(--normal)}
     .fp{padding:10px 22px 16px;border-top:1px solid var(--bdr);
-      font-family:DM Mono,monospace;font-size:8px;letter-spacing:.07em;
+      font-family:DM Mono,monospace;font-size:9px;letter-spacing:.07em;
       color:var(--ink2);opacity:.55}
 
     /* ── LOADING ─────────────────────────────────────────── */
@@ -221,30 +315,30 @@
     .spin{width:30px;height:30px;border:1.5px solid var(--bdr);
       border-top-color:var(--acc);border-radius:50%;animation:spin .7s linear infinite}
     @keyframes spin{to{transform:rotate(360deg)}}
-    .ll{font-family:DM Mono,monospace;font-size:9px;letter-spacing:.16em;
+    .ll{font-family:DM Mono,monospace;font-size:11px;letter-spacing:.16em;
       text-transform:uppercase;color:var(--ink2)}
 
     /* ── DASHBOARD MODEL CARDS ───────────────────────────── */
     .mc{background:var(--surf);backdrop-filter:blur(12px);
       border:1px solid var(--bdr);border-radius:14px;padding:18px 20px;
       transition:all var(--dur) var(--ease)}
-    .mn{font-family:Outfit,sans-serif;font-weight:700;font-size:15px;
+    .mn{font-family:Outfit,sans-serif;font-weight:700;font-size:16px;
       color:var(--ink);margin-bottom:3px}
-    .mp{font-family:Figtree,sans-serif;font-size:8px;color:var(--ink2);
+    .mp{font-family:Figtree,sans-serif;font-size:10px;color:var(--ink2);
       letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px}
     .mbt{height:4px;background:var(--bg2);border-radius:2px;overflow:hidden;margin-bottom:6px}
     .mbf{height:100%;border-radius:2px}
-    .mv{font-family:Playfair Display,serif;font-weight:600;font-size:20px}
-    .ms{font-family:DM Mono,monospace;font-size:8px;letter-spacing:.1em;
+    .mv{font-family:Playfair Display,serif;font-weight:600;font-size:21px}
+    .ms{font-family:DM Mono,monospace;font-size:9px;letter-spacing:.1em;
       text-transform:uppercase;margin-top:5px;color:var(--normal)}
 
     /* ── TABLE ───────────────────────────────────────────── */
     .ct{width:100%;border-collapse:collapse;font-family:Outfit,sans-serif;font-size:13px}
-    .ct th{font-family:DM Mono,monospace;font-size:8px;letter-spacing:.14em;
+    .ct th{font-family:DM Mono,monospace;font-size:9px;letter-spacing:.14em;
       text-transform:uppercase;color:var(--ink2);
       padding:10px 12px;text-align:left;border-bottom:1px solid var(--bdr)}
     .ct td{padding:11px 12px;
-      border-bottom:1px solid color-mix(in srgb,var(--bdr) 50%,transparent);color:var(--ink)}
+      border-bottom:1px solid color-mix(in srgb,var(--bdr) 50%,transparent);color:var(--ink);font-size:15px}
     .ct tr:last-child td{border-bottom:none}
     .best{color:var(--normal)!important;font-weight:700}
     .worst{color:var(--tumor)!important}
@@ -274,15 +368,31 @@
     footer{border-top:1px solid var(--bdr);padding:18px 28px;
       display:flex;justify-content:space-between;align-items:center;
       flex-wrap:wrap;gap:8px;background:var(--surf);backdrop-filter:blur(12px)}
-    .fl{font-family:DM Mono,monospace;font-size:8px;letter-spacing:.12em;
+    .fl{font-family:DM Mono,monospace;font-size:10px;letter-spacing:.12em;
       text-transform:uppercase;color:var(--ink2)}
-    .fr{font-family:Playfair Display,serif;font-style:italic;
+    .fr{font-family:Figtree,sans-serif;font-style:normal;
       font-size:13px;color:var(--ink2)}
     .fc{font-family:DM Mono,monospace;font-size:9px;color:var(--ink2);
       display:flex;align-items:center;gap:5px}
     .copy-c{display:inline-flex;align-items:center;justify-content:center;
       width:15px;height:15px;border:1px solid currentColor;
       border-radius:50%;font-size:7px}
+  
+    /* Mobile sub-label below logo */
+    .nav-sub-mobile{display:none}
+    @media(max-width:760px){
+      .nav-sub-mobile{
+        display:block;
+        font-family:Figtree,sans-serif;
+        font-size:9px;
+        letter-spacing:.12em;
+        text-transform:uppercase;
+        color:var(--ink2);
+        line-height:1;
+        margin-top:2px;
+        white-space:nowrap;
+      }
+    }
   </style>
 </head>
 <body>
@@ -295,6 +405,7 @@
 <!-- ═══ NAV ══════════════════════════════════════════════ -->
 <nav class="nav">
   <div class="nav-left">
+    <div style="display:flex;flex-direction:column;align-items:flex-start;gap:0">
     <svg class="logo-dark" aria-label="AidRenal" id="svg-logo-dark" data-name="logo-dark" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 612 121.03">
   <defs>
     <style>
@@ -403,6 +514,8 @@
     <path class="lt2" d="M470.65,109.01h-12.32V43.48h11.8v8.13c4.19-5.11,11.79-9.83,21.49-9.83,14.29,0,23.59,9.31,23.59,24.51v42.73h-12.32v-39.06c0-12.97-7.6-17.3-15.86-17.3-7.08,0-16.38,5.5-16.38,16.12v40.23Z"/>
   </g>
 </svg>
+    <span class="nav-sub-mobile">Renal CT Intelligence</span>
+    </div>
     <div class="nav-div"></div>
     <span class="nav-sub">Renal CT Intelligence</span>
   </div>
@@ -419,14 +532,29 @@
 </nav>
 
 <!-- ═══ TABS ══════════════════════════════════════════════ -->
-<div class="tabs">
+<div class="tabs" id="main-tabs">
   <button class="tab active" data-page="classifier">CT Classifier</button>
+  <button class="tab tab-vis" data-page="visualise">⊕ Visualise Your Model</button>
   <button class="tab" data-page="dashboard">Dashboard</button>
-  <button class="tab" data-page="comparison">Comparison</button>
-  <button class="tab" data-page="runs">Run History</button>
-  <button class="tab" data-page="confusion">Confusion Matrix</button>
-  <button class="tab" data-page="risk">Clinical Risk</button>
-  <button class="tab" data-page="gradcam">Grad-CAM</button>
+  <!-- Desktop-only tabs (hidden on mobile, shown in dropdown) -->
+  <button class="tab tab-desktop" data-page="comparison">Comparison</button>
+  <button class="tab tab-desktop" data-page="runs">Run History</button>
+  <button class="tab tab-desktop" data-page="confusion">Confusion Matrix</button>
+  <button class="tab tab-desktop" data-page="risk">Clinical Risk</button>
+  <button class="tab tab-desktop" data-page="gradcam">Grad-CAM</button>
+  <!-- Mobile stats dropdown trigger -->
+  <div class="tab-dropdown-wrap" id="stats-dropdown-wrap">
+    <button class="tab tab-stats-btn" id="stats-tab-btn" aria-haspopup="true" aria-expanded="false">
+      See The Stats ▾
+    </button>
+    <div class="tab-dropdown" id="stats-dropdown" role="menu">
+      <button class="tab-drop-item" data-page="comparison" role="menuitem">Comparison</button>
+      <button class="tab-drop-item" data-page="runs" role="menuitem">Run History</button>
+      <button class="tab-drop-item" data-page="confusion" role="menuitem">Confusion Matrix</button>
+      <button class="tab-drop-item" data-page="risk" role="menuitem">Clinical Risk</button>
+      <button class="tab-drop-item" data-page="gradcam" role="menuitem">Grad-CAM</button>
+    </div>
+  </div>
 </div>
 
 <!-- ═══════════════════════════════════════════════════════
@@ -515,7 +643,7 @@
     <div style="background:var(--surf);border:1px solid var(--bdr);border-radius:14px;padding:20px 22px">
       <div class="stat-l">Best Val Accuracy</div>
       <div class="stat-v" style="color:var(--normal)">99.96%</div>
-      <div class="stat-s">DenseNet121 &amp; ResNet50V2</div>
+      <div class="stat-s">DenseNet121 &amp; ResNet50V2 · all 4 models &gt;94%</div>
     </div>
     <div style="background:var(--surf);border:1px solid var(--bdr);border-radius:14px;padding:20px 22px">
       <div class="stat-l">scores.json Accuracy</div>
@@ -557,12 +685,12 @@
       <div class="mv" style="color:var(--acc)">96.08%</div>
       <div class="ms">● complete · epoch 7 · loss 0.1180</div>
     </div>
-    <div class="mc" style="border-top:3px solid var(--tumor)">
+    <div class="mc" style="border-top:3px solid var(--stone)">
       <div class="mn">VGG16</div>
-      <div class="mp">138M params · SGD · Flatten head · 0 unfrozen</div>
-      <div class="mbt"><div class="mbf" style="width:65.94%;background:var(--tumor)"></div></div>
-      <div class="mv" style="color:var(--tumor)">65.94%</div>
-      <div class="ms">● complete · epoch 150 · loss 0.969</div>
+      <div class="mp">138M params · Adam · GAP head · fine-tuned · lr 0.0001</div>
+      <div class="mbt"><div class="mbf" style="width:94.16%;background:var(--stone)"></div></div>
+      <div class="mv" style="color:var(--stone)">94.16%</div>
+      <div class="ms">● complete · epoch 100 · loss 0.2403</div>
     </div>
   </div>
 
@@ -593,11 +721,11 @@
           <th>EfficientNetV2B3</th><th>VGG16</th>
         </tr></thead>
         <tbody>
-          <tr><td>Val Accuracy</td><td class="best">99.96%</td><td class="best">99.96%</td><td>96.08%</td><td class="worst">65.94%</td></tr>
-          <tr><td>Val Loss</td><td class="best">0.0044</td><td>0.0058</td><td>0.1180</td><td class="worst">0.9692</td></tr>
-          <tr><td>Macro F1</td><td class="best">~1.000</td><td class="best">~1.000</td><td>~0.960</td><td class="worst">0.659</td></tr>
-          <tr><td>Stone Recall</td><td class="best">~100%</td><td class="best">~100%</td><td>~100%</td><td class="worst">~66%</td></tr>
-          <tr><td>Tumor Recall</td><td class="best">~100%</td><td class="best">~100%</td><td>~100%</td><td class="worst">~69%</td></tr>
+          <tr><td>Val Accuracy</td><td class="best">99.96%</td><td class="best">99.96%</td><td>96.08%</td><td>94.16%</td></tr>
+          <tr><td>Val Loss</td><td class="best">0.0044</td><td>0.0058</td><td>0.1180</td><td>0.2403</td></tr>
+          <tr><td>Macro F1</td><td class="best">~1.000</td><td class="best">~1.000</td><td>~0.960</td><td>0.928</td></tr>
+          <tr><td>Stone Recall</td><td class="best">~100%</td><td class="best">~100%</td><td>~100%</td><td>98.2%</td></tr>
+          <tr><td>Tumor Recall</td><td class="best">~100%</td><td class="best">~100%</td><td>~100%</td><td>89.0%</td></tr>
           <tr><td>Parameters</td><td class="best">7M</td><td>25M</td><td>14M</td><td class="worst">138M</td></tr>
           <tr><td>Best Epoch</td><td>42</td><td>43</td><td class="best">7</td><td class="worst">150+</td></tr>
           <tr><td>Optimizer</td><td>Adam</td><td>Adam</td><td>Adam</td><td>SGD</td></tr>
@@ -642,7 +770,7 @@
 <div class="page wrap" id="page-confusion">
   <div style="margin-top:36px">
     <div class="h1">Confusion Matrix</div>
-    <div class="sub">VGG16 best run · renal CT val set · hover cells for anatomy detail</div>
+    <div class="sub">VGG16 best run · renal CT val set · actual MLflow run 9366b9ca · hover cells for anatomy detail</div>
   </div>
   <div class="g2">
     <div class="card"><div class="cb">
@@ -689,7 +817,8 @@
         Predicting renal <strong style="color:var(--tumor)">Tumour as Normal</strong> is the highest-risk misclassification — 
         a missed RCC (renal cell carcinoma) can progress from resectable to metastatic.
         DenseNet121 and ResNet50V2 at 99.96% accuracy with ~100% Tumour recall dramatically 
-        reduce this risk. Target ≥99% Tumour recall and ≥98% sensitivity before any clinical consideration.
+        reduce this risk. All four models now exceed 94% accuracy. Target ≥99% Tumour recall 
+        and ≥98% sensitivity before any clinical consideration.
       </span>
     </div>
   </div>
@@ -735,11 +864,42 @@
   </div>
 </div>
 
+
+
+<!-- PAGE: VISUALISE YOUR MODEL -->
+<div class="page wrap" id="page-visualise">
+<div style="margin-top:36px">
+<div class="h1">Visualise Your Model</div>
+<div class="sub">Upload your trained model + metrics · renders in this dashboard · session-isolated from AidRenal</div>
+</div>
+
+<div id="vis-banner" style="display:none;margin-bottom:20px;padding:13px 18px;border-radius:10px;font-family:DM Mono,monospace;font-size:10px;border:1px solid"></div>
+
+<div class="g2" style="margin-bottom:16px">
+<div class="card"><div class="ch"><span class="cl">Step 1 &middot; Keras model</span><span class="pill" id="vp-pill-m">awaiting</span></div><div class="cb"><div class="dropzone" id="vp-dz-m" style="aspect-ratio:unset;min-height:110px;padding:22px"><input type="file" id="vp-fi-m" accept=".keras,.h5"><div class="dz-g" style="font-size:24px;opacity:.15">&#x2B21;</div><div class="dz-l">Drop .keras or .h5 file here</div><div class="dz-h">Any architecture &middot; trained with Keras / TensorFlow</div></div><div id="vp-m-info" style="display:none;margin-top:10px;padding:9px 12px;background:var(--bg2);border-radius:8px;font-family:DM Mono,monospace;font-size:10px;color:var(--ink2)"></div></div></div>
+<div class="card"><div class="ch"><span class="cl">Step 2 &middot; scores.json</span><span class="pill" id="vp-pill-s">awaiting</span></div><div class="cb"><div class="dropzone" id="vp-dz-s" style="aspect-ratio:unset;min-height:110px;padding:22px"><input type="file" id="vp-fi-s" accept=".json,application/json"><div class="dz-g" style="font-size:22px;opacity:.15">{ }</div><div class="dz-l">Drop scores.json here</div><div class="dz-h">Must contain val_accuracy &middot; macro_f1 &middot; per-class precision/recall/f1</div></div><div style="margin-top:10px;padding:9px 12px;background:var(--bg2);border-radius:8px;font-family:DM Mono,monospace;font-size:9px;color:var(--ink2);line-height:1.7">Key format: <span style="color:var(--acc3)">precision_ClassName, recall_ClassName, f1_ClassName</span></div></div></div>
+</div>
+<div class="g2" style="margin-bottom:16px">
+<div class="card"><div class="ch"><span class="cl">Step 3 &middot; Class configuration</span><span class="pill" id="vp-pill-c">awaiting</span></div><div class="cb" style="display:flex;flex-direction:column;gap:14px"><div><div class="cl" style="margin-bottom:6px">Number of classes</div><div style="display:flex;gap:8px;flex-wrap:wrap" id="vp-n-sel"><button class="mbtn" data-n="2">2</button><button class="mbtn active" data-n="4">4</button><button class="mbtn" data-n="5">5</button><button class="mbtn" data-n="6">6</button></div></div><div><div class="cl" style="margin-bottom:6px">Class names</div><div id="vp-cls-inputs" style="display:grid;grid-template-columns:1fr 1fr;gap:8px"></div></div><div><div class="cl" style="margin-bottom:6px">Preprocessing</div><select id="vp-pre" style="width:100%;padding:8px 10px;background:var(--bg2);border:1px solid var(--bdr);color:var(--ink);border-radius:6px;font-family:DM Mono,monospace;font-size:10px"><option value="divide255">&divide; 255 (generic / VGG-style)</option><option value="efficientnet">EfficientNetV2 preprocess_input</option><option value="densenet">DenseNet preprocess_input</option><option value="resnet_v2">ResNet V2 preprocess_input</option><option value="inception">Inception / Xception preprocess_input</option></select></div><div><div class="cl" style="margin-bottom:6px">Input image size</div><select id="vp-sz" style="width:100%;padding:8px 10px;background:var(--bg2);border:1px solid var(--bdr);color:var(--ink);border-radius:6px;font-family:DM Mono,monospace;font-size:10px"><option value="224">224 &times; 224 (standard)</option><option value="299">299 &times; 299 (Inception)</option><option value="384">384 &times; 384</option><option value="512">512 &times; 512</option></select></div></div></div>
+<div class="card"><div class="ch"><span class="cl">Step 4 &middot; Extras</span><span class="pill" style="color:var(--acc3);border-color:color-mix(in srgb,var(--acc3) 35%,transparent)">optional</span></div><div class="cb" style="display:flex;flex-direction:column;gap:14px"><div><div class="cl" style="margin-bottom:5px">Confusion matrix CSV</div><div style="font-family:DM Mono,monospace;font-size:8px;color:var(--ink2);margin-bottom:5px">One row per actual class &middot; columns = predicted &middot; no header row</div><div class="dropzone" id="vp-dz-cm" style="aspect-ratio:unset;min-height:68px;padding:14px"><input type="file" id="vp-fi-cm" accept=".csv,.txt"><div class="dz-l" id="vp-cm-lbl" style="font-size:9px">Drop CSV here</div></div></div><div><div class="cl" style="margin-bottom:5px">Grad-CAM image (PNG/JPG)</div><div style="font-family:DM Mono,monospace;font-size:8px;color:var(--acc3);margin-bottom:5px;line-height:1.6">from tf_explain.core import GradCAM<br>GradCAM().explain((imgs, None), model, class_index=0)</div><div class="dropzone" id="vp-dz-gc" style="aspect-ratio:unset;min-height:68px;padding:14px"><input type="file" id="vp-fi-gc" accept="image/*"><div class="dz-l" id="vp-gc-lbl" style="font-size:9px">Drop heatmap image here</div></div></div><div><div class="cl" style="margin-bottom:5px">Project name</div><input id="vp-name" type="text" placeholder="e.g. Lung Nodule Classifier" style="width:100%;padding:8px 10px;background:var(--bg2);border:1px solid var(--bdr);color:var(--ink);border-radius:6px;font-family:Outfit,sans-serif;font-size:12px"></div><div><div class="cl" style="margin-bottom:5px">DagsHub / GitHub URL</div><input id="vp-url" type="text" placeholder="https://dagshub.com/..." style="width:100%;padding:8px 10px;background:var(--bg2);border:1px solid var(--bdr);color:var(--ink);border-radius:6px;font-family:DM Mono,monospace;font-size:10px"></div></div></div>
+</div>
+<div style="display:flex;gap:12px;margin-bottom:28px"><button class="btn btn-fill" id="vp-launch" disabled style="flex:2;padding:14px;font-size:10px;letter-spacing:.14em">RENDER DASHBOARD</button><button class="btn btn-g" id="vp-reset" style="flex:none;padding:14px 22px">Reset</button></div>
+
+<div id="vp-results" style="display:none">
+<div style="display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:20px"><div><div id="vp-title" class="h1" style="font-size:20px;margin-bottom:2px"></div><div id="vp-sub" class="sub" style="margin:0"></div></div><div style="display:flex;gap:10px;align-items:center"><a id="vp-link" href="#" target="_blank" style="display:none;font-family:DM Mono,monospace;font-size:9px;color:var(--acc3);text-decoration:none">&#x2197; View project</a><span style="font-family:DM Mono,monospace;font-size:8px;padding:3px 10px;border:1px solid color-mix(in srgb,var(--acc3) 30%,transparent);border-radius:20px;color:var(--acc3)">SESSION MODE</span></div></div>
+<div class="g4" id="vp-stats" style="margin-bottom:20px"></div>
+<div class="g2" style="margin-bottom:20px"><div class="card"><div class="ch"><span class="cl">Per-class metrics</span></div><div class="cb" id="vp-perclass"></div></div><div class="card"><div class="ch"><span class="cl">Confusion matrix</span><span class="pill" id="vp-cm-src" style="display:none">from CSV</span></div><div class="cb" id="vp-cm-body"><div style="font-family:DM Mono,monospace;font-size:10px;color:var(--ink2);padding:20px 0;text-align:center">Upload a CSV in Step 4 to display the confusion matrix</div></div></div></div>
+<div id="vp-gcam-wrap" style="display:none;margin-bottom:20px"><div class="card"><div class="ch"><span class="cl">Grad-CAM &middot; uploaded heatmap</span></div><div class="cb" style="display:flex;gap:20px;flex-wrap:wrap;align-items:flex-start"><img id="vp-gcam-img" src="" alt="Grad-CAM" style="max-width:260px;border-radius:10px;border:1px solid var(--bdr)"><div style="flex:1;min-width:160px;font-family:DM Mono,monospace;font-size:9px;color:var(--ink2);line-height:1.8">Pre-computed heatmap for your uploaded model.<br>Generate per-class maps locally:<br><span style="color:var(--acc3)">for i, cls in enumerate(CLASS_NAMES):<br>&nbsp;&nbsp;GradCAM().explain(<br>&nbsp;&nbsp;&nbsp;&nbsp;(val_data, None), model,<br>&nbsp;&nbsp;&nbsp;&nbsp;class_index=i, output_dir=cls<br>&nbsp;&nbsp;)</span></div></div></div></div>
+<div class="card" style="margin-bottom:20px"><div class="ch"><span class="cl">Live classify &middot; your model</span><span class="pill" id="vp-clf-pill">awaiting image</span></div><div class="cb"><div class="g2"><div><div class="dropzone" id="vp-clf-dz" style="aspect-ratio:1"><input type="file" id="vp-clf-fi" accept="image/*"><img id="vp-clf-prev" alt="Preview" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none"><div class="dz-g">&#x2B21;</div><div class="dz-l" id="vp-clf-lbl">Upload image to classify</div></div><div class="btn-row"><button class="btn btn-g" onclick="document.getElementById('vp-clf-fi').click()">Upload</button><button class="btn btn-fill" id="vp-clf-btn" disabled>Classify</button></div></div><div id="vp-clf-result"><div class="empty-state" style="min-height:200px"><div class="eg">&#x25CE;</div><div class="el">Upload an image to test your model</div></div></div></div></div></div>
+<div style="padding:13px 18px;border-radius:10px;margin-bottom:20px;background:color-mix(in srgb,var(--acc3) 6%,transparent);border:1px solid color-mix(in srgb,var(--acc3) 18%,transparent)"><span style="font-family:DM Mono,monospace;font-size:9px;color:var(--acc3)">SESSION ACTIVE &mdash; </span><span style="font-family:Outfit,sans-serif;font-size:12px;color:var(--ink2)">Your model runs in an isolated session. Click Reset to clear it and return to AidRenal.</span></div>
+</div>
+</div>
+
 <!-- ═══ FOOTER ════════════════════════════════════════════ -->
 <footer>
   <div class="fl">VGG16 · EfficientNetV2B3 · DenseNet121 · ResNet50V2 · MLflow · DagsHub · CT-KIDNEY-DATASET</div>
   <div class="fc"><span class="copy-c">©</span>2026</div>
-  <div class="fr">MicroPyscho / renal_tumour_project</div>
+  <a href="https://github.com/MicroPyscho/renal_tumour_project" target="_blank" class="fr" style="display:flex;align-items:center;text-decoration:none;color:var(--ink2)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="13" height="13" style="fill:currentColor;vertical-align:middle;margin-right:5px;flex-shrink:0"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>MicroPyscho / renal_tumour_project</a>
 </footer>
 
 <script>
@@ -767,10 +927,12 @@ tBtn.addEventListener("click",()=>
 ══════════════════════════════════════════════════════ */
 document.querySelectorAll(".tab").forEach(tab=>{
   tab.addEventListener("click",()=>{
+    if(!tab.dataset.page) return; // skip stats-btn which has no data-page
     document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
     document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
     tab.classList.add("active");
-    document.getElementById("page-"+tab.dataset.page).classList.add("active");
+    const pg=document.getElementById("page-"+tab.dataset.page);
+    if(pg) pg.classList.add("active");
   });
 });
 
@@ -810,12 +972,12 @@ const MODEL_SCORES = {
     macro_f1:0.9850, weighted_f1:0.9608, model_name:"EfficientNetV2B3"
   },
   VGG16: {
-    val_loss:0.9692, val_accuracy:0.6594,
-    precision_cyst:0.8462, recall_cyst:0.8919, f1_cyst:0.8684,
-    precision_normal:0.9543, recall_normal:0.8227, f1_normal:0.8836,
-    precision_stone:0.5934, recall_stone:0.9818, f1_stone:0.7397,
-    precision_tumor:0.8400, recall_tumor:0.6923, f1_tumor:0.7590,
-    macro_f1:0.8127, weighted_f1:0.8404, model_name:"VGG16"
+    val_loss:0.2403, val_accuracy:0.9416,
+    precision_cyst:0.9342, recall_cyst:0.9595, f1_cyst:0.9467,
+    precision_normal:1.0000, recall_normal:0.9409, f1_normal:0.9695,
+    precision_stone:0.8182, recall_stone:0.9818, f1_stone:0.8926,
+    precision_tumor:0.9205, recall_tumor:0.8901, f1_tumor:0.9050,
+    macro_f1:0.9284, weighted_f1:0.9424, model_name:"VGG16"
   }
 };
 
@@ -865,8 +1027,8 @@ function applyScores(s, isLive){
   pc.innerHTML = classes.map(c=>`
     <div style="margin-bottom:14px">
       <div style="display:flex;justify-content:space-between;margin-bottom:6px">
-        <span style="font-family:DM Mono,monospace;font-size:11px;color:var(${c.cv});font-weight:700">${c.label}</span>
-        <span style="font-family:DM Mono,monospace;font-size:10px;color:var(--ink2)">
+        <span style="font-family:DM Mono,monospace;font-size:12px;color:var(${c.cv});font-weight:700">${c.label}</span>
+        <span style="font-family:DM Mono,monospace;font-size:12px;color:var(--ink2)">
           P:${pct(c.p)} &nbsp; R:${pct(c.r)} &nbsp; F1:${pct(c.f)}
         </span>
       </div>
@@ -877,7 +1039,7 @@ function applyScores(s, isLive){
             <div style="height:4px;background:var(--bg2);border-radius:2px;overflow:hidden">
               <div style="width:${(v*100).toFixed(1)}%;height:100%;background:var(${c.cv});border-radius:2px"></div>
             </div>
-            <div style="font-family:DM Mono,monospace;font-size:8px;color:var(--ink2);margin-top:3px;text-align:center">${lbl} ${pct(v)}</div>
+            <div style="font-family:DM Mono,monospace;font-size:12px;color:var(--ink2);margin-top:3px;text-align:center">${lbl} ${pct(v)}</div>
           </div>`;
         }).join("")}
       </div>
@@ -1131,7 +1293,7 @@ bP.addEventListener("click",()=>{
   load.classList.add("show");
   fetch("/predict",{
     method:"POST",headers:{"Content-Type":"application/json"},
-    body:JSON.stringify({image:base64})
+    body:JSON.stringify({image:base64, model:activeModel})
   })
   .then(r=>{
     // 400 = CT gate rejection — parse the specific reason
@@ -1153,7 +1315,7 @@ bP.addEventListener("click",()=>{
       document.getElementById("result-area").style.display="none";
       document.getElementById("empty-state").style.display="block";
     } else {
-      alert("Prediction failed ("+(err.msg||err.message||err)+") — check Flask server is running on port 80.");
+      alert("Prediction failed ("+(err.msg||err.message||err)+") — check Flask server is running.");
     }
   });
 });
@@ -1188,10 +1350,10 @@ function renderResult(res){
 const CM_CLASSES=["Cyst","Normal","Stone","Tumor"];
 const CM_COLORS =["var(--cyst)","var(--normal)","var(--stone)","var(--tumor)"];
 const CM_DATA=[
-  {label:"Cyst",   row:[142,12,8,6]},
-  {label:"Normal", row:[9,178,14,7]},
-  {label:"Stone",  row:[11,18,161,12]},
-  {label:"Tumor",  row:[6,7,10,125]},
+  {label:"Cyst",   row:[142, 0,  3,  3]},
+  {label:"Normal", row:[  1,191,  7,  4]},
+  {label:"Stone",  row:[  1,  0, 54,  0]},
+  {label:"Tumor",  row:[  8,  0,  2, 81]},
 ];
 // Clinical context for each misclassification (kidney-specific)
 const CM_CONTEXT={
@@ -1217,7 +1379,7 @@ const CM_CONTEXT={
   if(!header) return;
 
   CM_CLASSES.forEach((c,i)=>{
-    header.innerHTML+=`<span style="font-family:DM Mono,monospace;font-size:8px;
+    header.innerHTML+=`<span style="font-family:DM Mono,monospace;font-size:12px;
       color:${CM_COLORS[i]};width:64px;text-align:center">${c}</span>`;
   });
 
@@ -1225,7 +1387,7 @@ const CM_CONTEXT={
     const total=row.row.reduce((a,b)=>a+b,0);
     const rec=(row.row[ri]/total*100).toFixed(1);
     let rHtml=`<div style="display:flex;align-items:center;gap:3px;margin-bottom:3px">
-      <span style="font-family:DM Mono,monospace;font-size:8px;color:${CM_COLORS[ri]};
+      <span style="font-family:DM Mono,monospace;font-size:12px;color:${CM_COLORS[ri]};
         width:68px;text-align:right;padding-right:8px">${row.label}</span>`;
     row.row.forEach((v,ci)=>{
       const cls=v===0?"zero":ri===ci?"correct":"wrong";
@@ -1240,7 +1402,7 @@ const CM_CONTEXT={
 
     recall.innerHTML+=`<div style="margin-bottom:12px">
       <div style="display:flex;justify-content:space-between;margin-bottom:4px">
-        <span style="font-family:DM Mono,monospace;font-size:9px;color:${CM_COLORS[ri]}">${row.label}</span>
+        <span style="font-family:DM Mono,monospace;font-size:12px;color:${CM_COLORS[ri]}">${row.label}</span>
         <span style="font-family:Playfair Display,serif;font-weight:600;font-size:13px;color:${CM_COLORS[ri]}">${rec}%</span>
       </div>
       <div style="height:4px;background:var(--bg2);border-radius:2px;overflow:hidden">
@@ -1256,14 +1418,14 @@ const RUNS=[
   {id:"99732add",model:"DenseNet121",      acc:99.96,loss:0.0044,epoch:42, lr:0.0001,date:"2026-05-27",best:true},
   {id:"f7abac8d",model:"ResNet50V2",       acc:99.96,loss:0.0058,epoch:43, lr:0.0001,date:"2026-05-28",best:true},
   {id:"c359d65d",model:"EfficientNetV2B3", acc:96.08,loss:0.1180,epoch:7,  lr:0.0001,date:"2026-05-29",best:false},
-  {id:"9366b9ca",model:"VGG16",            acc:65.94,loss:0.9692,epoch:150,lr:0.0003,date:"2026-05-24",best:false},
+  {id:"9366b9ca26e844e8b48c3f0c05240c30",model:"VGG16",acc:94.16,loss:0.2403,epoch:100,lr:0.0001,date:"2026-05-24",best:false},
 ];
 (function buildRuns(){
   const rl=document.getElementById("run-list"); if(!rl) return;
   RUNS.forEach((r,i)=>{
     const ac=r.best?"var(--normal)":"var(--ink2)";
     rl.innerHTML+=`<div class="rrow">
-      <span style="font-family:DM Mono,monospace;font-size:10px;color:var(--ink2);min-width:24px">#${i+1}</span>
+      <span style="font-family:DM Mono,monospace;font-size:12px;color:var(--ink2);min-width:24px">#${i+1}</span>
       <span style="font-family:Outfit,sans-serif;font-weight:700;min-width:170px;font-size:14px">${r.model}</span>
       <div style="flex:1;display:flex;align-items:center;gap:10px">
         <div style="flex:1;height:4px;background:var(--bg2);border-radius:2px;overflow:hidden">
@@ -1272,14 +1434,14 @@ const RUNS=[
         <span style="font-family:Playfair Display,serif;font-weight:600;font-size:15px;
           color:${ac};min-width:52px">${r.acc.toFixed(2)}%</span>
       </div>
-      <span style="font-family:DM Mono,monospace;font-size:9px;color:var(--ink2)">loss ${r.loss}</span>
-      <div style="display:flex;gap:12px;font-family:DM Mono,monospace;font-size:8px;color:var(--ink2)">
+      <span style="font-family:DM Mono,monospace;font-size:12px;color:var(--ink2)">loss ${r.loss}</span>
+      <div style="display:flex;gap:12px;font-family:DM Mono,monospace;font-size:12px;color:var(--ink2)">
         <span>ep ${r.epoch}</span><span>lr ${r.lr}</span><span>${r.date}</span>
       </div>
-      ${r.best?`<span style="font-family:DM Mono,monospace;font-size:8px;padding:3px 10px;
+      ${r.best?`<span style="font-family:DM Mono,monospace;font-size:12px;padding:3px 10px;
         border:1px solid var(--normal);border-radius:20px;color:var(--normal)">BEST</span>`:""}
       <a href="https://dagshub.com/MicroPyscho/renal_tumour_project.mlflow/#/experiments/0/runs/${r.id}"
-        target="_blank" style="font-family:DM Mono,monospace;font-size:9px;color:var(--acc3);text-decoration:none">↗</a>
+        target="_blank" style="font-family:DM Mono,monospace;font-size:12px;color:var(--acc3);text-decoration:none">↗</a>
     </div>`;
   });
 })();
@@ -1293,7 +1455,7 @@ const RUNS=[
   const pad={t:10,r:20,b:40,l:50};
   const cw=W-pad.l-pad.r, ch=H-pad.t-pad.b;
   const models=[
-    {p:138,a:65.94,lbl:"VGG16",            col:"var(--tumor)" },
+    {p:138,a:94.16,lbl:"VGG16",            col:"var(--stone)" },
     {p:14, a:96.08,lbl:"EfficientNetV2B3",  col:"var(--acc)"   },
     {p:7,  a:99.96,lbl:"DenseNet121",        col:"var(--normal)"},
     {p:25, a:99.96,lbl:"ResNet50V2",          col:"var(--acc4)"  },
@@ -1344,11 +1506,11 @@ const RUNS=[
     <div style="font-family:DM Mono,monospace;font-size:7px;color:var(--ink2);
       display:flex;align-items:flex-end;padding-bottom:4px">Actual ↓</div>`;
   CM_CLASSES.forEach(c=>{
-    h+=`<div style="font-family:DM Mono,monospace;font-size:8px;color:var(--ink2);
+    h+=`<div style="font-family:DM Mono,monospace;font-size:12px;color:var(--ink2);
       text-align:center;padding:4px 0;text-transform:uppercase;letter-spacing:.08em">${c}</div>`;
   });
   COSTS.forEach((row,ri)=>{
-    h+=`<div style="font-family:DM Mono,monospace;font-size:8px;color:${CM_COLORS[ri]};
+    h+=`<div style="font-family:DM Mono,monospace;font-size:12px;color:${CM_COLORS[ri]};
       display:flex;align-items:center;justify-content:flex-end;padding-right:6px;
       text-transform:uppercase">${CM_CLASSES[ri]}</div>`;
     row.forEach((v,ci)=>{
@@ -1383,12 +1545,12 @@ const RUNS=[
       <span style="font-family:Playfair Display,serif;font-weight:600;font-size:20px;
         color:${col};min-width:22px">${p.cost}</span>
       <div>
-        <div style="font-family:DM Mono,monospace;font-size:10px;color:var(--ink)">
+        <div style="font-family:DM Mono,monospace;font-size:12px;color:var(--ink)">
           <span style="color:${CM_COLORS[CM_CLASSES.indexOf(p.from)]}">${p.from}</span>
           <span style="color:var(--ink2)"> → </span>
           <span style="color:${CM_COLORS[CM_CLASSES.indexOf(p.to)]}">${p.to}</span>
         </div>
-        <div style="font-family:DM Mono,monospace;font-size:9px;color:var(--ink2)">${p.note}</div>
+        <div style="font-family:DM Mono,monospace;font-size:12px;color:var(--ink2)">${p.note}</div>
       </div>
       <div style="flex:1;height:4px;background:var(--bg2);border-radius:2px;overflow:hidden">
         <div style="width:${p.cost*10}%;height:100%;background:${col};border-radius:2px"></div>
@@ -1537,7 +1699,7 @@ const RUNS=[
     });
 
     // Activation bars
-    gcBars.innerHTML=`<div style="font-family:DM Mono,monospace;font-size:8px;
+    gcBars.innerHTML=`<div style="font-family:DM Mono,monospace;font-size:12px;
       color:var(--ink2);letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px">
       Renal Region Activation · ${CLASSES[idx]}</div>`;
     const intensities=INTENSITIES[idx];
@@ -1545,7 +1707,7 @@ const RUNS=[
       const v=intensities[i];
       gcBars.innerHTML+=`<div style="margin-bottom:13px">
         <div style="display:flex;justify-content:space-between;margin-bottom:4px">
-          <span style="font-family:DM Mono,monospace;font-size:10px;color:var(--ink2)">${r}</span>
+          <span style="font-family:DM Mono,monospace;font-size:12px;color:var(--ink2)">${r}</span>
           <span style="font-family:Playfair Display,serif;font-weight:600;font-size:12px;color:${COLS[idx]}">${(v*100).toFixed(0)}%</span>
         </div>
         <div style="height:4px;background:var(--bg2);border-radius:2px;overflow:hidden">
@@ -1558,6 +1720,444 @@ const RUNS=[
   // Re-render on theme change to update canvas colours
   tBtn.addEventListener("click",()=>setTimeout(()=>renderGcam(selIdx),50));
 })();
+
+
+/* ======================================================
+   VISUALISE YOUR MODEL — session-isolated inference
+   All file parsing is client-side.
+   /vis-upload, /vis-predict, /vis-clear handled by Flask.
+====================================================== */
+(function(){
+
+  /* State */
+  var VP = {
+    modelFile:null, scoresFile:null, cmFile:null, gcamFile:null,
+    scores:null, classNames:[], nClasses:4,
+    preprocess:'divide255', imgSize:224,
+    sessionId:null, b64:null
+  };
+  var PALETTE = [
+    'var(--cyst)','var(--normal)','var(--stone)',
+    'var(--tumor)','var(--acc)','var(--acc2)'
+  ];
+
+  /* Utility: banner */
+  function banner(type,msg){
+    var b=document.getElementById('vis-banner');
+    b.style.display='block';
+    var ok='color-mix(in srgb,var(--normal) 8%,transparent)',
+        ok2='color-mix(in srgb,var(--normal) 28%,transparent)',
+        er='color-mix(in srgb,var(--tumor) 8%,transparent)',
+        er2='color-mix(in srgb,var(--tumor) 28%,transparent)',
+        wn='color-mix(in srgb,var(--stone) 8%,transparent)',
+        wn2='color-mix(in srgb,var(--stone) 28%,transparent)';
+    if(type==='ok'){b.style.background=ok;b.style.borderColor=ok2;b.style.color='var(--normal)';}
+    else if(type==='err'){b.style.background=er;b.style.borderColor=er2;b.style.color='var(--tumor)';}
+    else{b.style.background=wn;b.style.borderColor=wn2;b.style.color='var(--stone)';}
+    b.textContent=msg;
+  }
+
+  /* Utility: pill */
+  function pill(id,txt,ok){
+    var p=document.getElementById(id);if(!p)return;
+    p.textContent=txt;
+    p.style.borderColor=ok?'var(--normal)':'var(--stone)';
+    p.style.color=ok?'var(--normal)':'var(--stone)';
+  }
+
+  /* Utility: check whether launch should be enabled */
+  function checkReady(){
+    var ok=VP.modelFile&&VP.scoresFile&&VP.nClasses>0
+      &&VP.classNames.length===VP.nClasses
+      &&VP.classNames.every(function(n){return n.trim().length>0;});
+    document.getElementById('vp-launch').disabled=!ok;
+  }
+
+  /* Utility: simple drag+drop wiring */
+  function wire(dzId,fiId,cb){
+    var dz=document.getElementById(dzId),fi=document.getElementById(fiId);
+    if(!dz||!fi)return;
+    dz.addEventListener('dragover',function(e){e.preventDefault();dz.classList.add('over');});
+    dz.addEventListener('dragleave',function(){dz.classList.remove('over');});
+    dz.addEventListener('drop',function(e){
+      e.preventDefault();dz.classList.remove('over');
+      var f=e.dataTransfer.files[0];
+      if(!f)return;
+      var dt=new DataTransfer();dt.items.add(f);fi.files=dt.files;
+      fi.dispatchEvent(new Event('change'));
+    });
+    fi.addEventListener('change',function(){if(this.files&&this.files[0])cb(this.files[0]);});
+  }
+
+  /* Step 1: model file */
+  wire('vp-dz-m','vp-fi-m',function(f){
+    if(!f.name.match(/\.(keras|h5)$/i)){banner('err','Model must be .keras or .h5');return;}
+    VP.modelFile=f;
+    pill('vp-pill-m','✓ '+f.name.split('/').pop().slice(0,28),true);
+    var info=document.getElementById('vp-m-info');
+    info.style.display='block';
+    info.textContent=f.name+' · '+(f.size/1024/1024).toFixed(1)+' MB';
+    checkReady();
+  });
+
+  /* Step 2: scores.json */
+  wire('vp-dz-s','vp-fi-s',function(f){
+    var rd=new FileReader();
+    rd.onload=function(e){
+      try{
+        var s=JSON.parse(e.target.result);
+        if(typeof s.val_accuracy==='undefined'){banner('err','scores.json missing val_accuracy');return;}
+        VP.scores=s;VP.scoresFile=f;
+        pill('vp-pill-s','✓ loaded',true);
+        checkReady();
+      }catch(err){banner('err','Cannot parse scores.json: '+err.message);}
+    };
+    rd.readAsText(f);
+  });
+
+  /* Step 3: class count selector */
+  function buildInputs(n){
+    VP.nClasses=n;
+    while(VP.classNames.length<n)VP.classNames.push('');
+    VP.classNames=VP.classNames.slice(0,n);
+    var c=document.getElementById('vp-cls-inputs');c.innerHTML='';
+    for(var i=0;i<n;i++){
+      (function(idx){
+        var div=document.createElement('div');
+        var prev=VP.classNames[idx]||'';
+        div.innerHTML='<div style="font-family:DM Mono,monospace;font-size:12px;color:var(--ink2);margin-bottom:3px">Class '+idx+'</div>'
+          +'<input type="text" placeholder="e.g. Normal" value="'+prev+'"'
+          +' style="width:100%;padding:7px 9px;background:var(--bg2);border:1px solid var(--bdr);color:var(--ink);border-radius:6px;font-family:Outfit,sans-serif;font-size:12px">';
+        div.querySelector('input').addEventListener('input',function(){
+          VP.classNames[idx]=this.value;
+          if(VP.classNames.every(function(v){return v.trim().length>0;})){
+            pill('vp-pill-c','✓ '+VP.classNames.join(', '),true);
+          }
+          checkReady();
+        });
+        c.appendChild(div);
+      })(i);
+    }
+    checkReady();
+  }
+
+  document.querySelectorAll('#vp-n-sel .mbtn').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      document.querySelectorAll('#vp-n-sel .mbtn').forEach(function(b){b.classList.remove('active');});
+      btn.classList.add('active');
+      buildInputs(parseInt(btn.dataset.n));
+    });
+  });
+  buildInputs(4);
+
+  document.getElementById('vp-pre').addEventListener('change',function(){VP.preprocess=this.value;});
+  document.getElementById('vp-sz').addEventListener('change',function(){VP.imgSize=parseInt(this.value);});
+
+  /* Step 4: optional files */
+  wire('vp-dz-cm','vp-fi-cm',function(f){
+    VP.cmFile=f;
+    document.getElementById('vp-cm-lbl').textContent='✓ '+f.name;
+  });
+  wire('vp-dz-gc','vp-fi-gc',function(f){
+    VP.gcamFile=f;
+    document.getElementById('vp-gc-lbl').textContent='✓ '+f.name;
+  });
+
+  /* LAUNCH */
+  document.getElementById('vp-launch').addEventListener('click',function(){
+    var btn=document.getElementById('vp-launch');
+    btn.disabled=true;btn.textContent='UPLOADING…';
+    banner('warn','Uploading model to session — please wait…');
+    VP.projectName=(document.getElementById('vp-name').value.trim()||'Visitor model');
+    VP.projectUrl=document.getElementById('vp-url').value.trim();
+    var fd=new FormData();
+    fd.append('model',VP.modelFile);
+    fd.append('class_names',JSON.stringify(VP.classNames));
+    fd.append('preprocess',VP.preprocess);
+    fd.append('img_size',VP.imgSize);
+    fetch('/vis-upload',{method:'POST',body:fd})
+    .then(function(r){return r.json().then(function(d){return{ok:r.ok,d:d};});})
+    .then(function(res){
+      if(!res.ok||res.d.error){
+        banner('err','Upload failed: '+(res.d.error||'unknown'));
+        btn.disabled=false;btn.textContent='RENDER DASHBOARD';return;
+      }
+      VP.sessionId=res.d.session_id;
+      banner('ok','✓ Model loaded · session '+res.d.session_id.slice(0,8)+'…');
+      btn.textContent='RENDER DASHBOARD';
+      renderAll();
+    })
+    .catch(function(err){
+      banner('err','Upload error: '+err.message);
+      btn.disabled=false;btn.textContent='RENDER DASHBOARD';
+    });
+  });
+
+  /* Render all result panels */
+  function renderAll(){
+    document.getElementById('vp-results').style.display='block';
+    var s=VP.scores;
+    document.getElementById('vp-title').textContent=VP.projectName;
+    document.getElementById('vp-sub').textContent=VP.classNames.join(' · ')+' · '+VP.nClasses+' classes';
+    var lnk=document.getElementById('vp-link');
+    if(VP.projectUrl){lnk.style.display='inline';lnk.href=VP.projectUrl;}
+    /* stats */
+    var st=document.getElementById('vp-stats');
+    var items=[
+      {l:'Val Accuracy',v:(s.val_accuracy*100).toFixed(2)+'%',c:'var(--normal)'},
+      {l:'Macro F1',v:(s.macro_f1||0).toFixed(3),c:'var(--acc3)'},
+      {l:'Classes',v:VP.nClasses,c:'var(--ink)'},
+      {l:'Val Loss',v:(s.val_loss||0).toFixed(4),c:'var(--ink2)'}
+    ];
+    st.innerHTML=items.map(function(x){
+      return '<div class="stat"><div class="stat-l">'+x.l+'</div><div class="stat-v" style="color:'+x.c+'">'+x.v+'</div></div>';
+    }).join('');
+    renderPerClass();
+    if(VP.cmFile)renderCM();
+    if(VP.gcamFile){
+      document.getElementById('vp-gcam-img').src=URL.createObjectURL(VP.gcamFile);
+      document.getElementById('vp-gcam-wrap').style.display='block';
+    }
+    setupClassify();
+    document.getElementById('vp-results').scrollIntoView({behavior:'smooth'});
+  }
+
+  function renderPerClass(){
+    var s=VP.scores;
+    var pc=document.getElementById('vp-perclass');
+    pc.innerHTML=VP.classNames.map(function(cls,i){
+      var key=cls.toLowerCase().replace(/[^a-z0-9]/g,'_');
+      var p=s['precision_'+key]||s['precision_'+cls]||null;
+      var r=s['recall_'+key]   ||s['recall_'+cls]   ||null;
+      var f=s['f1_'+key]       ||s['f1_'+cls]       ||null;
+      var col=PALETTE[i]||'var(--ink2)';
+      function fmt(v){return v!=null?(v*100).toFixed(1)+'%':'--';}
+      var bars=['P','R','F1'].map(function(lbl,j){
+        var v=[p,r,f][j];
+        return '<div>'
+          +'<div style="height:4px;background:var(--bg2);border-radius:2px;overflow:hidden">'
+          +'<div style="width:'+(v!=null?Math.round(v*100):0)+'%;height:100%;background:'+col+';border-radius:2px"></div>'
+          +'</div>'
+          +'<div style="font-family:DM Mono,monospace;font-size:12px;color:var(--ink2);margin-top:3px;text-align:center">'+lbl+' '+fmt(v)+'</div>'
+          +'</div>';
+      }).join('');
+      return '<div style="margin-bottom:14px">'
+        +'<div style="display:flex;justify-content:space-between;margin-bottom:6px">'
+        +'<span style="font-family:DM Mono,monospace;font-size:12px;color:'+col+';font-weight:700">'+cls+'</span>'
+        +'<span style="font-family:DM Mono,monospace;font-size:12px;color:var(--ink2)">P:'+fmt(p)+' R:'+fmt(r)+' F1:'+fmt(f)+'</span>'
+        +'</div>'
+        +'<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px">'+bars+'</div>'
+        +'</div>';
+    }).join('');
+  }
+
+  function renderCM(){
+    var rd=new FileReader();
+    rd.onload=function(e){
+      var rows=e.target.result.trim().split('\n')
+        .map(function(l){return l.split(',').map(function(v){return parseInt(v.trim())||0;});});
+      var n=rows.length;if(n<2)return;
+      var body=document.getElementById('vp-cm-body');
+      var h='<div style="font-family:DM Mono,monospace;font-size:12px;color:var(--ink2);margin-bottom:8px">Actual → rows &nbsp;|  Predicted → columns</div>';
+      h+='<div style="display:flex;gap:3px;padding-left:72px;margin-bottom:3px">';
+      VP.classNames.slice(0,n).forEach(function(c,i){
+        h+='<span style="font-family:DM Mono,monospace;font-size:12px;color:'+PALETTE[i]+';width:58px;text-align:center">'+c+'</span>';
+      });
+      h+='</div>';
+      rows.forEach(function(row,ri){
+        h+='<div style="display:flex;align-items:center;gap:3px;margin-bottom:3px">';
+        h+='<span style="font-family:DM Mono,monospace;font-size:12px;color:'+PALETTE[ri]+';width:68px;text-align:right;padding-right:8px">'+(VP.classNames[ri]||ri)+'</span>';
+        row.forEach(function(v,ci){
+          var cl2=v===0?'zero':ri===ci?'correct':'wrong';
+          h+='<div class="cm-cell '+cl2+'" title="'+VP.classNames[ri]+' → '+(VP.classNames[ci]||ci)+': '+v+'">'+v+'</div>';
+        });
+        h+='</div>';
+      });
+      body.innerHTML=h;
+      var src=document.getElementById('vp-cm-src');
+      if(src){src.style.display='inline';src.textContent='from CSV';}
+    };
+    rd.readAsText(VP.cmFile);
+  }
+
+  /* Live classify */
+  function setupClassify(){
+    wire('vp-clf-dz','vp-clf-fi',function(f){
+      var rd=new FileReader();
+      rd.onload=function(e){
+        var img=new Image();
+        img.onload=function(){
+          var cv=document.createElement('canvas');
+          cv.width=img.width;cv.height=img.height;
+          cv.getContext('2d').drawImage(img,0,0);
+          VP.b64=cv.toDataURL('image/jpeg',1.0).replace(/^data:image.+;base64,/,'');
+          document.getElementById('vp-clf-btn').disabled=false;
+        };
+        img.src=e.target.result;
+        var pv=document.getElementById('vp-clf-prev');
+        pv.src=e.target.result;pv.style.display='block';
+        document.getElementById('vp-clf-lbl').style.display='none';
+      };
+      rd.readAsDataURL(f);
+    });
+    document.getElementById('vp-clf-btn').addEventListener('click',function(){
+      if(!VP.b64||!VP.sessionId)return;
+      var btn=document.getElementById('vp-clf-btn');
+      btn.disabled=true;btn.textContent='Classifying…';
+      document.getElementById('vp-clf-pill').textContent='running…';
+      fetch('/vis-predict',{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({image:VP.b64,session_id:VP.sessionId})
+      })
+      .then(function(r){
+        if(r.status===400)return r.json().then(function(d){throw new Error(d[0]&&d[0].error||'Gate rejected');});
+        if(!r.ok)throw new Error('Server error '+r.status);
+        return r.json();
+      })
+      .then(function(d){renderVisResult(d[0]);document.getElementById('vp-clf-pill').textContent='classified';})
+      .catch(function(err){
+        document.getElementById('vp-clf-result').innerHTML='<div class="vbadge err" style="display:block">⛔ '+err.message+'</div>';
+        document.getElementById('vp-clf-pill').textContent='error';
+      })
+      .finally(function(){btn.disabled=false;btn.textContent='Classify';});
+    });
+  }
+
+  function renderVisResult(res){
+    var el=document.getElementById('vp-clf-result');
+    var cls=res.image;
+    var idx=VP.classNames.indexOf(cls);
+    var col=PALETTE[idx>=0?idx:0];
+    var h='<div style="padding:16px">'
+      +'<div style="font-family:DM Mono,monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink2);margin-bottom:8px">Predicted</div>'
+      +'<div style="font-family:Playfair Display,serif;font-weight:600;font-size:40px;line-height:1;letter-spacing:-.02em;color:'+col+';margin-bottom:6px">'+cls+'</div>'
+      +'<div style="font-family:DM Mono,monospace;font-size:12px;color:var(--ink2);margin-bottom:14px">Confidence: '+res.confidence+'</div>';
+    Object.entries(res.all_scores||{}).forEach(function(kv){
+      var lbl=kv[0],p=kv[1];
+      var i2=VP.classNames.indexOf(lbl);
+      var c2=PALETTE[i2>=0?i2:0];
+      h+='<div style="display:grid;grid-template-columns:80px 1fr 40px;gap:8px;align-items:center;margin-bottom:8px">'
+        +'<span style="font-family:DM Mono,monospace;font-size:12px;color:'+c2+'">'+lbl+'</span>'
+        +'<div style="height:3px;background:var(--bg2);border-radius:2px;overflow:hidden">'
+        +'<div style="width:'+parseFloat(p)+'%;height:100%;background:'+c2+';border-radius:2px"></div></div>'
+        +'<span style="font-family:DM Mono,monospace;font-size:12px;text-align:right;color:var(--ink2)">'+p+'</span>'
+        +'</div>';
+    });
+    h+='<div style="margin-top:12px;padding:10px 12px;border-radius:8px;font-family:Outfit,sans-serif;font-size:12px;'
+      +'background:color-mix(in srgb,var(--stone) 7%,transparent);color:var(--stone)">'
+      +'⚠ Research instrument · validate against ground truth before any clinical use'
+      +'</div></div>';
+    el.innerHTML=h;
+  }
+
+  /* RESET */
+  document.getElementById('vp-reset').addEventListener('click',function(){
+    if(VP.sessionId){
+      fetch('/vis-clear',{method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({session_id:VP.sessionId})}).catch(function(){});
+    }
+    VP.modelFile=null;VP.scoresFile=null;VP.cmFile=null;VP.gcamFile=null;
+    VP.scores=null;VP.classNames=[];VP.nClasses=4;VP.sessionId=null;VP.b64=null;
+    ['vp-pill-m','vp-pill-s','vp-pill-c'].forEach(function(id){
+      var p=document.getElementById(id);
+      if(p){p.textContent='awaiting';p.style.borderColor='';p.style.color='';}
+    });
+    document.getElementById('vp-results').style.display='none';
+    document.getElementById('vis-banner').style.display='none';
+    document.getElementById('vp-m-info').style.display='none';
+    document.getElementById('vp-launch').disabled=true;
+    document.getElementById('vp-launch').textContent='RENDER DASHBOARD';
+    ['vp-fi-m','vp-fi-s','vp-fi-cm','vp-fi-gc'].forEach(function(id){
+      var el=document.getElementById(id);if(el)el.value='';
+    });
+    buildInputs(4);
+  });
+
+})(); /* end VISUALISE module */
+
+/* STATS DROPDOWN */
+(function(){
+  var sBtn, sPanel;
+  
+  function init(){
+    sBtn  = document.getElementById('stats-tab-btn');
+    sPanel = document.getElementById('stats-dropdown');
+    if(!sBtn || !sPanel) return;
+    sPanel.style.display = 'none';
+
+    /* position panel just below the tab bar */
+    function rePos(){
+      var tb = document.getElementById('main-tabs');
+      if(tb){
+        var rect = tb.getBoundingClientRect();
+        sPanel.style.top = (rect.bottom + window.scrollY) + 'px';
+        sPanel.style.left = '0';
+        sPanel.style.right = '0';
+      }
+    }
+
+    function open(){
+      rePos();
+      sPanel.style.display = 'block';
+    }
+    function close(){
+      sPanel.style.display = 'none';
+    }
+
+    /* Button tap: use setTimeout so the document click listener
+       (registered below) fires BEFORE we check state, not after */
+    sBtn.addEventListener('click', function(e){
+      e.stopPropagation();
+      if(sPanel.style.display === 'block'){
+        close();
+      } else {
+        open();
+      }
+    });
+
+    /* Item tap: show page, close panel */
+    sPanel.querySelectorAll('.tab-drop-item').forEach(function(item){
+      item.addEventListener('click', function(e){
+        e.stopPropagation();
+        /* deactivate everything */
+        document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
+        document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('active'); });
+        /* activate target */
+        var pg = document.getElementById('page-' + item.getAttribute('data-page'));
+        if(pg) pg.classList.add('active');
+        sBtn.classList.add('has-active');
+        close();
+      });
+    });
+
+    /* Other tabs: reset */
+    document.querySelectorAll('.tab:not(.tab-stats-btn)').forEach(function(t){
+      t.addEventListener('click', function(){
+        sBtn.classList.remove('has-active');
+        sPanel.querySelectorAll('.tab-drop-item').forEach(function(d){ d.classList.remove('active'); });
+        close();
+      });
+    });
+
+    /* Outside tap: close. Target check prevents false-close on btn tap */
+    document.addEventListener('click', function(e){
+      if(sPanel.style.display==='block' && !sBtn.contains(e.target) && !sPanel.contains(e.target)){
+        close();
+      }
+    });
+
+    window.addEventListener('resize', function(){ close(); rePos(); }, {passive:true});
+    rePos();
+  }
+
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+
 </script>
 </body>
 </html>

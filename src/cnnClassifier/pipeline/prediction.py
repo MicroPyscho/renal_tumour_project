@@ -275,11 +275,60 @@ class PredictionPipeline:
     def __init__(self, filename: str):
         self.filename = filename
 
-    def predict(self) -> list[dict]:
-        # ── Load params ──────────────────────────────────────────────────────
-        params     = read_yaml(Path("params.yaml"))
-        model_name = params.get("MODEL_NAME", "EfficientNetV2B3")
-        model_path = os.path.join("artifacts", "training", f"{model_name}.keras")
+    def predict(self, requested_model: str = None) -> list[dict]:
+        # ── Resolve model name ────────────────────────────────────────────────
+        # Priority: 1) caller passes a model name (from frontend selector)
+        #           2) params.yaml MODEL_NAME
+        #           3) fallback to EfficientNetV2B3
+        VALID_MODELS = {"DenseNet121", "ResNet50V2", "EfficientNetV2B3", "VGG16"}
+
+        if requested_model and requested_model in VALID_MODELS:
+            model_name = requested_model
+        else:
+            params     = read_yaml(Path("params.yaml"))
+            model_name = params.get("MODEL_NAME", "EfficientNetV2B3")
+
+        # Check the file actually exists — fall back to any available model
+        # Name variants to try for each architecture
+        NAME_VARIANTS = {
+            "DenseNet121":     ["DenseNet121", "best_DenseNet121"],
+            "ResNet50V2":      ["ResNet50V2",  "best_ResNet50v2", "best_ResNet50V2"],
+            "EfficientNetV2B3":["EfficientNetV2B3", "best_EfficientNetV2B3"],
+            "VGG16":           ["VGG16", "best_VGG16", "model"],
+        }
+        SEARCH_DIRS = [
+            os.path.join("artifacts", "training"),
+            "checkpoints",
+            os.path.join("checkpoints", "VGG16"),
+        ]
+
+        model_path = None
+        for variant in NAME_VARIANTS.get(model_name, [model_name]):
+            for d in SEARCH_DIRS:
+                candidate = os.path.join(d, f"{variant}.keras")
+                if os.path.exists(candidate):
+                    model_path = candidate
+                    break
+            if model_path:
+                break
+
+        if not model_path:
+            # Last resort: any .keras file in either directory
+            import glob
+            all_models = (
+                glob.glob(os.path.join("artifacts", "training", "*.keras")) +
+                glob.glob(os.path.join("checkpoints", "*.keras"))
+            )
+            if not all_models:
+                return [{"gate_failed": True, "gate_stage": "model_load",
+                         "error": "No trained model found in artifacts/training/ or checkpoints/. Run dvc repro first."}]
+            model_path = all_models[0]
+            model_name = os.path.basename(model_path).replace(".keras", "").replace("best_", "")
+            import logging
+            logging.getLogger(__name__).warning(
+                "Requested model %s not found, falling back to %s at %s",
+                requested_model or "params.yaml", model_name, model_path
+            )
 
         # ── Load raw image for gate ───────────────────────────────────────────
         from PIL import Image as PILImage

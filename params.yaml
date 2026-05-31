@@ -1,11 +1,9 @@
 AUGMENTATION: True
-IMAGE_SIZE: [224, 224, 3] #as per DenseNet121V2 model
+IMAGE_SIZE: [224, 224, 3] #as per EfficientNetV2B3 model
 BATCH_SIZE: 24
 INCLUDE_TOP: False
 EPOCHS: 2
 CLASSES: 4
 WEIGHTS: imagenet
 LEARNING_RATE: 0.0001
-MODEL_NAME: DenseNet121V2
-
-
+MODEL_NAME: EfficientNetV2B3  
