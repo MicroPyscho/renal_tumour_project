@@ -63,3 +63,10 @@ with mlflow.start_run():
 dvc init
 dvc repro
 dvc dag
+
+
+### AWS Setup and configuration
+  
+
+  ## Create ECR image to store/save doccker image
+  save the URL: 141927126255.dkr.ecr.eu-north-1.amazonaws.com/kidney_ct_scan

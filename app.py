@@ -102,11 +102,7 @@ def predictRoute():
         traceback.print_exc()
         return jsonify({"error": "Prediction failed — see server logs"}), 500
 
-
-# ─────────────────────────────────────────────────────────────────
 # VISUALISE YOUR MODEL ROUTES
-# ─────────────────────────────────────────────────────────────────
-
 @app.route("/vis-upload", methods=["POST"])
 @cross_origin()
 def vis_upload():
