@@ -50,7 +50,7 @@
       transition:background var(--dur) var(--ease),border-color var(--dur) var(--ease)}
     .nav-left{display:flex;align-items:center;gap:10px;min-width:0;overflow:hidden;flex:1}
     .nav-div{width:1px;height:22px;background:var(--bdr);flex-shrink:0}
-    .nav-sub{font-family:Figtree,sans-serif;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink2);white-space:nowrap}
+    .nav-sub{font-family:Figtree,sans-serif;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink2);white-space:nowrap}
     .nav-right{display:flex;align-items:center;gap:10px;flex-shrink:0}
 
     /* live pill */
@@ -81,8 +81,8 @@
       scrollbar-width:none;-webkit-overflow-scrolling:touch;
       transition:background var(--dur) var(--ease)}
     .tabs::-webkit-scrollbar{display:none}
-    .tab{font-family:Figtree,sans-serif;font-size:13px;letter-spacing:.11em;
-      text-transform:uppercase;padding:13px 14px;border:none;background:transparent;
+    .tab{font-family:Figtree,sans-serif;font-size:12px;letter-spacing:.11em;
+      text-transform:uppercase;padding:11px 12px;border:none;background:transparent;
       color:var(--ink2);cursor:pointer;white-space:nowrap;
       border-bottom:2px solid transparent;transition:all .18s var(--ease)}
     .tab:hover{color:var(--ink)}
@@ -91,13 +91,13 @@
     .tab-vis.active{border-bottom-color:var(--acc3)!important}
     /* ── STATS DROPDOWN ─────────────────────────────────── */
     .tab-dropdown-wrap{position:relative;display:none;align-items:stretch}
-    .tab-stats-btn{font-family:Figtree,sans-serif;font-size:13px;letter-spacing:.11em;
-      text-transform:uppercase;padding:13px 14px;border:none;background:transparent;
+    .tab-stats-btn{font-family:Figtree,sans-serif;font-size:12px;letter-spacing:.11em;
+      text-transform:uppercase;padding:11px 12px;border:none;background:transparent;
       color:var(--acc);cursor:pointer;white-space:nowrap;
       border-bottom:2px solid transparent;transition:all .18s var(--ease);
       display:flex;align-items:center;gap:4px}
     .tab-stats-btn.has-active{border-bottom-color:var(--acc);color:var(--ink)}
-    .tab-dropdown{position:fixed;top:98px;left:0;right:0;display:none;background:var(--surf);border-bottom:2px solid var(--bdr);box-shadow:0 12px 40px rgba(0,0,0,.4);z-index:99999;-webkit-backdrop-filter:blur(20px) saturate(1.4);backdrop-filter:blur(20px) saturate(1.4);isolation:isolate}
+    .tab-dropdown{position:fixed;top:98px;left:0;right:0;display:none;background:var(--surf);border-bottom:2px solid var(--bdr);box-shadow:0 8px 32x rgba(0,0,0,.35);z-index:9999;-webkit-backdrop-filter:blur(20px) saturate(1.4);backdrop-filter:blur(20px) saturate(1.4)}
     .tab-dropdown.open{display:block}
     @keyframes slideDown{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
     .tab-drop-item{display:block;width:100%;padding:16px 24px;border:none;
@@ -146,20 +146,20 @@
       .tab-desktop{display:none!important}
       .tab-dropdown-wrap{display:flex!important;align-items:stretch}
       .tab{font-size:12px;padding:12px 10px;letter-spacing:.08em}
-      .tab-stats-btn{font-size:12px;padding:12px 10px;letter-spacing:.08em}
+      .tab-stats-btn{font-size:10px;padding:12px 10px;letter-spacing:.08em}
       /* cards */
       .card{border-radius:12px}
       .cb{padding:16px}
       .ch{padding:12px 16px 10px}
       /* scores banner 2-col on mobile */
       .scores-banner{grid-template-columns:repeat(2,1fr);gap:8px;padding:12px 16px}
-      .sb-val{font-size:16px}
+      .sb-val{font-size:20px}
       /* model selector wrap */
       .mselector{gap:6px}
-      .mbtn{font-size:11px;padding:5px 11px}
+      .mbtn{font-size:9px;padding:4px 10px}
       /* result text */
       .pn{font-size:38px}
-      .stat-v{font-size:26px}
+      .stat-v{font-size:32px}
       /* confusion matrix scrollable */
       #cm-rows,.cm-header-row{overflow-x:auto;-webkit-overflow-scrolling:touch}
       .cm-cell{width:52px;height:42px;font-size:13px}
@@ -208,7 +208,7 @@
       letter-spacing:-.01em;color:var(--ink);margin-bottom:5px}
     .sub{font-family:Figtree,sans-serif;font-size:10px;color:var(--ink2);
       letter-spacing:.08em;margin-bottom:22px}
-    .stat-v{font-family:Playfair Display,serif;font-weight:600;font-size:32px;
+    .stat-v{font-family:Playfair Display,serif;font-weight:600;font-size:48px;
       line-height:1;letter-spacing:-.02em;margin-bottom:3px}
     .stat-l{font-family:Figtree,sans-serif;font-size:9px;letter-spacing:.15em;
       text-transform:uppercase;color:var(--ink2);margin-bottom:7px}
@@ -217,13 +217,13 @@
     /* ── SCORES BANNER (live scores.json) ────────────────── */
     .scores-banner{
       display:grid;grid-template-columns:repeat(4,1fr);gap:10px;
-      padding:14px 22px;background:color-mix(in srgb,var(--acc3) 6%,transparent);
-      border-bottom:1px solid color-mix(in srgb,var(--acc3) 20%,transparent);
+      padding:12px 20px;background:color-mix(in srgb,var(--acc3) 6%,transparent);
+      border-bottom:1px solid color-mix(in srgb,var(--acc3) 14%,transparent);
     }
     .sb-item{text-align:center}
-    .sb-label{font-family:DM Mono,monospace;font-size:9px;letter-spacing:.12em;
+    .sb-label{font-family:DM Mono,monospace;font: size 8px;letter-spacing:.12em;
       text-transform:uppercase;color:var(--ink2);margin-bottom:3px}
-    .sb-val{font-family:Playfair Display,serif;font-weight:600;font-size:18px;color:var(--acc3)}
+    .sb-val{font-family:Playfair Display,serif;font-weight:600;font-size:24px;color:var(--acc3)}
 
     /* ── MODEL SELECTOR ──────────────────────────────────── */
     .mselector{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
@@ -262,7 +262,7 @@
     /* ── BUTTONS ─────────────────────────────────────────── */
     .btn-row{display:flex;gap:10px;margin-top:14px}
     .btn{flex:1;padding:11px 14px;border:none;border-radius:10px;
-      font-family:DM Mono,monospace;font-size:9px;letter-spacing:.12em;
+      font-family:DM Mono,monospace;font-size:12px;letter-spacing:.12em;
       text-transform:uppercase;cursor:pointer;transition:all .16s}
     .btn-g{background:transparent;border:1px solid var(--bdr);color:var(--ink2)}
     .btn-g:hover{background:var(--bg2);border-color:var(--ink2);color:var(--ink)}
@@ -278,7 +278,7 @@
       text-transform:uppercase;color:var(--ink2)}
     #result-area{display:none}
     .pb{padding:22px 22px 16px;border-bottom:1px solid var(--bdr)}
-    .pk{font-family:DM Mono,monospace;font-size:9px;letter-spacing:.18em;
+    .pk{font-family:DM Mono,monospace;font-size:12px;letter-spacing:.18em;
       text-transform:uppercase;color:var(--ink2);margin-bottom:8px}
     .pn{font-family:Playfair Display,serif;font-weight:600;font-size:52px;
       line-height:1;letter-spacing:-.02em}
@@ -384,7 +384,7 @@
       .nav-sub-mobile{
         display:block;
         font-family:Figtree,sans-serif;
-        font-size:9px;
+        font-size:7px;
         letter-spacing:.12em;
         text-transform:uppercase;
         color:var(--ink2);
@@ -547,15 +547,17 @@
     <button class="tab tab-stats-btn" id="stats-tab-btn" aria-haspopup="true" aria-expanded="false">
       See The Stats ▾
     </button>
-    <div class="tab-dropdown" id="stats-dropdown" role="menu">
-      <button class="tab-drop-item" data-page="comparison" role="menuitem">Comparison</button>
-      <button class="tab-drop-item" data-page="runs" role="menuitem">Run History</button>
-      <button class="tab-drop-item" data-page="confusion" role="menuitem">Confusion Matrix</button>
-      <button class="tab-drop-item" data-page="risk" role="menuitem">Clinical Risk</button>
-      <button class="tab-drop-item" data-page="gradcam" role="menuitem">Grad-CAM</button>
-    </div>
   </div>
 </div>
+<!-- Stats panel: sits outside tabs div, below it in DOM -->
+<div class="tab-dropdown" id="stats-dropdown" role="menu">
+  <button class="tab-drop-item" data-page="comparison" role="menuitem">Comparison</button>
+  <button class="tab-drop-item" data-page="runs" role="menuitem">Run History</button>
+  <button class="tab-drop-item" data-page="confusion" role="menuitem">Confusion Matrix</button>
+  <button class="tab-drop-item" data-page="risk" role="menuitem">Clinical Risk</button>
+  <button class="tab-drop-item" data-page="gradcam" role="menuitem">Grad-CAM</button>
+</div>
+
 
 <!-- ═══════════════════════════════════════════════════════
      PAGE: CLASSIFIER
@@ -569,7 +571,7 @@
   <!-- Live scores.json banner -->
   <div class="card" style="margin-bottom:20px">
     <div class="scores-banner" id="scores-banner">
-      <div class="sb-item"><div class="sb-label">Live Val Accuracy</div><div class="sb-val" id="sb-acc">—</div></div>
+      <div class="sb-item"><div class="sb-label">Val Accuracy</div><div class="sb-val" id="sb-acc">—</div></div>
       <div class="sb-item"><div class="sb-label">Macro F1</div><div class="sb-val" id="sb-f1">—</div></div>
       <div class="sb-item"><div class="sb-label">Stone Recall</div><div class="sb-val" id="sb-stone">—</div></div>
       <div class="sb-item"><div class="sb-label">Tumor Recall</div><div class="sb-val" id="sb-tumor">—</div></div>
@@ -614,7 +616,7 @@
       </div>
       <div id="empty-state">
         <div class="empty-state"><div class="eg">◎</div>
-          <div class="el">Upload a renal CT scan to classify</div></div>
+          <div class="el">CT scan results show here</div></div>
       </div>
       <div id="result-area">
         <div class="pb">
@@ -2075,63 +2077,52 @@ const RUNS=[
   });
 
 })(); /* end VISUALISE module */
-
 /* STATS DROPDOWN */
 (function(){
   var sBtn, sPanel;
-  
+
   function init(){
     sBtn  = document.getElementById('stats-tab-btn');
     sPanel = document.getElementById('stats-dropdown');
-    if(!sBtn || !sPanel) return;
-    sPanel.style.display = 'none';
-
-    /* position panel just below the tab bar */
-    function rePos(){
-      var tb = document.getElementById('main-tabs');
-      if(tb){
-        var rect = tb.getBoundingClientRect();
-        sPanel.style.top = (rect.bottom + window.scrollY) + 'px';
-        sPanel.style.left = '0';
-        sPanel.style.right = '0';
-      }
+    if(!sBtn || !sPanel){
+      console.warn('AidRenal: stats dropdown elements not found');
+      return;
     }
+    console.log('AidRenal: stats dropdown initialised ✓');
 
     function open(){
-      rePos();
       sPanel.style.display = 'block';
+      sBtn.setAttribute('aria-expanded','true');
     }
     function close(){
       sPanel.style.display = 'none';
+      sBtn.setAttribute('aria-expanded','false');
     }
+    function isOpen(){ return sPanel.style.display === 'block'; }
 
-    /* Button tap: use setTimeout so the document click listener
-       (registered below) fires BEFORE we check state, not after */
+    /* TAP button → toggle */
     sBtn.addEventListener('click', function(e){
       e.stopPropagation();
-      if(sPanel.style.display === 'block'){
-        close();
-      } else {
-        open();
-      }
+      isOpen() ? close() : open();
     });
 
-    /* Item tap: show page, close panel */
+    /* TAP item → navigate + close */
     sPanel.querySelectorAll('.tab-drop-item').forEach(function(item){
       item.addEventListener('click', function(e){
         e.stopPropagation();
-        /* deactivate everything */
+        var page = item.getAttribute('data-page');
         document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
         document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('active'); });
-        /* activate target */
-        var pg = document.getElementById('page-' + item.getAttribute('data-page'));
-        if(pg) pg.classList.add('active');
+        var pg = document.getElementById('page-' + page);
+        if(pg){ pg.classList.add('active'); }
+        sPanel.querySelectorAll('.tab-drop-item').forEach(function(d){ d.classList.remove('active'); });
+        item.classList.add('active');
         sBtn.classList.add('has-active');
         close();
       });
     });
 
-    /* Other tabs: reset */
+    /* TAP other tab → reset + close */
     document.querySelectorAll('.tab:not(.tab-stats-btn)').forEach(function(t){
       t.addEventListener('click', function(){
         sBtn.classList.remove('has-active');
@@ -2140,24 +2131,22 @@ const RUNS=[
       });
     });
 
-    /* Outside tap: close. Target check prevents false-close on btn tap */
+    /* TAP outside → close */
     document.addEventListener('click', function(e){
-      if(sPanel.style.display==='block' && !sBtn.contains(e.target) && !sPanel.contains(e.target)){
+      if(!sBtn.contains(e.target) && !sPanel.contains(e.target)){
         close();
       }
     });
 
-    window.addEventListener('resize', function(){ close(); rePos(); }, {passive:true});
-    rePos();
+    window.addEventListener('resize', close, {passive:true});
   }
 
-  if(document.readyState==='loading'){
+  if(document.readyState === 'loading'){
     document.addEventListener('DOMContentLoaded', init);
   } else {
     init();
   }
 })();
-
 </script>
 </body>
 </html>

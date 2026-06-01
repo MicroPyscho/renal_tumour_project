@@ -88,7 +88,7 @@ stages:
       params.yaml:
         AUGMENTATION: true
         BATCH_SIZE: 24
-        EPOCHS: 1
+        EPOCHS: 2
         IMAGE_SIZE:
         - 224
         - 224
@@ -97,7 +97,7 @@ stages:
     outs:
     - path: artifacts/training
       hash: md5
-      md5: 31bd8c988715f31f85e4de2fc94280ad.dir
+      md5: 439fb230260d50c7cf0bef2bf22369af.dir
       size: 62780712
       nfiles: 1
   model_evaluation:
@@ -110,7 +110,7 @@ stages:
       nfiles: 12446
     - path: artifacts/training
       hash: md5
-      md5: 31bd8c988715f31f85e4de2fc94280ad.dir
+      md5: 439fb230260d50c7cf0bef2bf22369af.dir
       size: 62780712
       nfiles: 1
     - path: config/config.yaml
@@ -132,5 +132,5 @@ stages:
     outs:
     - path: scores.json
       hash: md5
-      md5: c9a79210dbd932f8a22bcf355d88e769
-      size: 614
+      md5: f8d4fe5cad2747b3b902105c2433d88a
+      size: 617
