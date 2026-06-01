@@ -17,5 +17,5 @@ scipy
 Flask
 Flask-Cors
 gdown
-echo "huggingface_hub" >> requirements.txt
+huggingface_hub
 -e .
