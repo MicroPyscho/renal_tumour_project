@@ -33,6 +33,8 @@ from cnnClassifier.utils.common import read_yaml
 
 logger = logging.getLogger(__name__)
 
+_model_cache = {}
+
 def download_models_if_missing():
     models = [
         "best_DenseNet121.keras",
@@ -307,7 +309,7 @@ class PredictionPipeline:
         if requested_model and requested_model in VALID_MODELS:
             model_name = requested_model
         else:
-            params     = read_yaml(Path("params.yaml"))
+            params = read_yaml(Path(os.path.join(os.path.dirname(__file__), "..", "..", "..", "params.yaml")))
             model_name = params.get("MODEL_NAME", "EfficientNetV2B3")
 
         # Check the file actually exists — fall back to any available model
@@ -386,7 +388,9 @@ class PredictionPipeline:
                 }]
 
         # ── Stage 2: Renal classification ────────────────────────────────────
-        model = load_model(model_path)
+        if model_path not in _model_cache:
+            _model_cache[model_path] = load_model(model_path)
+        model = _model_cache[model_path]
 
         test_image = keras_image.load_img(self.filename, target_size=(224, 224))
         test_image = keras_image.img_to_array(test_image)

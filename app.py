@@ -49,7 +49,7 @@ def get_scores():
     every 8 s so metrics update automatically after every training run.
     """
     try:
-        with open("scores.json") as f:
+        with open(os.path.join(os.path.dirname(__file__), "scores.json")) as f:
             s = json.load(f)
     except FileNotFoundError:
         return jsonify({
@@ -57,7 +57,7 @@ def get_scores():
         }), 404
 
     try:
-        with open("params.yaml") as f:
+        with open(os.path.join(os.path.dirname(__file__), "params.yaml")) as f:
             params = yaml.safe_load(f)
         s["model_name"] = params.get("MODEL_NAME", "unknown")
     except Exception:
@@ -81,7 +81,7 @@ def predictRoute():
         image_b64 = request.json["image"]
 
         # Write to disk so PredictionPipeline can open it with PIL / Keras
-        filename = "/tmp/inputImage.jpg"
+        filename = os.path.join("/tmp", "inputImage.jpg")
         decodeImage(image_b64, filename)
 
         # Read the model selector choice from the frontend (optional)
