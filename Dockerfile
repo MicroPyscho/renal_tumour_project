@@ -1,7 +1,19 @@
 FROM python:3.11-slim-bookworm
 
-RUN apt update -y && apt install awscli -y
+RUN useradd -m -u 1000 user
+
 WORKDIR /app
-COPY . /app
-RUN pip install -r requirements.txt 
+
+COPY --chown=user requirements.txt requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Pre-download BiomedCLIP during build so it's cached in the image
+RUN python -c "import open_clip; open_clip.create_model_and_transforms('hf-hub:microsoft/BiomedCLIP-PubMedBERT_256-vit_base_patch16_224')"
+
+USER user
+ENV PATH="/home/user/.local/bin:$PATH"
+ENV PYTHONPATH="/app/src:$PYTHONPATH"
+
+COPY --chown=user . /app
+
 CMD ["python", "app.py"]
