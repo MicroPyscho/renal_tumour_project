@@ -210,20 +210,5 @@ def vis_clear():
     except Exception:
         return jsonify({"error": "Clear failed"}), 500
 
-
-def prewarm_default_model():
-    """Download and load DenseNet121 at startup in background thread."""
-    try:
-        from cnnClassifier.pipeline.prediction import get_model
-        print("Pre-warming DenseNet121...")
-        get_model("DenseNet121")
-        print("✓ DenseNet121 ready for inference")
-    except Exception as e:
-        print(f"Pre-warm failed: {e}")
-
-# Start pre-warm in background so Flask starts immediately
-threading.Thread(target=prewarm_default_model, daemon=True).start()
-
-
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=7860)
