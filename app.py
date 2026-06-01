@@ -98,9 +98,10 @@ def predictRoute():
 
     except KeyError:
         return jsonify({"error": "Request body must contain an 'image' key"}), 400
-    except Exception:
-        traceback.print_exc()
-        return jsonify({"error": "Prediction failed — see server logs"}), 500
+    except Exception as e:
+        tb = traceback.format_exc()
+        print(tb)
+        return jsonify({"error": str(e), "traceback": tb}), 500
 
 # VISUALISE YOUR MODEL ROUTES
 @app.route("/vis-upload", methods=["POST"])
@@ -149,9 +150,10 @@ def vis_upload():
             "model_size_mb": round(os.path.getsize(model_path) / 1024 / 1024, 1),
         }), 200
 
-    except Exception:
-        traceback.print_exc()
-        return jsonify({"error": "Upload failed — see server logs"}), 500
+    except Exception as e:
+        tb = traceback.format_exc()
+        print(tb)
+        return jsonify({"error": str(e), "traceback": tb}), 500
 
 
 @app.route("/vis-predict", methods=["POST"])
