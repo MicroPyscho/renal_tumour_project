@@ -25,12 +25,34 @@ from pathlib import Path
 from typing import Optional
 
 import tensorflow as tf
+from huggingface_hub import hf_hub_download
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing import image as keras_image
 
 from cnnClassifier.utils.common import read_yaml
 
 logger = logging.getLogger(__name__)
+
+def download_models_if_missing():
+    models = [
+        "best_DenseNet121.keras",
+        "best_ResNet50V2.keras", 
+        "best_EfficientNetV2B3.keras",
+    ]
+    os.makedirs("checkpoints", exist_ok=True)
+    for filename in models:
+        dest = f"checkpoints/{filename}"
+        if not os.path.exists(dest):
+            print(f"Downloading {filename}...")
+            hf_hub_download(
+                repo_id="MicroPyscho/AidRenal-models",
+                filename=filename,
+                repo_type="model",
+                local_dir="checkpoints"
+            )
+            print(f"✓ {filename} ready")
+
+download_models_if_missing()
 
 # ── Constants ──────────────────────────────────────────────────────────────────
 CLASS_NAMES = ["Cyst", "Normal", "Stone", "Tumor"]
