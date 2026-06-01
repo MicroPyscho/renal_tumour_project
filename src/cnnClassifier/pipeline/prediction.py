@@ -275,7 +275,7 @@ class PredictionPipeline:
     def __init__(self, filename: str):
         self.filename = filename
 
-    def predict(self) -> list[dict]:
+    def predict(self, requested_model: str = None) -> list[dict]:
         # ── Load params ──────────────────────────────────────────────────────
         params     = read_yaml(Path("params.yaml"))
         model_name = params.get("MODEL_NAME", "EfficientNetV2B3")
