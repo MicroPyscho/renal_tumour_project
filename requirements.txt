@@ -18,4 +18,3 @@ Flask
 Flask-Cors
 gdown
 huggingface_hub
--e .
