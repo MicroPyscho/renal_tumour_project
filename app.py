@@ -81,7 +81,7 @@ def predictRoute():
         image_b64 = request.json["image"]
 
         # Write to disk so PredictionPipeline can open it with PIL / Keras
-        filename = "inputImage.jpg"
+        filename = "/tmp/inputImage.jpg"
         decodeImage(image_b64, filename)
 
         # Read the model selector choice from the frontend (optional)
