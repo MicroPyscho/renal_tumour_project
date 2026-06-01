@@ -25,36 +25,12 @@ from pathlib import Path
 from typing import Optional
 
 import tensorflow as tf
-from huggingface_hub import hf_hub_download
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing import image as keras_image
 
 from cnnClassifier.utils.common import read_yaml
 
 logger = logging.getLogger(__name__)
-
-_model_cache = {}
-
-def download_models_if_missing():
-    models = [
-        "best_DenseNet121.keras",
-        "best_ResNet50V2.keras", 
-        "best_EfficientNetV2B3.keras",
-    ]
-    os.makedirs("/tmp/checkpoints", exist_ok=True)
-    for filename in models:
-        dest = f"/tmp/checkpoints/{filename}"
-        if not os.path.exists(dest):
-            print(f"Downloading {filename}...")
-            hf_hub_download(
-                repo_id="MicroPyscho/AidRenal-models",
-                filename=filename,
-                repo_type="model",
-                local_dir="/tmp/checkpoints"
-            )
-            print(f"✓ {filename} ready")
-
-download_models_if_missing()
 
 # ── Constants ──────────────────────────────────────────────────────────────────
 CLASS_NAMES = ["Cyst", "Normal", "Stone", "Tumor"]
@@ -299,60 +275,11 @@ class PredictionPipeline:
     def __init__(self, filename: str):
         self.filename = filename
 
-    def predict(self, requested_model: str = None) -> list[dict]:
-        # ── Resolve model name ────────────────────────────────────────────────
-        # Priority: 1) caller passes a model name (from frontend selector)
-        #           2) params.yaml MODEL_NAME
-        #           3) fallback to EfficientNetV2B3
-        VALID_MODELS = {"DenseNet121", "ResNet50V2", "EfficientNetV2B3", "VGG16"}
-
-        if requested_model and requested_model in VALID_MODELS:
-            model_name = requested_model
-        else:
-            params = read_yaml(Path(os.path.join(os.path.dirname(__file__), "..", "..", "..", "params.yaml")))
-            model_name = params.get("MODEL_NAME", "EfficientNetV2B3")
-
-        # Check the file actually exists — fall back to any available model
-        # Name variants to try for each architecture
-        NAME_VARIANTS = {
-            "DenseNet121":     ["DenseNet121", "best_DenseNet121"],
-            "ResNet50V2":      ["ResNet50V2",  "best_ResNet50v2", "best_ResNet50V2"],
-            "EfficientNetV2B3":["EfficientNetV2B3", "best_EfficientNetV2B3"],
-            "VGG16":           ["VGG16", "best_VGG16", "model"],
-        }
-        SEARCH_DIRS = [
-            "/tmp/checkpoints",
-            "/tmp/checkpoints",
-            os.path.join("/tmp/checkpoints", "VGG16"),
-        ]
-
-        model_path = None
-        for variant in NAME_VARIANTS.get(model_name, [model_name]):
-            for d in SEARCH_DIRS:
-                candidate = os.path.join(d, f"{variant}.keras")
-                if os.path.exists(candidate):
-                    model_path = candidate
-                    break
-            if model_path:
-                break
-
-        if not model_path:
-            # Last resort: any .keras file in either directory
-            import glob
-            all_models = (
-                glob.glob(os.path.join("/tmp/checkpoints", "training", "*.keras")) +
-                glob.glob(os.path.join("/tmp/checkpoints", "*.keras"))
-            )
-            if not all_models:
-                return [{"gate_failed": True, "gate_stage": "model_load",
-                         "error": "No trained model found in /tmp/checkpoints/ or checkpoints/. Run dvc repro first."}]
-            model_path = all_models[0]
-            model_name = os.path.basename(model_path).replace(".keras", "").replace("best_", "")
-            import logging
-            logging.getLogger(__name__).warning(
-                "Requested model %s not found, falling back to %s at %s",
-                requested_model or "params.yaml", model_name, model_path
-            )
+    def predict(self) -> list[dict]:
+        # ── Load params ──────────────────────────────────────────────────────
+        params     = read_yaml(Path("params.yaml"))
+        model_name = params.get("MODEL_NAME", "EfficientNetV2B3")
+        model_path = os.path.join("artifacts", "training", f"{model_name}.keras")
 
         # ── Load raw image for gate ───────────────────────────────────────────
         from PIL import Image as PILImage
@@ -388,9 +315,7 @@ class PredictionPipeline:
                 }]
 
         # ── Stage 2: Renal classification ────────────────────────────────────
-        if model_path not in _model_cache:
-            _model_cache[model_path] = load_model(model_path)
-        model = _model_cache[model_path]
+        model = load_model(model_path)
 
         test_image = keras_image.load_img(self.filename, target_size=(224, 224))
         test_image = keras_image.img_to_array(test_image)
