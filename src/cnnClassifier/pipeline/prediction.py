@@ -39,7 +39,7 @@ def download_models_if_missing():
         "best_ResNet50V2.keras", 
         "best_EfficientNetV2B3.keras",
     ]
-    os.makedirs("checkpoints", exist_ok=True)
+    os.makedirs("/tmp/checkpoints", exist_ok=True)
     for filename in models:
         dest = f"checkpoints/{filename}"
         if not os.path.exists(dest):
@@ -48,7 +48,7 @@ def download_models_if_missing():
                 repo_id="MicroPyscho/AidRenal-models",
                 filename=filename,
                 repo_type="model",
-                local_dir="checkpoints"
+                local_dir="/tmp/checkpoints"
             )
             print(f"✓ {filename} ready")
 
@@ -320,8 +320,8 @@ class PredictionPipeline:
         }
         SEARCH_DIRS = [
             os.path.join("artifacts", "training"),
-            "checkpoints",
-            os.path.join("checkpoints", "VGG16"),
+            "/tmp/checkpoints",
+            os.path.join("/tmp/checkpoints", "VGG16"),
         ]
 
         model_path = None
@@ -339,7 +339,7 @@ class PredictionPipeline:
             import glob
             all_models = (
                 glob.glob(os.path.join("artifacts", "training", "*.keras")) +
-                glob.glob(os.path.join("checkpoints", "*.keras"))
+                glob.glob(os.path.join("/tmp/checkpoints", "*.keras"))
             )
             if not all_models:
                 return [{"gate_failed": True, "gate_stage": "model_load",
