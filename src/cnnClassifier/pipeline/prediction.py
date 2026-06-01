@@ -319,7 +319,7 @@ class PredictionPipeline:
             "VGG16":           ["VGG16", "best_VGG16", "model"],
         }
         SEARCH_DIRS = [
-            os.path.join("artifacts", "training"),
+            "/tmp/checkpoints",
             "/tmp/checkpoints",
             os.path.join("/tmp/checkpoints", "VGG16"),
         ]
