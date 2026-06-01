@@ -338,12 +338,12 @@ class PredictionPipeline:
             # Last resort: any .keras file in either directory
             import glob
             all_models = (
-                glob.glob(os.path.join("artifacts", "training", "*.keras")) +
+                glob.glob(os.path.join("/tmp/checkpoints", "training", "*.keras")) +
                 glob.glob(os.path.join("/tmp/checkpoints", "*.keras"))
             )
             if not all_models:
                 return [{"gate_failed": True, "gate_stage": "model_load",
-                         "error": "No trained model found in artifacts/training/ or checkpoints/. Run dvc repro first."}]
+                         "error": "No trained model found in /tmp/checkpoints/ or checkpoints/. Run dvc repro first."}]
             model_path = all_models[0]
             model_name = os.path.basename(model_path).replace(".keras", "").replace("best_", "")
             import logging
