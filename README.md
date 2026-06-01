@@ -1,3 +1,13 @@
+---
+title: AidRenal
+emoji: 🫘
+colorFrom: blue
+colorTo: indigo
+sdk: docker
+app_port: 7860
+pinned: true
+---
+
 # AidRenal — End-to-End CNN Kidney CT Classifier
 
 **Author:** Okereke Kelechi Collins  
