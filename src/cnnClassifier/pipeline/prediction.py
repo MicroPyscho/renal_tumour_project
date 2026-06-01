@@ -41,7 +41,7 @@ def download_models_if_missing():
     ]
     os.makedirs("/tmp/checkpoints", exist_ok=True)
     for filename in models:
-        dest = f"checkpoints/{filename}"
+        dest = f"/tmp/checkpoints/{filename}"
         if not os.path.exists(dest):
             print(f"Downloading {filename}...")
             hf_hub_download(
