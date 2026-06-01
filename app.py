@@ -5,6 +5,7 @@ import yaml
 import shutil
 import tempfile
 import traceback
+import threading
 
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS, cross_origin
@@ -208,6 +209,20 @@ def vis_clear():
         return jsonify({"cleared": True}), 200
     except Exception:
         return jsonify({"error": "Clear failed"}), 500
+
+
+def prewarm_default_model():
+    """Download and load DenseNet121 at startup in background thread."""
+    try:
+        from cnnClassifier.pipeline.prediction import get_model
+        print("Pre-warming DenseNet121...")
+        get_model("DenseNet121")
+        print("✓ DenseNet121 ready for inference")
+    except Exception as e:
+        print(f"Pre-warm failed: {e}")
+
+# Start pre-warm in background so Flask starts immediately
+threading.Thread(target=prewarm_default_model, daemon=True).start()
 
 
 if __name__ == "__main__":

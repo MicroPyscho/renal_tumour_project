@@ -16,4 +16,4 @@ ENV PYTHONPATH="/app/src:$PYTHONPATH"
 
 COPY --chown=user . /app
 
-CMD ["python", "app.py"]
+CMD ["gunicorn", "--bind", "0.0.0.0:7860", "--timeout", "300", "--workers", "1", "app:app"]
