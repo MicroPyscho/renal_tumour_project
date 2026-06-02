@@ -7,10 +7,6 @@ WORKDIR /app
 COPY --chown=user requirements.txt requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Pre-download BiomedCLIP during build
-RUN python -c "import open_clip; open_clip.create_model_and_transforms('hf-hub:microsoft/BiomedCLIP-PubMedBERT_256-vit_base_patch16_224')"
-
-# Pre-download model weights during build
 RUN python -c "from huggingface_hub import hf_hub_download; import os; os.makedirs('checkpoints', exist_ok=True); [hf_hub_download(repo_id='MicroPyscho/AidRenal-models', filename=f, repo_type='model', local_dir='checkpoints') for f in ['best_DenseNet121.keras','best_ResNet50V2.keras','best_EfficientNetV2B3.keras']]"
 
 USER user
