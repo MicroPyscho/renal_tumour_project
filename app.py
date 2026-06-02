@@ -17,7 +17,7 @@ os.putenv('LANG', 'en_US.UTF-8')
 os.putenv('LC_ALL', 'en_US.UTF-8')
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, origins=["https://micropyscho-aidrenal.hf.space", "https://*.hf.space", "*"])
 
 # ── Session store: maps session_id → {model_path, class_names,
 #                                      preprocess, img_size, tmp_dir}
