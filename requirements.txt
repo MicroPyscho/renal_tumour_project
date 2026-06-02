@@ -17,4 +17,6 @@ scipy
 Flask
 Flask-Cors
 gdown
--e .huggingface_hub
+huggingface_hub
+-e 
+
