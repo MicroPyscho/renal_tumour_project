@@ -26,9 +26,10 @@ jobs:
           docker tag kidney_ct_scan:latest ${{ secrets.ECR_REPOSITORY }}:latest
           docker push ${{ secrets.ECR_REPOSITORY }}:latest
 
-      - name: Deploy to App Runner
+      - name: Deploy to ECS
         run: |
-          aws apprunner start-deployment \
-            --service-arn $(aws apprunner list-services \
-              --query 'ServiceSummaryList[0].ServiceArn' \
-              --output text)
+          aws ecs update-service \
+            --cluster default \
+            --service aidrenal \
+            --force-new-deployment \
+            --region eu-north-1
