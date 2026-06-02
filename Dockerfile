@@ -7,12 +7,12 @@ WORKDIR /app
 COPY --chown=user requirements.txt requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
-RUN python -c "from huggingface_hub import hf_hub_download; import os; os.makedirs('checkpoints', exist_ok=True); [hf_hub_download(repo_id='MicroPyscho/AidRenal-models', filename=f, repo_type='model', local_dir='checkpoints') for f in ['best_DenseNet121.keras','best_ResNet50V2.keras','best_EfficientNetV2B3.keras']]"
-
 USER user
 ENV PATH="/home/user/.local/bin:$PATH"
 ENV PYTHONPATH="/app/src:$PYTHONPATH"
 
 COPY --chown=user . /app
+
+RUN python -c "from huggingface_hub import hf_hub_download; import os; os.makedirs('checkpoints', exist_ok=True); [hf_hub_download(repo_id='MicroPyscho/AidRenal-models', filename=f, repo_type='model', local_dir='checkpoints') for f in ['best_DenseNet121.keras','best_ResNet50V2.keras','best_EfficientNetV2B3.keras']]"
 
 CMD ["python", "app.py"]
