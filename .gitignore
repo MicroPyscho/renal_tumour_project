@@ -19,3 +19,4 @@ artifacts/
 checkpoints/
 *.keras
 artifacts/
+AWSCLIV2.pkg
