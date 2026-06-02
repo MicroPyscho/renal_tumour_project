@@ -1877,7 +1877,7 @@ const RUNS=[
     fd.append('class_names',JSON.stringify(VP.classNames));
     fd.append('preprocess',VP.preprocess);
     fd.append('img_size',VP.imgSize);
-    fetch('/vis-upload',{method:'POST',body:fd})
+    fetch('https://ai-85b78503db5a45b39e055f4d06278cd3.ecs.eu-north-1.on.aws/vis-upload',{method:'POST',body:fd})
     .then(function(r){return r.json().then(function(d){return{ok:r.ok,d:d};});})
     .then(function(res){
       if(!res.ok||res.d.error){
@@ -2007,7 +2007,7 @@ const RUNS=[
       var btn=document.getElementById('vp-clf-btn');
       btn.disabled=true;btn.textContent='Classifying…';
       document.getElementById('vp-clf-pill').textContent='running…';
-      fetch('/vis-predict',{
+      fetch('https://ai-85b78503db5a45b39e055f4d06278cd3.ecs.eu-north-1.on.aws/vis-predict',{
         method:'POST',
         headers:{'Content-Type':'application/json'},
         body:JSON.stringify({image:VP.b64,session_id:VP.sessionId})
@@ -2056,7 +2056,7 @@ const RUNS=[
   /* RESET */
   document.getElementById('vp-reset').addEventListener('click',function(){
     if(VP.sessionId){
-      fetch('/vis-clear',{method:'POST',headers:{'Content-Type':'application/json'},
+      fetch('https://ai-85b78503db5a45b39e055f4d06278cd3.ecs.eu-north-1.on.aws/vis-clear',{method:'POST',headers:{'Content-Type':'application/json'},
         body:JSON.stringify({session_id:VP.sessionId})}).catch(function(){});
     }
     VP.modelFile=null;VP.scoresFile=null;VP.cmFile=null;VP.gcamFile=null;
