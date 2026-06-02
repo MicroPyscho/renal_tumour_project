@@ -17,5 +17,11 @@ scipy
 Flask
 Flask-Cors
 gdown
+open-clip-torch==2.23.0
+torch
+torchvision
+timm
+transformers==4.35.2
+ftfy
+regex
 huggingface_hub
-
