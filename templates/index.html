@@ -79,6 +79,7 @@
       background:var(--surf);backdrop-filter:blur(12px);
       border-bottom:1px solid var(--bdr);overflow-x:auto;
       scrollbar-width:none;-webkit-overflow-scrolling:touch;
+      position:relative;
       transition:background var(--dur) var(--ease)}
     .tabs::-webkit-scrollbar{display:none}
     .tab{font-family:Figtree,sans-serif;font-size:13px;letter-spacing:.11em;
@@ -97,8 +98,18 @@
       border-bottom:2px solid transparent;transition:all .18s var(--ease);
       display:flex;align-items:center;gap:4px}
     .tab-stats-btn.has-active{border-bottom-color:var(--acc);color:var(--ink)}
-    .tab-dropdown{position:fixed;top:98px;left:0;right:0;display:none;background:var(--surf);border-bottom:2px solid var(--bdr);box-shadow:0 12px 40px rgba(0,0,0,.4);z-index:99999;-webkit-backdrop-filter:blur(20px) saturate(1.4);backdrop-filter:blur(20px) saturate(1.4);isolation:isolate}
-    .tab-dropdown.open{display:block}
+    .tab-dropdown{
+      display:none;
+      position:fixed;
+      top:98px;
+      left:0;
+      right:0;
+      background:var(--surf);
+      border-bottom:2px solid var(--bdr);
+      box-shadow:0 8px 32px rgba(0,0,0,.35);
+      z-index:9999;
+      backdrop-filter:blur(20px);
+      -webkit-backdrop-filter:blur(20px)}
     @keyframes slideDown{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
     .tab-drop-item{display:block;width:100%;padding:16px 24px;border:none;
       background:transparent;color:var(--ink2);cursor:pointer;text-align:left;
@@ -547,14 +558,15 @@
     <button class="tab tab-stats-btn" id="stats-tab-btn" aria-haspopup="true" aria-expanded="false">
       See The Stats ▾
     </button>
-    <div class="tab-dropdown" id="stats-dropdown" role="menu">
-      <button class="tab-drop-item" data-page="comparison" role="menuitem">Comparison</button>
-      <button class="tab-drop-item" data-page="runs" role="menuitem">Run History</button>
-      <button class="tab-drop-item" data-page="confusion" role="menuitem">Confusion Matrix</button>
-      <button class="tab-drop-item" data-page="risk" role="menuitem">Clinical Risk</button>
-      <button class="tab-drop-item" data-page="gradcam" role="menuitem">Grad-CAM</button>
-    </div>
   </div>
+</div>
+<!-- Stats panel: sits outside tabs div, below it in DOM -->
+<div class="tab-dropdown" id="stats-dropdown" role="menu">
+  <button class="tab-drop-item" data-page="comparison" role="menuitem">Comparison</button>
+  <button class="tab-drop-item" data-page="runs" role="menuitem">Run History</button>
+  <button class="tab-drop-item" data-page="confusion" role="menuitem">Confusion Matrix</button>
+  <button class="tab-drop-item" data-page="risk" role="menuitem">Clinical Risk</button>
+  <button class="tab-drop-item" data-page="gradcam" role="menuitem">Grad-CAM</button>
 </div>
 
 <!-- ═══════════════════════════════════════════════════════
@@ -2075,63 +2087,52 @@ const RUNS=[
   });
 
 })(); /* end VISUALISE module */
-
 /* STATS DROPDOWN */
 (function(){
   var sBtn, sPanel;
-  
+
   function init(){
     sBtn  = document.getElementById('stats-tab-btn');
     sPanel = document.getElementById('stats-dropdown');
-    if(!sBtn || !sPanel) return;
-    sPanel.style.display = 'none';
-
-    /* position panel just below the tab bar */
-    function rePos(){
-      var tb = document.getElementById('main-tabs');
-      if(tb){
-        var rect = tb.getBoundingClientRect();
-        sPanel.style.top = (rect.bottom + window.scrollY) + 'px';
-        sPanel.style.left = '0';
-        sPanel.style.right = '0';
-      }
+    if(!sBtn || !sPanel){
+      console.warn('AidRenal: stats dropdown elements not found');
+      return;
     }
+    console.log('AidRenal: stats dropdown initialised ✓');
 
     function open(){
-      rePos();
       sPanel.style.display = 'block';
+      sBtn.setAttribute('aria-expanded','true');
     }
     function close(){
       sPanel.style.display = 'none';
+      sBtn.setAttribute('aria-expanded','false');
     }
+    function isOpen(){ return sPanel.style.display === 'block'; }
 
-    /* Button tap: use setTimeout so the document click listener
-       (registered below) fires BEFORE we check state, not after */
+    /* TAP button → toggle */
     sBtn.addEventListener('click', function(e){
       e.stopPropagation();
-      if(sPanel.style.display === 'block'){
-        close();
-      } else {
-        open();
-      }
+      isOpen() ? close() : open();
     });
 
-    /* Item tap: show page, close panel */
+    /* TAP item → navigate + close */
     sPanel.querySelectorAll('.tab-drop-item').forEach(function(item){
       item.addEventListener('click', function(e){
         e.stopPropagation();
-        /* deactivate everything */
+        var page = item.getAttribute('data-page');
         document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
         document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('active'); });
-        /* activate target */
-        var pg = document.getElementById('page-' + item.getAttribute('data-page'));
-        if(pg) pg.classList.add('active');
+        var pg = document.getElementById('page-' + page);
+        if(pg){ pg.classList.add('active'); }
+        sPanel.querySelectorAll('.tab-drop-item').forEach(function(d){ d.classList.remove('active'); });
+        item.classList.add('active');
         sBtn.classList.add('has-active');
         close();
       });
     });
 
-    /* Other tabs: reset */
+    /* TAP other tab → reset + close */
     document.querySelectorAll('.tab:not(.tab-stats-btn)').forEach(function(t){
       t.addEventListener('click', function(){
         sBtn.classList.remove('has-active');
@@ -2140,18 +2141,18 @@ const RUNS=[
       });
     });
 
-    /* Outside tap: close. Target check prevents false-close on btn tap */
+    /* TAP outside → close (delayed to prevent same-tap close) */
     document.addEventListener('click', function(e){
-      if(sPanel.style.display==='block' && !sBtn.contains(e.target) && !sPanel.contains(e.target)){
+      if(!sBtn.contains(e.target) && !sPanel.contains(e.target)){
         close();
       }
-    });
+    }, true);
 
-    window.addEventListener('resize', function(){ close(); rePos(); }, {passive:true});
-    rePos();
+    window.addEventListener('resize', close, {passive:true});
   }
 
-  if(document.readyState==='loading'){
+  /* Run after DOM ready */
+  if(document.readyState === 'loading'){
     document.addEventListener('DOMContentLoaded', init);
   } else {
     init();
